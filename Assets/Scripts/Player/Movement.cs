@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-
     public CharacterController controller;
 
     public float speed = 12f;
-    public float gravity = -9.81f;
-    Vector3 velocity;
-    bool isGrounded;
+    public float gravity = -10.4f;
+
     public float jumpHeight = 2f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-  
-    void Update()
+
+    private bool isGrounded;
+    private Vector3 velocity;
+
+    void FixedUpdate()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isGrounded = GroundCheck();
 
         if(isGrounded && velocity.y < 0)
         {
@@ -28,6 +29,8 @@ public class Movement : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        if (Input.GetButton("Sprint") && z > 0) z *= 1.8f;
 
         Vector3 move = transform.right * x + transform.forward * z;
 
@@ -41,5 +44,10 @@ public class Movement : MonoBehaviour
         }
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private bool GroundCheck()
+    {
+        return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 }
