@@ -7,17 +7,30 @@ public class Movement : MonoBehaviour
 
     public CharacterController controller;
 
+<<<<<<< Updated upstream
     public float speed = 12f;
     public float gravity = -9.81f;
     Vector3 velocity;
+=======
+    private Vector3 velocity;
+    private Vector3 move;
+
+    private float x, z;
+    
+>>>>>>> Stashed changes
     bool isGrounded;
     public float jumpHeight = 3f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+<<<<<<< Updated upstream
   
     void Update()
+=======
+
+    void FixedUpdate()
+>>>>>>> Stashed changes
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -26,19 +39,23 @@ public class Movement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        x = Input.GetAxis("Horizontal");
+        z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        move = transform.right * x + transform.forward * z;
 
         controller.Move(move * speed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
 
+<<<<<<< Updated upstream
         if(Input.GetButtonDown("Jump")&& isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+=======
+        if(Input.GetButtonDown("Jump") && isGrounded) Jump();
+>>>>>>> Stashed changes
 
         controller.Move(velocity * Time.deltaTime);
     }
