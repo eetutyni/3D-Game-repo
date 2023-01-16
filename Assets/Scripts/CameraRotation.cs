@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-
     public float mouseSensitivity = 100f;
-    public Transform playerBody;
+    [SerializeField] private Transform playerBody;
 
-    float xRotation = 0f;
-    // Start is called before the first frame update
+    private float xRotation = 0f;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 25 * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 25 * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
