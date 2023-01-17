@@ -1,18 +1,54 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static event Action OnPlayerDeath;
+    public int playerHealth;
+
+    [SerializeField] private Image[] hearts;
+
+
+
+    private void Start()
     {
-        
+        UpdateHealth();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateHealth()
     {
-        
+
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < playerHealth)
+            {
+               
+
+            }
+            else
+            {
+                hearts[i].color = Color.black;
+            }
+
+
+        }
+
+        if (playerHealth <= 0)
+        {
+            Death();
+        }
+
     }
+    public void Death()
+    {
+        OnPlayerDeath?.Invoke();
+    }
+
+
+
 }
