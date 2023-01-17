@@ -8,18 +8,12 @@ public class Damage1 : MonoBehaviour
     [SerializeField] private HealthController _healthController;
     HealthController healthController;
 
-
-
-
-
     public void OnTriggerEnter(Collider hit)
     {
         if (hit.CompareTag("Player"))
         {
             Damage();
         }
-
-
     }
     public void Damage()
     {
@@ -27,8 +21,5 @@ public class Damage1 : MonoBehaviour
         _healthController.playerHealth = _healthController.playerHealth - playerDamage;
         _healthController.UpdateHealth();
 
-
-
     }
-
 }
