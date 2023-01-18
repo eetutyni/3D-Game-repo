@@ -12,9 +12,10 @@ public class CameraRotation : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 25 * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 25 * Time.deltaTime;
