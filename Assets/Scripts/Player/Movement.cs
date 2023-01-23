@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
     private Vector3 velocity;
     
     bool isGrounded;
-    public float jumpForce = 3f;
+    public float jumpForce = 2.4f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
