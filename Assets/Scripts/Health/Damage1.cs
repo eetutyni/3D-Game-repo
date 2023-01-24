@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class Damage1 : MonoBehaviour
 {
-    private int playerDamage = 1;
-    [SerializeField] private HealthController _healthController;
-    HealthController healthController;
-
-    public void OnTriggerEnter(Collider hit)
+    public PlayerHealth playerHealth;
+    public int damage;
+    // Start is called before the first frame update
+    void Start()
     {
-        if (hit.CompareTag("Player"))
-        {
-            Damage();
-        }
+
     }
-    public void Damage()
+
+    // Update is called once per frame
+    void Update()
     {
 
-        _healthController.playerHealth = _healthController.playerHealth - playerDamage;
-        _healthController.UpdateHealth();
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            playerHealth.TakeDamage(damage);
+            Debug.Log("dmage");
 
+        }
+        Debug.Log("hit");
     }
 }
+
