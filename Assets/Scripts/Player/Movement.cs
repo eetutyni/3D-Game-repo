@@ -9,9 +9,10 @@ public class Movement : MonoBehaviour
 
     [SerializeField] private CharacterController controller;
 
-    private Vector3 velocity;
-    
-    bool isGrounded;
+    public Vector3 velocity;
+
+    public bool hasJumped = false;
+    public bool isGrounded;
     public float jumpForce = 2.4f;
 
     public Transform groundCheck;
@@ -21,6 +22,7 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         isGrounded = GroundCheck();
+        if (isGrounded) hasJumped = false;
 
         if(isGrounded && velocity.y < 0) velocity.y = -2f;
 
@@ -46,5 +48,6 @@ public class Movement : MonoBehaviour
     void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+        hasJumped = true;
     }
 }
