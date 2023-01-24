@@ -1229,7 +1229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2bef5defec3d842ab5e9cae2287b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthController: {fileID: 735410326}
+  playerHealth: {fileID: 0}
+  damage: 0
 --- !u!224 &571189553 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7414564461321218899, guid: e2dcac5986c51db459545f24d55f05c9, type: 3}
