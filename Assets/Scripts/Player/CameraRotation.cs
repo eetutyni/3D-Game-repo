@@ -11,7 +11,7 @@ public class CameraRotation : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+       Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
@@ -27,4 +27,6 @@ public class CameraRotation : MonoBehaviour
 
         playerBody.Rotate(Vector3.up * mouseX);
     }
+
+    
 }
