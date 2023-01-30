@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public HealthBar healthbar;
-    private Transform playerTransform;
+
 
     public int maxHealth;
     public int curHealth;
@@ -16,8 +16,6 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         curHealth = maxHealth;
-        playerTransform = GetComponent<Transform>();
-
     }
 
     public void TakeDamage(int amount)
@@ -29,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
 
         }
 
-        healthbar.updateHealth((float)curHealth / (float)maxHealth);
+        healthbar.UpdateHealth((float)curHealth / (float)maxHealth);
 
 
 
@@ -37,9 +35,6 @@ public class PlayerHealth : MonoBehaviour
     private void FixedUpdate()
 
     {
-        if (playerTransform.position.y < -10)
-        {
-            
-        }
+       
     }
 }

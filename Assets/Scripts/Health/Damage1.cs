@@ -19,13 +19,14 @@ public class Damage1 : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+
+    }
+    public void OnTriggerEnter(Collider hit)
+    {
+        if (hit.CompareTag("Player"))
         {
             playerHealth.TakeDamage(damage);
-            Debug.Log("dmage");
-
         }
-        Debug.Log("hit");
     }
 }
 
