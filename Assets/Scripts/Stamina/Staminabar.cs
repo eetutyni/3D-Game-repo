@@ -40,19 +40,21 @@ public class Staminabar : MonoBehaviour
 
     public void UseStamina(float amount)
     {
-         if(currentStamina - amount >= 0)
-         {
+        if(currentStamina - amount >= 0)
+        {
             currentStamina -= amount;
             staminaBar.value = currentStamina;
 
-            if(regen != null)
-                StopCoroutine(regen);
+            if(regen != null) StopCoroutine(regen);
 
             regen =  StartCoroutine(RegenStamina());
+        }
+        else if (currentStamina - amount > 15)
+        {
             movementscript.sprintModifier = 1.8f;
             movementscript.jumpForce = 2.4f;
-         }
-        else
+        }
+        else if (currentStamina - amount <= 15)
         {
             movementscript.sprintModifier = 1;
         }

@@ -46,7 +46,6 @@ public class Movement : MonoBehaviour
             {
                 SprintStamina();
             }
-                
         }
         controller.Move(move * speed * Time.deltaTime);
 
@@ -74,8 +73,6 @@ public class Movement : MonoBehaviour
         {
             Staminabar.instance.UseStamina(15);
         }
-
-
 
         velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;

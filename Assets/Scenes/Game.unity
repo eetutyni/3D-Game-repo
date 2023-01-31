@@ -1070,6 +1070,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staminaBar: {fileID: 389274696}
+  currentStamina: 0
+  movementscript: {fileID: 0}
 --- !u!1 &408148756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,6 +2500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6.5
   gravity: -14.2
+  staminascript: {fileID: 389274697}
   controller: {fileID: 1304673287}
   velocity: {x: 0, y: 0, z: 0}
   hasJumped: 0
@@ -2509,6 +2512,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   move: {x: 0, y: 0, z: 0}
+  sprintModifier: 1.8
 --- !u!143 &1304673287
 CharacterController:
   m_ObjectHideFlags: 0
