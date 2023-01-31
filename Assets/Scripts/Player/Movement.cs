@@ -8,6 +8,8 @@ public class Movement : MonoBehaviour
     public float speed = 12f;
     public float gravity = -10.4f;
 
+    [SerializeField] private Staminabar staminascript;
+
     [SerializeField] private CharacterController controller;
 
     public Vector3 velocity;
@@ -23,27 +25,36 @@ public class Movement : MonoBehaviour
 
     public Vector3 move;
 
+    public float sprintModifier = 1.8f;
+
 
     void FixedUpdate()
     {
         isGrounded = GroundCheck();
         if (isGrounded) hasJumped = false;
 
-        if(isGrounded && velocity.y < 0) velocity.y = -2f;
+        if (isGrounded && velocity.y < 0) velocity.y = -2f;
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         move = transform.right * x + transform.forward * z;
 
-        if (Input.GetKey(KeyCode.LeftShift)) move *= 1.8f;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            move *= sprintModifier;
+            if (move.magnitude > 0.1)
+            {
+                SprintStamina();
+            }
+        }
 
         controller.Move(move * speed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
 
-        if(Input.GetButtonDown("Jump")&& isGrounded) Jump();
-        
+        if (Input.GetButtonDown("Jump") && isGrounded) Jump();
+
 
         controller.Move(velocity * Time.deltaTime);
     }
@@ -57,6 +68,18 @@ public class Movement : MonoBehaviour
     {
         velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;
-        Staminabar.instance.UseStamina(15);
+        if (staminascript.currentStamina < 15)
+        {
+            staminascript.currentStamina = 0;
+            jumpForce = 0.5f;
+        }
+        else
+        {
+            Staminabar.instance.UseStamina(15);
+        }
+    }
+    public void SprintStamina()
+    {
+        Staminabar.instance.UseStamina(0.2f);
     }
 }
