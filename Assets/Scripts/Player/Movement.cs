@@ -47,6 +47,7 @@ public class Movement : MonoBehaviour
             {
                 SprintStamina();
             }
+            staminascript.ShowStamina();
         }
 
         controller.Move(move * speed * Time.deltaTime);
@@ -77,6 +78,7 @@ public class Movement : MonoBehaviour
         {
             Staminabar.instance.UseStamina(15);
         }
+        staminascript.ShowStamina();
     }
     public void SprintStamina()
     {
