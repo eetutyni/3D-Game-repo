@@ -8,11 +8,13 @@ public class Staminabar : MonoBehaviour
 {
     public Slider staminaBar;
 
-    private int maxStamina = 100;
-    private int currentStamina;
+    private float maxStamina = 100;
+    public float currentStamina;
 
     private WaitForSeconds regenTick = new WaitForSeconds(0.1f);
     private Coroutine regen;
+
+    [SerializeField] Movement movementscript;
 
     public static Staminabar instance;
 
@@ -28,7 +30,15 @@ public class Staminabar : MonoBehaviour
         staminaBar.value = maxStamina;
     }
 
-    public void UseStamina(int amount)
+    public void HideStamina()
+    {
+        if(currentStamina == maxStamina) 
+        {
+            
+        }
+    }
+
+    public void UseStamina(float amount)
     {
          if(currentStamina - amount >= 0)
          {
@@ -39,14 +49,13 @@ public class Staminabar : MonoBehaviour
                 StopCoroutine(regen);
 
             regen =  StartCoroutine(RegenStamina());
+            movementscript.sprintModifier = 1.8f;
+            movementscript.jumpForce = 2.4f;
          }
         else
         {
-            Debug.Log("not enough stamina");
-            //can be used to disable jump
+            movementscript.sprintModifier = 1;
         }
-
-        
     }
     private IEnumerator RegenStamina()
     {
@@ -60,4 +69,6 @@ public class Staminabar : MonoBehaviour
         }
         regen = null;
     }
+
+    
 }

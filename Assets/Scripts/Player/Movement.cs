@@ -8,6 +8,8 @@ public class Movement : MonoBehaviour
     public float speed = 12f;
     public float gravity = -10.4f;
 
+    [SerializeField] private Staminabar staminascript;
+
     [SerializeField] private CharacterController controller;
 
     public Vector3 velocity;
@@ -23,6 +25,7 @@ public class Movement : MonoBehaviour
 
     public Vector3 move;
 
+    public float sprintModifier = 1.8f;
 
     void FixedUpdate()
     {
@@ -38,8 +41,12 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            move *= 1.8f;
-
+            move *= sprintModifier;
+            if (move.magnitude > 0.1)
+            {
+                SprintStamina();
+            }
+                
         }
         controller.Move(move * speed * Time.deltaTime);
 
@@ -58,8 +65,25 @@ public class Movement : MonoBehaviour
 
     void Jump()
     {
+        if (staminascript.currentStamina < 15)
+        {
+            staminascript.currentStamina = 0;
+            jumpForce = 0.5f;
+        }
+        else
+        {
+            Staminabar.instance.UseStamina(15);
+        }
+
+
+
         velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;
-        Staminabar.instance.UseStamina(15);
+    }
+
+    public void SprintStamina()
+    {
+        Staminabar.instance.UseStamina(0.2f);
+
     }
 }
