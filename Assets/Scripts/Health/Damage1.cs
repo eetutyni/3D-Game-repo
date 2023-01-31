@@ -6,27 +6,19 @@ public class Damage1 : MonoBehaviour
 {
     public PlayerHealth playerHealth;
     public int damage;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     private void OnCollisionEnter(Collision collision)
     {
-
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerHealth.TakeDamage(damage);
+        }
     }
-    public void OnTriggerEnter(Collider hit)
+    public void OnTriggerEnter(Collider collider)
     {
-        if (hit.CompareTag("Player"))
+        if (collider.CompareTag("Player"))
         {
             playerHealth.TakeDamage(damage);
         }
     }
 }
-
