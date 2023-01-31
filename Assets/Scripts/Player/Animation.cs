@@ -9,27 +9,10 @@ public class Animation : MonoBehaviour
 
     [SerializeField] Movement playerMovement;
 
-    void Start()
+    void Update()
     {
         
     }
 
-    void FixedUpdate()
-    {
-        if (playerMovement.hasJumped)   
-        {
-            Debug.Log("Play anim");
-            animator.Play("Jump");
-        }
-        else if (playerMovement.velocity.magnitude > 0.1 && !playerMovement.isGrounded)
-        {
-            animator.Play("RunForward");
-            Debug.Log("Run");
-        }
-        else
-        {
-            animator.Play("Idle");
-            Debug.Log("Idle");
-        }
-    }
+    void Jump()
 }
