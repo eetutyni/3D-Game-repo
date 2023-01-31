@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
 
     public Vector3 velocity;
 
+
     public bool hasJumped = false;
     public bool isGrounded;
     public float jumpForce = 2.4f;
@@ -31,6 +32,10 @@ public class Movement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            move *= 1.8f;
+        }
         controller.Move(move * speed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
