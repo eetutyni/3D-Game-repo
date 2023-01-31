@@ -36,13 +36,17 @@ public class Movement : MonoBehaviour
 
         move = transform.right * x + transform.forward * z;
 
-        if (Input.GetKey(KeyCode.LeftShift)) move *= 1.8f;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            move *= 1.8f;
 
+        }
         controller.Move(move * speed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
 
         if(Input.GetButtonDown("Jump")&& isGrounded) Jump();
+        
 
         controller.Move(velocity * Time.deltaTime);
     }
@@ -56,5 +60,6 @@ public class Movement : MonoBehaviour
     {
         velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;
+        Staminabar.instance.UseStamina(15);
     }
 }
