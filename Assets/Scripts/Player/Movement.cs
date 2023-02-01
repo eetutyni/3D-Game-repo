@@ -46,8 +46,9 @@ public class Movement : MonoBehaviour
             if (move.magnitude > 0.1)
             {
                 SprintStamina();
+                staminascript.ShowStamina();
             }
-            staminascript.ShowStamina();
+            
         }
 
         controller.Move(move * speed * Time.deltaTime);
