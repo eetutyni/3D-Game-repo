@@ -34,13 +34,13 @@ public class Staminabar : MonoBehaviour
     public void ShowStamina()
     {
        
-            gameObject.SetActive(true);
+        gameObject.SetActive(true);
         
     }
 
     public void HideStamina()
     {
-            gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void UseStamina(float amount)
@@ -70,14 +70,9 @@ public class Staminabar : MonoBehaviour
         {
             currentStamina += maxStamina / 100;
             staminaBar.value = currentStamina;
-            yield return regenTick;
-            
+            yield return regenTick; 
         }
         regen = null;
         HideStamina();
     }
-
-
-
-    
 }
