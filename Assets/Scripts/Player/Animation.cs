@@ -12,11 +12,11 @@ public class Animation : MonoBehaviour
 
     void Update()
     {
-        if (movementScript.hasJumped && !movementScript.isGrounded) animator.Play("Jump");
+        if (movementScript.hasJumped) animator.Play("Jump");
         else if (Input.GetKey(KeyCode.W) && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("RunForward");
         else if (Input.GetKey(KeyCode.S) && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("RunBackward");
-        else if (Input.GetKey(KeyCode.A) && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("RunLeft");
-        else if (Input.GetKey(KeyCode.D) && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("RunRight");
+        else if (Input.GetKey(KeyCode.A) && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("StrafeLeft");
+        else if (Input.GetKey(KeyCode.D) && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("StrafeRight");
         else if (movementScript.move.magnitude < 0.1f && movementScript.isGrounded) animator.Play("Idle");
     }
 }
