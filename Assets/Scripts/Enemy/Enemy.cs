@@ -2,13 +2,14 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Animations;
 
 public class Enemy : MonoBehaviour
 {
 
-    Animator anim;
+    [SerializeField] Animator anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +22,11 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            anim.SetBool("AngryBool", true);
+            anim.SetTrigger("AngryTrigger");
         }
 
     }
