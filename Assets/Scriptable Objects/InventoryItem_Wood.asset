@@ -15,5 +15,5 @@ MonoBehaviour:
   id: InventoryItem_Wood
   displayName: Wood
   icon: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 6837793517844160547, guid: fbb836885136d4d4fbca6cd2bf547f60, type: 3}
   camera: {fileID: 0}
