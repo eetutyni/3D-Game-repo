@@ -23,6 +23,8 @@ public class Staminabar : MonoBehaviour
         instance = this;
     }
     
+
+    //setting the start stamina which is full, staminabar is inactive in start
     void Start()
     {
         currentStamina = maxStamina;
@@ -31,6 +33,8 @@ public class Staminabar : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+
+    //activate staminabar
     public void ShowStamina()
     {
        
@@ -38,11 +42,14 @@ public class Staminabar : MonoBehaviour
         
     }
 
+
+    //Hide Staminabar
     public void HideStamina()
     {
         gameObject.SetActive(false);
     }
 
+    //Use stamina, jumping takes stamina for example
     public void UseStamina(float amount)
     {
          if(currentStamina - amount >= 0)
@@ -62,6 +69,8 @@ public class Staminabar : MonoBehaviour
             movementscript.sprintModifier = 1;
         }
     }
+
+    //stamina regeneration
     private IEnumerator RegenStamina()
     {
         yield return new WaitForSeconds(2);

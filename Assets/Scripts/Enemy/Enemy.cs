@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
         
     }
 
+
+    //when player approaches enemy, "angry" animation activates
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))

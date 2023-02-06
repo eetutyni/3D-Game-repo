@@ -18,6 +18,8 @@ public class PlayerHealth : MonoBehaviour
         curHealth = maxHealth;
     }
 
+
+    //damage
     public void TakeDamage(int amount)
     {
         curHealth -= amount;

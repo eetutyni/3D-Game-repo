@@ -28,6 +28,7 @@ public class Movement : MonoBehaviour
     public float sprintModifier = 1.8f;
 
 
+    //sprint button, groundcheck, movement
     void FixedUpdate()
     {
         isGrounded = GroundCheck();
@@ -61,11 +62,14 @@ public class Movement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    //groundcheck
     bool GroundCheck()
     {
         return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 
+
+    //jump
     void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
