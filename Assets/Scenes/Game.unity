@@ -1830,6 +1830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wood (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4268377759394181140, guid: 944aed6b837a62543b7609c2157579b6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 944aed6b837a62543b7609c2157579b6, type: 3}
 --- !u!224 &276372731 stripped
@@ -3358,6 +3362,10 @@ PrefabInstance:
     - target: {fileID: 9223159319008764555, guid: 1eea45b31ea896f44aab2d89f76988fe, type: 3}
       propertyPath: m_Name
       value: Axe
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223159319008764555, guid: 1eea45b31ea896f44aab2d89f76988fe, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1eea45b31ea896f44aab2d89f76988fe, type: 3}
