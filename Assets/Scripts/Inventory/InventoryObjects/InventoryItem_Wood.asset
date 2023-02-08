@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14c7bc06fee96c34795b50f79351f4c4, type: 3}
-  m_Name: InventoryItem_Axe
+  m_Name: InventoryItem_Wood
   m_EditorClassIdentifier: 
-  id: InventoryItem_Axe
-  displayName: Axe
-  icon: {fileID: 21300000, guid: 73237dad922633840853faeaa44ed73b, type: 3}
-  prefab: {fileID: 1164328234615206, guid: e048a401410aa9f4791cdd97e15735ca, type: 3}
-  camera: {fileID: 0}
+  itemName: Wood
+  id: 2
+  icon: {fileID: 21300000, guid: a5eeaee64678b7b4fa6b7ec9d1203021, type: 3}
+  prefab: {fileID: 6837793517844160547, guid: fbb836885136d4d4fbca6cd2bf547f60, type: 3}

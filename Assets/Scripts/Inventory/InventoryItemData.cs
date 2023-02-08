@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Inventory Item Data")]
+[CreateAssetMenu(fileName = "InventoryItem", menuName = "Item/Create InventoryItem")]
 public class InventoryItemData : ScriptableObject
 {
-    public string id;
-    public string displayName;
+    public string itemName;
+    public int id;
     public Sprite icon;
     public GameObject prefab;
-    public Camera camera;
 }
