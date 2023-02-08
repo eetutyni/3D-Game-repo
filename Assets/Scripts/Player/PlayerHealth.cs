@@ -34,9 +34,10 @@ public class PlayerHealth : MonoBehaviour
 
 
     }
-    private void FixedUpdate()
 
+    public void AddHealth(int amountt)
     {
-       
+        curHealth += amountt;
+        healthbar.UpdateHealth((float)curHealth / (float)maxHealth);
     }
 }
