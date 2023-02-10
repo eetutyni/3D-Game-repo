@@ -83,20 +83,14 @@ public class Movement : MonoBehaviour
             plHealth.AddHealth(15);
             Debug.Log("yes");
         }
-        
-            
-        
+     
     }
-
-
-
 
     //groundcheck
     bool GroundCheck()
     {
         return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
-
 
     //jump
     void Jump()
@@ -118,9 +112,6 @@ public class Movement : MonoBehaviour
     {
         Staminabar.instance.UseStamina(0.2f);
     }
-
-    
-
 
     public void OnTriggerEnter(Collider collider)
     {
