@@ -25,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
         curHealth -= amount;
         if (curHealth <= 0)
         {
-            
+            curHealth= 0;
 
         }
 
