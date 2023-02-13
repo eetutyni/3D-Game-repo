@@ -22,10 +22,10 @@ public class ItemPickup : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetButtonDown("Interact") && playerItemCheckScript.canCollect)
+        if (Input.GetKeyDown(KeyCode.E) && playerItemCheckScript.canCollect)
         {
             Pickup();
         }
-        if (Input.GetButtonDown("Interact")) Debug.Log("Hi");
+        if (Input.GetKeyDown(KeyCode.E)) Debug.Log("Hi");
     }
 }
