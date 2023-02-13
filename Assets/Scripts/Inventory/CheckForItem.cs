@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class CheckForItem : MonoBehaviour
 {
-    public bool ItemCheck(LayerMask layer)
+    public bool canCollect = false;
+
+    private void OnTriggerEnter(Collider coll)
     {
-        Debug.Log("Check succesful");
-        return Physics.Raycast(transform.position, new Vector3(0, 0, 1), 3f, layer);
+        if (coll.gameObject.layer == 8)
+        {
+            canCollect = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider coll)
+    {
+        if (coll.gameObject.layer == 8)
+        {
+            canCollect = false;
+        }
     }
 }

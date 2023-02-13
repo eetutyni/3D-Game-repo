@@ -78,11 +78,12 @@ public class Movement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
 
-        //if (collectActive && Input.GetKey(KeyCode.E))
+        /*if (collectActive && Input.GetKey(KeyCode.E))
         {
             plHealth.AddHealth(15);
             Debug.Log("yes");
         }
+        */
      
     }
 
