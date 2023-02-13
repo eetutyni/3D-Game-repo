@@ -8,18 +8,14 @@ using UnityEngine.Animations;
 public class Movement : MonoBehaviour
 {
   
-    
-
     public float speed = 12f;
     public float gravity = -10.4f;
 
-    [SerializeField] TextMeshProUGUI collect;
+    
 
     [SerializeField] private Staminabar staminascript;
 
     [SerializeField] private CharacterController controller;
-
-    public PlayerHealth plHealth;
 
     public Vector3 velocity;
 
@@ -35,14 +31,6 @@ public class Movement : MonoBehaviour
     public Vector3 move;
 
     public float sprintModifier = 1.8f;
-
-    private void Start()
-    {
-        
-    }
-
-    
-
 
     //sprint button, groundcheck, movement
     void FixedUpdate()
@@ -77,13 +65,6 @@ public class Movement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-
-        //if (collectActive && Input.GetKey(KeyCode.E))
-        {
-            plHealth.AddHealth(15);
-            Debug.Log("yes");
-        }
-     
     }
 
     //groundcheck
@@ -113,35 +94,4 @@ public class Movement : MonoBehaviour
         Staminabar.instance.UseStamina(0.2f);
     }
 
-    public void OnTriggerEnter(Collider collider)
-    {
-        if (collider.CompareTag("blueberry"))
-        {
-            ActivateCollect();
-            //collectActive= true;
-           
-        }
-        
-    }
-
-    private void OnTriggerExit(Collider collider)
-    {
-        if (collider.CompareTag("blueberry"))
-        {
-            DisableCollect();
-        }
-    }
-
-    private void ActivateCollect()
-    {
-        collect.gameObject.SetActive(true);
-        
-    }
-
-    private void DisableCollect()
-    {
-        collect.gameObject.SetActive(false);
-    }
-
-   
 }
