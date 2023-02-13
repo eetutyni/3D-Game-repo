@@ -8,7 +8,7 @@ public class CheckForItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.layer == 8)
+        if (coll.CompareTag("Pickup"))
         {
             canCollect = true;
         }
@@ -16,7 +16,7 @@ public class CheckForItem : MonoBehaviour
 
     private void OnTriggerExit(Collider coll)
     {
-        if (coll.gameObject.layer == 8)
+        if (coll.CompareTag("Pickup"))
         {
             canCollect = false;
         }
