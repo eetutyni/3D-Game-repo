@@ -39,5 +39,13 @@ public class PlayerHealth : MonoBehaviour
     {
         curHealth += amountt;
         healthbar.UpdateHealth((float)curHealth / (float)maxHealth);
+
+        if (curHealth >= 10)
+        {
+            curHealth = 10;
+
+        }
     }
+
+     
 }
