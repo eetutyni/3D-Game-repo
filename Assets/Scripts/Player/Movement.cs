@@ -13,7 +13,6 @@ public class Movement : MonoBehaviour
     public float speed = 12f;
     public float gravity = -10.4f;
 
-    [SerializeField] TextMeshProUGUI collect;
 
     [SerializeField] private Staminabar staminascript;
 

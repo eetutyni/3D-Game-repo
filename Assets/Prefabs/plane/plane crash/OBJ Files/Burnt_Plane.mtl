@@ -1,0 +1,178 @@
+newmtl material_0
+d 1
+Kd 0.74901962 0.74901962 0.74901962
+map_Kd ./Maps/dirty-metal-texture_1048-4784.jpg
+
+newmtl material_1
+d 1
+Kd 0.83529413 1 0.99607843
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_2
+d 1
+Kd 0.87450981 0.87450981 0.87450981
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_3
+d 1
+Kd 1 1 1
+map_Kd ./Maps/Burnt14f.jpg
+
+newmtl material_4
+d 1
+Kd 0.96470588 0.88235295 0.78431374
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_5
+d 1
+Kd 1 1 1
+map_Kd ./Maps/Burnt14g.jpg
+
+newmtl material_6
+d 1
+Kd 0.80000001 0.80000001 0.80000001
+map_Kd ./Maps/dirty-metal-texture_1048-4784.jpg
+
+newmtl material_7
+d 1
+Kd 1 1 1
+map_Kd ./Maps/Burnt14h.jpg
+
+newmtl material_8
+d 1
+Kd 0.26666668 0.26666668 0.26666668
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_9
+d 1
+Kd 0.18431373 0.19215687 0.2
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_10
+d 1
+Kd 0.56470591 0.56470591 0.56470591
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_11
+d 1
+Kd 0 0 0
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_12
+d 1
+Kd 1 1 1
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_13
+d 0.21960802
+Kd 0.24705882 0.49411765 0.49411765
+
+newmtl material_14
+d 1
+Kd 0.56470591 0.56470591 0.56470591
+map_Kd ./Maps/Burn14.jpg
+
+newmtl material_15
+d 1
+Kd 1 1 1
+map_Kd ./Maps/916s4S1H0eL._AC_SL1500_.jpg
+
+newmtl material_16
+d 1
+Kd 1 1 1
+map_Kd ./Maps/2021-Latest-Design-Africa.jpg
+
+newmtl material_17
+d 1
+Kd 1 1 1
+map_Kd ./Maps/surplus-fabric-500x500.jpg
+
+newmtl material_18
+d 1
+Kd 0.63921571 0.63921571 0.63921571
+map_Kd ./Maps/burntanimal.jpg
+
+newmtl material_19
+d 1
+Kd 0.49411765 0.69411767 0.82745099
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_20
+d 1
+Kd 0.80392158 0.80392158 0.80392158
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_21
+d 1
+Kd 0.50980395 0.50980395 0.50980395
+map_Kd ./Maps/texture-burnt-grass-black-405.jpg
+
+newmtl material_22
+d 1
+Kd 0.43921569 0.43921569 0.43921569
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_23
+d 1
+Kd 0.80000001 0.80000001 0.80000001
+map_Kd ./Maps/ROCKS-N-MOSS-01_230cm_Burnt_inv.jpg
+
+newmtl material_24
+d 1
+Kd 1 1 1
+map_Kd ./Maps/double-knit-210x136.jpg
+
+newmtl material_25
+d 1
+Kd 0.93725491 0.89411765 0.78431374
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_26
+d 1
+Kd 0.53725493 0.53725493 0.53725493
+map_Kd ./Maps/916s4S1H0eL._AC_SL1500_.jpg
+
+newmtl material_27
+d 1
+Kd 0.81176472 0.86666667 0.69411767
+map_Kd ./Maps/2021-Latest-Design-Africa.jpg
+
+newmtl material_28
+d 1
+Kd 0.85490197 0.81176472 0.70980394
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_29
+d 1
+Kd 0.25882354 0.25882354 0.25882354
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_30
+d 0.21960802
+Kd 0.24705882 0.49411765 0.49411765
+
+newmtl material_31
+d 1
+Kd 0.74901962 0.74901962 0.74901962
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_32
+d 1
+Kd 0.7647059 0.90196079 0.92941177
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_33
+d 1
+Kd 0.72941178 0.72941178 0.72941178
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_34
+d 1
+Kd 0.28235295 0.27450982 0.27450982
+map_Kd ./Maps/Burnt14b.jpg
+
+newmtl material_35
+d 1
+Kd 0.7647059 0.81176472 0.87450981
+map_Kd ./Maps/Burnt14b.jpg
+

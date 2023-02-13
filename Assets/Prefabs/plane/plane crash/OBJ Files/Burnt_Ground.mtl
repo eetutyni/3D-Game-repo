@@ -1,0 +1,10 @@
+newmtl Ground1
+d 1
+Kd 0.81176472 0.81176472 0.81176472
+map_Kd ./Maps/ROCKS-N-MOSS1b.jpg
+
+newmtl Ground2
+d 1
+Kd 0.81176472 0.81176472 0.81176472
+map_Kd ./Maps/texture-burnt-grass-black-405.jpg
+
