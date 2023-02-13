@@ -22,9 +22,10 @@ public class ItemPickup : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetButtonDown("Interact") && playerItemCheckScript.ItemCheck(inventoryCollectibleLayer))
+        if (Input.GetButtonDown("Interact") && playerItemCheckScript.canCollect)
         {
             Pickup();
         }
+        if (Input.GetButtonDown("Interact")) Debug.Log("Hi");
     }
 }
