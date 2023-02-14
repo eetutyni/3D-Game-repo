@@ -24,7 +24,7 @@ public class ItemPickup : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && playerItemCheckScript.canCollect)
         {
-            Pickup();
+            if (playerItemCheckScript.hitobj == gameObject) Pickup();
         }
     }
 }

@@ -5,20 +5,17 @@ using UnityEngine;
 public class CheckForItem : MonoBehaviour
 {
     public bool canCollect = false;
+    public GameObject hitobj;
 
-    private void OnTriggerEnter(Collider coll)
+    private void FixedUpdate()
     {
-        if (coll.CompareTag("Pickup"))
-        {
-            canCollect = true;
-        }
-    }
+        Ray ray = new Ray(transform.position, transform.forward);
 
-    private void OnTriggerExit(Collider coll)
-    {
-        if (coll.CompareTag("Pickup"))
-        {
-            canCollect = false;
-        }
+        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+            hitobj = hit.collider.gameObject;
+        else hitobj = null;
+
+        if (hitobj != null && hitobj.layer == 8) canCollect = true;
+        else canCollect = false;
     }
 }
