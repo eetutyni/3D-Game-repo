@@ -1,32 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class PlayerHealth : MonoBehaviour
 {
     public HealthBar healthbar;
 
+    [SerializeField] GameObject gameOverPanel;
+
+    [SerializeField] GameObject pausemenu;
 
     public int maxHealth;
     public int curHealth;
+
+    public bool Alive;
    
 
-    // Start is called before the first frame update
     void Start()
     {
         curHealth = maxHealth;
+        Alive = true;
     }
 
-
+  
     //damage
     public void TakeDamage(int amount)
     {
         curHealth -= amount;
         if (curHealth <= 0)
         {
-            curHealth= 0;
-
+            Destroy(pausemenu);
+            Alive = false;
+            gameOverPanel.gameObject.SetActive(true);
+            Time.timeScale= 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         healthbar.UpdateHealth((float)curHealth / (float)maxHealth);
@@ -47,5 +58,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-     
+    
+
 }
