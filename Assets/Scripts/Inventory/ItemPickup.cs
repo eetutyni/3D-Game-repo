@@ -26,6 +26,5 @@ public class ItemPickup : MonoBehaviour
         {
             Pickup();
         }
-        if (Input.GetKeyDown(KeyCode.E)) Debug.Log("Hi");
     }
 }
