@@ -18,14 +18,12 @@ public class PlayerHealth : MonoBehaviour
 
     public bool Alive;
    
-
     void Start()
     {
         curHealth = maxHealth;
         Alive = true;
     }
 
-  
     //damage
     public void TakeDamage(int amount)
     {
@@ -41,9 +39,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         healthbar.UpdateHealth((float)curHealth / (float)maxHealth);
-
-
-
     }
 
     public void AddHealth(int amountt)
