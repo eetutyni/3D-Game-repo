@@ -159,8 +159,8 @@ Material:
     m_Floats:
     - _Albedo2Flow: -0.3
     - _Albedo2Tiling: 0.9
-    - _AlbedoContrast: 1.15
-    - _AlbedoIntensity: 1.25
+    - _AlbedoContrast: 1.19
+    - _AlbedoIntensity: 1.45
     - _Brightness: 1
     - _BumpReflectionStr: 0.5
     - _BumpScale: 1
@@ -241,16 +241,16 @@ Material:
     - _Radius: 1
     - _ReflToRefrExponent: 1
     - _Reflect: 1
-    - _ReflectionContrast: 1.74
-    - _ReflectionSaturation: 0.4
-    - _ReflectionStrength: 0.5
+    - _ReflectionContrast: 1.7
+    - _ReflectionSaturation: 1.12
+    - _ReflectionStrength: 0.62
     - _Refraction: 1
     - _RefractionIntensity: 0.61
     - _RefractionSpeed: 1.61
     - _ReverseFlow: -5
     - _Saturation: 1
     - _SaturationRef: 0.5
-    - _Shininess: 0.15
+    - _Shininess: 0.719
     - _SmoothnessTextureChannel: 0
     - _SoftFactor: 0.09
     - _SpecularHighlights: 1
