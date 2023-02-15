@@ -7,10 +7,7 @@ using UnityEngine.Animations;
 
 public class Movement : MonoBehaviour
 {
-  
-    
-
-    public float speed = 12f;
+    public float speed = 1.5f;
     public float gravity = -10.4f;
 
 
@@ -58,27 +55,25 @@ public class Movement : MonoBehaviour
         }
 
         controller.Move(move * speed * Time.deltaTime);
-
         velocity.y += gravity * Time.deltaTime;
 
         if (Input.GetButtonDown("Jump") && isGrounded) Jump();
 
-
         controller.Move(velocity * Time.deltaTime);
-
     }
 
-    //groundcheck
     bool GroundCheck()
     {
         return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 
-    //jump
     void Jump()
     {
+        //Add vertical velocity
         velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;
+
+        //Use stamina on jump
         if (staminascript.currentStamina < 15)
         {
             staminascript.currentStamina = 0;
@@ -88,6 +83,7 @@ public class Movement : MonoBehaviour
         {
             Staminabar.instance.UseStamina(15);
         }
+
         staminascript.ShowStamina();
     }
     public void SprintStamina()
