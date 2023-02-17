@@ -7,6 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
+
     [SerializeField] Collider coll;
 
     void Start()
@@ -26,7 +27,7 @@ public class Enemy : MonoBehaviour
     {
         if (coll.CompareTag("Player"))
         {
-            
+            //nimator.SetTrigger("AngryTrigger");
         }
 
     }
