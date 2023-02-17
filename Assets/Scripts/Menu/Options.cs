@@ -63,6 +63,7 @@ public class Options : MonoBehaviour
         }
         UpdateRes();
     }
+
     public void ResRight()
     {
         selectedResolution++;
@@ -71,12 +72,6 @@ public class Options : MonoBehaviour
             selectedResolution = resolutions.Count - 1;
         }
         UpdateRes();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void UpdateRes()
