@@ -7,7 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-
+    [SerializeField] Collider coll;
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     //when player approaches enemy, "angry" animation activates
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (coll.CompareTag("Player"))
         {
             
         }

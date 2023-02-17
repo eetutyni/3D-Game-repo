@@ -159,8 +159,8 @@ Material:
     m_Floats:
     - _Albedo2Flow: -0.3
     - _Albedo2Tiling: 0.9
-    - _AlbedoContrast: 1.19
-    - _AlbedoIntensity: 1.45
+    - _AlbedoContrast: 1.17
+    - _AlbedoIntensity: 1.53
     - _Brightness: 1
     - _BumpReflectionStr: 0.5
     - _BumpScale: 1
@@ -216,9 +216,9 @@ Material:
     - _Mitigation: 22.4
     - _Mode: 0
     - _NormalDetailFlow: 1
-    - _NormalMap1Strength: 0.95
+    - _NormalMap1Strength: 0.94
     - _NormalMap2Flow: 0.5
-    - _NormalMap2Strength: 0.9
+    - _NormalMap2Strength: 0.79
     - _NormalMap2Tiling: -0.9
     - _NormalStrength: 0.85
     - _NormalmapDetailScale: 0.7
@@ -232,7 +232,7 @@ Material:
     - _ParallaxMapTiling: 1
     - _ParallaxNoiseAmplitude: 2.5
     - _ParallaxNoiseFrequency: 1
-    - _ParallaxNoiseGain: 0.622
+    - _ParallaxNoiseGain: 0.621
     - _ParallaxNoiseLacunarity: 4
     - _ParallaxNoiseScale: 1.5
     - _ParallaxNormal2Offset: -1
@@ -241,18 +241,18 @@ Material:
     - _Radius: 1
     - _ReflToRefrExponent: 1
     - _Reflect: 1
-    - _ReflectionContrast: 1.7
-    - _ReflectionSaturation: 1.12
-    - _ReflectionStrength: 0.62
+    - _ReflectionContrast: 1.51
+    - _ReflectionSaturation: 1.82
+    - _ReflectionStrength: 0.76
     - _Refraction: 1
     - _RefractionIntensity: 0.61
     - _RefractionSpeed: 1.61
     - _ReverseFlow: -5
     - _Saturation: 1
     - _SaturationRef: 0.5
-    - _Shininess: 0.719
+    - _Shininess: 0.718
     - _SmoothnessTextureChannel: 0
-    - _SoftFactor: 0.09
+    - _SoftFactor: 0.193
     - _SpecularHighlights: 1
     - _Speed: 0.5
     - _SpeedX: 0.1
