@@ -10,9 +10,7 @@ public class Movement : MonoBehaviour
     public float speed = 1.5f;
     public float gravity = -10.4f;
 
-
     [SerializeField] private Staminabar staminascript;
-
     [SerializeField] private CharacterController controller;
 
     public Vector3 velocity;
