@@ -30,19 +30,21 @@ public class Movement : MonoBehaviour
 
     public float sprintModifier = 1.8f;
 
-    //sprint button, groundcheck, movement
     void FixedUpdate()
     {
+        //Update vars for animation
         isGrounded = GroundCheck();
         if (isGrounded) hasJumped = false;
 
         if (isGrounded && velocity.y < 0) velocity.y = -2f;
 
+        //Update movement vars
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         move = transform.right * x + transform.forward * z;
 
+        //Modify movementspeed and use stamina if pressing LShift
         if (Input.GetKey(KeyCode.LeftShift))
         {
             move *= sprintModifier;
@@ -54,9 +56,11 @@ public class Movement : MonoBehaviour
             
         }
 
+        //Move player
         controller.Move(move * speed * Time.deltaTime);
         velocity.y += gravity * Time.deltaTime;
 
+        //Check for jump
         if (Input.GetButtonDown("Jump") && isGrounded) Jump();
 
         controller.Move(velocity * Time.deltaTime);
@@ -69,7 +73,7 @@ public class Movement : MonoBehaviour
 
     void Jump()
     {
-        //Add vertical velocity
+        //Add vertical force
         velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;
 

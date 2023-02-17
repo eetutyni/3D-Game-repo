@@ -26,8 +26,6 @@ public class Staminabar : MonoBehaviour
         instance = this;
     }
     
-
-    //Setting the start stamina which is full, staminabar is inactive in start
     void Start()
     {
         currentStamina = maxStamina;
@@ -35,21 +33,20 @@ public class Staminabar : MonoBehaviour
         staminaBar.value = maxStamina;
     }
 
-
-    //Activate staminabar
+    //Show staminabar
     public void ShowStamina()
     {
         animator.Play("FadeIn");
     }
 
 
-    //Hide Staminabar
+    //Hide staminabar
     public void HideStamina()
     {
         animator.Play("FadeOut");
     }
 
-    //Use stamina, jumping takes stamina for example
+    //Use stamina (called when moving or jumping for example)
     public void UseStamina(float amount)
     {
          if(currentStamina - amount >= 0)
@@ -75,6 +72,7 @@ public class Staminabar : MonoBehaviour
     {
         yield return new WaitForSeconds(1.2f);
 
+        //A 100th of the max stamina is added in between a wait time of the regenTick variable until stamina reaches max
         while(currentStamina < maxStamina)
         {
             currentStamina += maxStamina / 100;
