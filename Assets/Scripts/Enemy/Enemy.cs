@@ -3,31 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private GameObject player;
 
-    [SerializeField] Collider coll;
+    //Enemy states
+    public bool passive;
+    public bool searching;
+    public bool seesPlayer;
+    public bool atttacking;
 
-    void Start()
+    //Enemy state activation ranges
+    [Range(0f, 15f)] public float sightRange = 10f;
+    [Range(0f, 15f)] public float attackRange = 7.5f;
+
+    void OnDrawGizmosSelected()
     {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-    //when player approaches enemy, "angry" animation activates
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (coll.CompareTag("Player"))
-        {
-            
-        }
-
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
