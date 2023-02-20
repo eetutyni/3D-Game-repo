@@ -9,6 +9,9 @@ public class LoadingManager : MonoBehaviour
     public GameObject LoadingPanel;
     private string targetScene;
     public float MinLoadTime;
+    public GameObject LoadingWheel;
+    public float WheelSpeed;
+    private bool isLoading;
 
     private void Awake()
     {
@@ -29,9 +32,12 @@ public class LoadingManager : MonoBehaviour
 
     private IEnumerator LoadSceneRoutine()
     {
+        isLoading = true;
         LoadingPanel.SetActive(true);
         AsyncOperation op = SceneManager.LoadSceneAsync(targetScene);
         float elapsedLoadTime = 0f;
+
+        StartCoroutine(SpinWheelRoutine());
 
         while (!op.isDone)
         {
@@ -47,5 +53,15 @@ public class LoadingManager : MonoBehaviour
 
 
         LoadingPanel.SetActive(false);
+        isLoading = false;
+    }
+
+    private IEnumerator SpinWheelRoutine() 
+    {
+        while (isLoading)
+        {
+            LoadingWheel.transform.Rotate(0, 0, -WheelSpeed);
+            yield return null;
+        }
     }
 }
