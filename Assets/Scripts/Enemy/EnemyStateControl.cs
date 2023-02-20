@@ -53,12 +53,18 @@ public class EnemyStateControl : MonoBehaviour
             anim.ResetTrigger("NotAngry");
             anim.StopPlayback();
             anim.SetTrigger("AngryTrigger");
+            anim.StopPlayback();
+            
+            anim.SetTrigger("RunTrigger");
+            
         }
 
         void PlayerNotOnRange()
         {
             anim.ResetTrigger("AngryTrigger");
-            anim.SetTrigger("NotAngry");   
+            anim.ResetTrigger("RunTrigger");
+            anim.SetTrigger("NotAngry"); 
+            
         }
     }
 }
