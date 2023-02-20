@@ -7,6 +7,8 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance;
     public List<InventoryItemData> items = new List<InventoryItemData>();
 
+    [SerializeField] private InventoryDisplay invDisplayScript;
+
     private void Awake()
     {
         Instance = this;

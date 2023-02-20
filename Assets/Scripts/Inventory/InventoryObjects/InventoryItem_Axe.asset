@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Axe
   id: 1
-  icon: {fileID: 21300000, guid: 73237dad922633840853faeaa44ed73b, type: 3}
+  icon: {fileID: 21300000, guid: a36f9bb1259c3fd47ad210c67fb988bf, type: 3}
   prefab: {fileID: 1164328234615206, guid: e048a401410aa9f4791cdd97e15735ca, type: 3}
