@@ -1,13 +1,22 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.TerrainTools;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.Animations;
 
 public class EnemyStateControl : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+
+    [SerializeField] Animator anim;
+
+    private void Start()
+    {
+        seesPlayer = false;
+    }
 
     //Enemy states
     public bool passive;
@@ -29,6 +38,27 @@ public class EnemyStateControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (Physics.CheckSphere(transform.position, sightRange, player.layer))
+        {
+            PlayerOnRange();
+        }
+
+        if (Vector3.Distance(transform.position, player.transform.position) > sightRange)
+        {
+            PlayerNotOnRange();
+        }
+
+        void PlayerOnRange()
+        {
+            anim.ResetTrigger("NotAngry");
+            anim.StopPlayback();
+            anim.SetTrigger("AngryTrigger");
+        }
+
+        void PlayerNotOnRange()
+        {
+            anim.ResetTrigger("AngryTrigger");
+            anim.SetTrigger("NotAngry");   
+        }
     }
 }
