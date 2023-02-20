@@ -6,11 +6,12 @@ public class ItemPickup : MonoBehaviour
 {
     public InventoryItemData item;
 
-    [SerializeField] CheckForItem playerItemCheckScript;
+    private CheckForItem playerItemCheckScript;
     private LayerMask inventoryCollectibleLayer;
 
     private void Start()
     {
+        playerItemCheckScript = GameObject.Find("Main Camera").GetComponent<CheckForItem>();
         inventoryCollectibleLayer = gameObject.layer;
     }
 
