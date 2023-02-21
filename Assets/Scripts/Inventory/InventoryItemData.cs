@@ -10,4 +10,6 @@ public class InventoryItemData : ScriptableObject
     public int id;
     public Sprite icon;
     public GameObject prefab;
+    public Vector3 position;
+    public Vector3 rotation;
 }
