@@ -15,4 +15,6 @@ MonoBehaviour:
   itemName: Wood
   id: 2
   icon: {fileID: 21300000, guid: af70fd4eca5a8e8418c3f833b160b9c5, type: 3}
-  prefab: {fileID: 6837793517844160547, guid: fbb836885136d4d4fbca6cd2bf547f60, type: 3}
+  prefab: {fileID: 4268377759394181140, guid: 944aed6b837a62543b7609c2157579b6, type: 3}
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 10, y: 0, z: 5}

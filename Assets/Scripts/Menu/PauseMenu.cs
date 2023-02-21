@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,6 @@ public class PauseMenu : MonoBehaviour
     public bool isPaused;
 
     PlayerHealth plHealth;
-    
 
     void Start()
     {
@@ -18,8 +18,6 @@ public class PauseMenu : MonoBehaviour
         
     }
 
-    
-  
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -60,6 +58,9 @@ public class PauseMenu : MonoBehaviour
     }
     public void Quit()
     {
+#if UNITY_EDITOR
+        if (EditorApplication.isPlaying) EditorApplication.ExitPlaymode();
+#endif
         Application.Quit();
     }
 

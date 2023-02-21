@@ -7,14 +7,10 @@ public class ItemPickup : MonoBehaviour
     public InventoryItemData item;
 
     private CheckForItem playerItemCheckScript;
-    private LayerMask inventoryCollectibleLayer;
-
-    [SerializeField] private InventoryDisplay invDisplayScript;
 
     private void Start()
     {
         playerItemCheckScript = GameObject.Find("Main Camera").GetComponent<CheckForItem>();
-        inventoryCollectibleLayer = gameObject.layer;
     }
 
     void Pickup()
@@ -22,7 +18,6 @@ public class ItemPickup : MonoBehaviour
         //Add object to inventorymanager and delete it from the scene
         InventoryManager.Instance.AddItem(item);
         Destroy(gameObject);
-        invDisplayScript.UpdateHudInventory();
     }
 
     private void FixedUpdate()
