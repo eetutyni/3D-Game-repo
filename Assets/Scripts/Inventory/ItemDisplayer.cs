@@ -25,7 +25,7 @@ public class ItemDisplayer : MonoBehaviour
 
     public void InstantiateItem(InventoryItemData item)
     {
-        Instantiate(item.prefab, holder.position + item.position, Quaternion.Euler(holder.eulerAngles), holder);
+        Instantiate(item.prefab, holder.position + item.spawnPos, Quaternion.Euler(holder.eulerAngles), holder);
     }
 
     public void DeleteItem(GameObject obj)

@@ -31,6 +31,8 @@ public class Staminabar : MonoBehaviour
         currentStamina = maxStamina;
         staminaBar.maxValue = maxStamina;
         staminaBar.value = maxStamina;
+
+        if (currentStamina == maxStamina) HideStamina();
     }
 
     //Show staminabar

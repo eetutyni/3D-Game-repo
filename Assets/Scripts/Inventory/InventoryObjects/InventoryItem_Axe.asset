@@ -16,5 +16,4 @@ MonoBehaviour:
   id: 1
   icon: {fileID: 21300000, guid: a36f9bb1259c3fd47ad210c67fb988bf, type: 3}
   prefab: {fileID: 9223159319008764555, guid: 1eea45b31ea896f44aab2d89f76988fe, type: 3}
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: -120, y: -48.5, z: -33}
+  spawnPos: {x: 0, y: 0, z: -0.06}

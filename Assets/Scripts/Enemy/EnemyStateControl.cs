@@ -1,70 +1,71 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
-using UnityEditor.TerrainTools;
 using UnityEngine;
-using UnityEngine.Animations;
+using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyStateControl : MonoBehaviour
 {
-    [SerializeField] Monument mon;
+    [Header("Enemy state activation ranges")]
+    [Range(15f, 20f)] public float sightRange = 10f;
+    [Range(5f, 12f)] public float runRange = 10f;
+    public float attackRange = 2f;
+
+    [Header("Enemy attributes")]
+    [Range(1f, 10f)] private float attackSpeed;
+
+    //The player gameObject
     [SerializeField] private GameObject player;
+    //The NavMeshAgent component
+    private NavMeshAgent agent;
+    //The animator component
+    private Animator anim;
 
-    [SerializeField] Animator anim;
+    private void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
 
+        attackSpeed = 10 / attackSpeed;
+    }
 
-    //Enemy state activation ranges
-    [Range(0f, 15f)] public float sightRange = 10f;
-    [Range(0f, 15f)] public float attackRange = 7.5f;
-   
     void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), sightRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), runRange);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), attackRange);
     }
 
     private void FixedUpdate()
     {
-        if (Physics.CheckSphere(transform.position, sightRange, player.layer))
-        {
-            PlayerOnRange();
-        }
-
-        if (Vector3.Distance(transform.position, player.transform.position) > sightRange)
-        {
-            PlayerNotOnRange();
-        }
-
-        if (Physics.CheckSphere(transform.position, mon.MaxRunDistance, player.layer))
-        {
-            PlayerOnRange();
-        }
-
-        if (Vector3.Distance(transform.position, player.transform.position) > mon.MaxRunDistance)
-        {
-            PlayerNotOnRange();
-        }
-
+        if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), sightRange)) PlayerInSightRange();
+        if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), runRange)) PlayerInRunRange();
+        if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), attackRange)) AttackPlayer();
     }
-        public void PlayerOnRange()
-        {
-            anim.ResetTrigger("NotAngry");
-            anim.StopPlayback();
-            anim.SetTrigger("AngryTrigger");
-            anim.StopPlayback();
 
-            anim.SetTrigger("RunTrigger");
-        }
+    private void PlayerInSightRange()
+    {
+        agent.SetDestination(player.transform.position);
+    }
 
-        public void PlayerNotOnRange()
-        {
-            anim.ResetTrigger("AngryTrigger");
-            anim.ResetTrigger("RunTrigger");
-            anim.SetTrigger("NotAngry"); 
-        }
+    private void PlayerInRunRange()
+    {
+        agent.SetDestination(player.transform.position);
+    }
+
+    private void AttackPlayer()
+    {
+        agent.ResetPath();
+        anim.SetTrigger("attack");
+
+        AttackWait();
+    }
+
+    private IEnumerator AttackWait()
+    {
+        yield return new WaitForSeconds(attackSpeed);
+
+        anim.ResetTrigger("attack");
+    }
 }
