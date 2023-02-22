@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1968146467}
   - component: {fileID: 1968146466}
   - component: {fileID: 1968146465}
+  - component: {fileID: -4634351801935067536}
   m_Layer: 6
   m_Name: Underwater
   m_TagString: Untagged
@@ -63,6 +64,23 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
+--- !u!114 &-4634351801935067536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968146464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 0
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: f554d43fc47406a4aa4a7c804612dbd6, type: 2}
 --- !u!1 &1152052189803245944
 GameObject:
   m_ObjectHideFlags: 0
