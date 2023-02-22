@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using UnityEngine.UIElements;
 
 public class EnemyStateControl : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class EnemyStateControl : MonoBehaviour
     private NavMeshAgent agent;
     //The animator component
     private Animator anim;
+
+    public Vector3 lastKnownPlayerPos;
 
     private void Start()
     {
@@ -39,19 +42,27 @@ public class EnemyStateControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), sightRange)) PlayerInSightRange();
-        if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), runRange)) PlayerInRunRange();
         if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), attackRange)) AttackPlayer();
+        else if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), runRange)) PlayerInRunRange();
+        else if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), sightRange)) PlayerInSightRange();
     }
 
     private void PlayerInSightRange()
     {
         agent.SetDestination(player.transform.position);
+
+        anim.SetBool("walking", true);
+        anim.SetBool("running", false);
+
+        lastKnownPlayerPos = player.transform.position;
     }
 
     private void PlayerInRunRange()
     {
         agent.SetDestination(player.transform.position);
+
+        anim.SetBool("running", true);
+        anim.SetBool("walking", false);
     }
 
     private void AttackPlayer()
