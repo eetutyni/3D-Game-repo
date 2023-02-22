@@ -6,7 +6,7 @@ using UnityEditor.Experimental.GraphView;
 public class EnemyStateControl : MonoBehaviour
 {
     [Header("Enemy state activation ranges")]
-    [Range(20f, 30f)] public float roamRange;
+    [Range(25f, 40f)] public float roamRange;
     [Range(15f, 20f)] public float sightRange;
     [Range(5f, 12f)] public float runRange;
     public float attackRange = 2f;
@@ -38,6 +38,7 @@ public class EnemyStateControl : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
+        //Visualize state activation ranges in editor
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), roamRange);
         Gizmos.color = Color.yellow;
@@ -63,29 +64,19 @@ public class EnemyStateControl : MonoBehaviour
         // Check which state the enemy should be in based on the distance to the player
         if (distToPlayer < attackRange) AttackPlayer();
         else if (distToPlayer < runRange) PlayerInRunRange();
-        else if (distToPlayer < sightRange) PlayerInSightRange();
+        else if (distToPlayer < sightRange || Vector3.Distance(transform.position, lastKnownPlayerPos) < sightRange) PlayerInSightRange();
         else Roam(distToPlayer < roamRange);
     }
 
     // Called when the player is outside of the sight range
     private void Roam(bool inRoamRange)
     {
-        if (inRoamRange)
+        if (inRoamRange && Vector3.Distance(transform.position, lastKnownPlayerPos) < roamRange)
         {
-            // If the enemy has reached its current roaming destination, set a new one within sight range of the player
-            if (Vector3.Distance(transform.position, roamPos) < sightRange)
-            {
-                roamPos = player.transform.position + new Vector3(Random.Range(-15f, 15f), 0, Random.Range(-15f, 15f));
-
-                // Update the last known position of the player to the new roaming destination
-                lastKnownPlayerPos = roamPos;
-
-                // Set the destination of the NavMeshAgent to the new roaming destination
-                agent.SetDestination(roamPos);
-            }
+            lastKnownPlayerPos = player.transform.position + new Vector3(Random.Range(-12f, 12f), Random.Range(-12f, 12f), Random.Range(-12f, 12f));
         }
-        // If the player is outside of the roaming range, move towards the last known position of the player
-        else agent.SetDestination(lastKnownPlayerPos);
+
+        
     }
 
     // Called when the player is in the sightRange
