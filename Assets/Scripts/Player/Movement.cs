@@ -28,6 +28,17 @@ public class Movement : MonoBehaviour
 
     public float sprintModifier = 1.8f;
 
+    public AudioClip audioClip;
+
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
+        audioSource.clip = audioClip;
+    }
+
     void FixedUpdate()
     {
         //Update vars for animation
@@ -35,6 +46,7 @@ public class Movement : MonoBehaviour
         if (isGrounded) hasJumped = false;
 
         if (isGrounded && velocity.y < 0) velocity.y = -2f;
+        
 
         //Update movement vars
         float x = Input.GetAxis("Horizontal");
@@ -46,7 +58,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             move *= sprintModifier;
-            if (move.magnitude > 0.1)
+            if (isGrounded && move.magnitude > 0.1)
             {
                 SprintStamina();
                 staminascript.ShowStamina();
@@ -54,9 +66,16 @@ public class Movement : MonoBehaviour
             
         }
 
+        if (move.magnitude > 0.1)
+        {
+            audioSource.Play(); 
+        }
+       
+
         //Move player
         controller.Move(move * speed * Time.deltaTime);
         velocity.y += gravity * Time.deltaTime;
+
 
         //Check for jump
         if (Input.GetButtonDown("Jump") && isGrounded) Jump();
