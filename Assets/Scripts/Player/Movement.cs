@@ -85,8 +85,6 @@ public class Movement : MonoBehaviour
         {
             Staminabar.instance.UseStamina(15);
         }
-
-        staminascript.ShowStamina();
     }
     public void SprintStamina()
     {

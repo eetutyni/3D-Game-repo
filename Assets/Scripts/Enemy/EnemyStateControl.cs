@@ -6,10 +6,9 @@ using UnityEditor.Experimental.GraphView;
 public class EnemyStateControl : MonoBehaviour
 {
     [Header("Enemy state activation ranges")]
-    [Range(25f, 40f)] public float roamRange;
-    [Range(15f, 20f)] public float sightRange;
-    [Range(5f, 12f)] public float runRange;
-    public float attackRange = 2f;
+    [Range(35f, 50f)] public float roamRange;
+    [Range(20f, 30f)] public float sightRange;
+    public float attackRange = 2.5f;
 
     [Header("Enemy attributes")]
     [Range(1f, 10f)] private float attackSpeed;
@@ -22,11 +21,18 @@ public class EnemyStateControl : MonoBehaviour
     private Animator anim;
     // The wait time between attacks - inverse of the attackSpeed
     private float attackWaitTime;
+    // Is the player in the roamRange radius from the enemy
+    public bool playerInRoamRange;
 
     public Vector3 lastKnownPlayerPos;
     public float distToPlayer;
     public bool seesPlayer;
     public Vector3 roamPos;
+
+    private bool runState;
+    private float runTimer;
+    private float speed;
+    [SerializeField] private float runMod;
 
     private void Start()
     {
@@ -34,7 +40,9 @@ public class EnemyStateControl : MonoBehaviour
         anim = GetComponent<Animator>();
 
         attackWaitTime = 1 / attackSpeed;
-}
+        runTimer = 0;
+        speed = agent.speed;
+    }
 
     void OnDrawGizmosSelected()
     {
@@ -43,8 +51,6 @@ public class EnemyStateControl : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), roamRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), sightRange);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), runRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), attackRange);
     }
@@ -58,25 +64,34 @@ public class EnemyStateControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (lastKnownPlayerPos == null) lastKnownPlayerPos = player.transform.position;
+
+        // If the enemy sees the player the speed is set to the runmodifier and else it is normal speed
+        if (runTimer > 4f) runState = false;
+        if (runState) agent.speed = speed * runMod; else agent.speed = speed;
+
         // Calculate the distance to the player
         distToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        playerInRoamRange = distToPlayer < roamRange;
 
+        agent.isStopped = false;
         // Check which state the enemy should be in based on the distance to the player
         if (distToPlayer < attackRange) AttackPlayer();
-        else if (distToPlayer < runRange) PlayerInRunRange();
-        else if (distToPlayer < sightRange || Vector3.Distance(transform.position, lastKnownPlayerPos) < sightRange) PlayerInSightRange();
-        else Roam(distToPlayer < roamRange);
+        else if (distToPlayer < sightRange) PlayerInSightRange();
+        else Roam();
     }
 
     // Called when the player is outside of the sight range
-    private void Roam(bool inRoamRange)
+    private void Roam()
     {
-        if (inRoamRange && Vector3.Distance(transform.position, lastKnownPlayerPos) < roamRange)
+        if (playerInRoamRange && Vector3.Distance(transform.position, lastKnownPlayerPos) < 10f)
         {
-            lastKnownPlayerPos = player.transform.position + new Vector3(Random.Range(-12f, 12f), Random.Range(-12f, 12f), Random.Range(-12f, 12f));
+            Debug.Log("lastposinrange");
+            lastKnownPlayerPos = new Vector3(player.transform.position.x + Random.Range(-40f, 40f), player.transform.position.y, player.transform.position.z + Random.Range(-40f, 40f));
+            agent.SetDestination(lastKnownPlayerPos);
         }
 
-        
+        runTimer += Time.deltaTime;
     }
 
     // Called when the player is in the sightRange
@@ -85,22 +100,8 @@ public class EnemyStateControl : MonoBehaviour
         // Set the destination of the NavMeshAgent to the player's current position
         agent.SetDestination(player.transform.position);
 
-        // Set the walking and running animation bools
-        anim.SetBool("walking", true);
-        anim.SetBool("running", false);
-
-        // Update the last known position of the player to the player's current position
-        lastKnownPlayerPos = player.transform.position;
-    }
-
-    // Called when the player is in the runRange
-    private void PlayerInRunRange()
-    {
-        // Set the destination of the NavMeshAgent to the player's current position
-        agent.SetDestination(player.transform.position);
-
-        anim.SetBool("running", true);
-        anim.SetBool("walking", false);
+        runState = true;
+        runTimer = 0;
 
         // Update the last known position of the player to the player's current position
         lastKnownPlayerPos = player.transform.position;
@@ -109,12 +110,11 @@ public class EnemyStateControl : MonoBehaviour
     // Called when the player is in the attackRange
     private void AttackPlayer()
     {
-        // Stop NavMeshAgent from moving
+        // Stop enemy
         agent.ResetPath();
 
         // Set attack animation trigger
         anim.SetTrigger("attack");
-        // Reset attack animation trigger
         anim.ResetTrigger("attack");
 
         // Wait between attacks

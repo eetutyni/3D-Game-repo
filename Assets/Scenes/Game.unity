@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3847927, g: 0.46647573, b: 0.56516314, a: 1}
+  m_IndirectSpecularColor: {r: 0.38478586, g: 0.46647078, b: 0.565159, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2888,14 +2888,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbfa73876cc32743b558edc91d1934d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roamRange: 23
-  sightRange: 16.23
-  runRange: 11.7
+  roamRange: 42
+  sightRange: 28.41
   attackRange: 2
   player: {fileID: 1304673285}
+  playerInRoamRange: 0
   lastKnownPlayerPos: {x: 0, y: 0, z: 0}
   distToPlayer: 0
   seesPlayer: 0
+  roamPos: {x: 0, y: 0, z: 0}
+  runMod: 2
 --- !u!195 &1201304645
 NavMeshAgent:
   m_ObjectHideFlags: 0
