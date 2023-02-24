@@ -28,18 +28,9 @@ public class Movement : MonoBehaviour
 
     public float sprintModifier = 1.8f;
 
-    public AudioClip audioClip;
+    public AudioSource audioSource;
 
-    private AudioSource audioSource;
-
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.Stop();
-        audioSource.clip = audioClip;
-    }
-
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         //Update vars for animation
         isGrounded = GroundCheck();
@@ -58,19 +49,22 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             move *= sprintModifier;
-            if (isGrounded && move.magnitude > 0.1)
+            if (isGrounded && Input.GetAxis("Horizontal") > 0.1)
             {
                 SprintStamina();
-                staminascript.ShowStamina();
+                staminascript.ShowStamina();    
             }
             
         }
 
-        if (move.magnitude > 0.1)
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) 
         {
-            audioSource.Play(); 
+            audioSource.enabled = true;
         }
-       
+        else
+        {
+            audioSource.enabled = false;
+        }
 
         //Move player
         controller.Move(move * speed * Time.deltaTime);
