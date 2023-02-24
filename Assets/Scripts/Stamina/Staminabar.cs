@@ -51,8 +51,10 @@ public class Staminabar : MonoBehaviour
     //Use stamina (called when moving or jumping for example)
     public void UseStamina(float amount)
     {
-         if(currentStamina - amount >= 0)
-         {
+        ShowStamina();
+
+        if(currentStamina - amount >= 0)
+        {
             currentStamina -= amount;
             staminaBar.value = currentStamina;
 
@@ -62,7 +64,7 @@ public class Staminabar : MonoBehaviour
             regen =  StartCoroutine(RegenStamina());
             movementscript.sprintModifier = 1.8f;
             movementscript.jumpForce = 2.4f;
-         }
+        }
         else
         {
             movementscript.sprintModifier = 1;
