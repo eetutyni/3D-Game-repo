@@ -24,10 +24,11 @@ public class InventoryManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        oldSlot = activeSlot;
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { activeSlot = 0; itemDisplayScript.OnSlotChanged(activeSlot); }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { activeSlot = 1; itemDisplayScript.OnSlotChanged(activeSlot); }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) { activeSlot = 2; itemDisplayScript.OnSlotChanged(activeSlot); }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { oldSlot = activeSlot; activeSlot = 0; itemDisplayScript.OnSlotChanged(activeSlot); }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { oldSlot = activeSlot; activeSlot = 1; itemDisplayScript.OnSlotChanged(activeSlot); }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { oldSlot = activeSlot; activeSlot = 2; itemDisplayScript.OnSlotChanged(activeSlot); }
+
+        if (Input.GetKeyDown(KeyCode.G) && items[activeSlot] != null) itemDisplayScript.DropItem(items[activeSlot]);
     }
 
     public void AddItem(InventoryItemData item)

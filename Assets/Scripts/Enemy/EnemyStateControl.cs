@@ -21,7 +21,7 @@ public class EnemyStateControl : MonoBehaviour
     // The NavMeshAgent component
     private NavMeshAgent agent;
     // The animator component
-    private Animator anim;
+    [SerializeField] private Animator anim;
     // The wait time between attacks - inverse of the attackSpeed
     public float attackWaitTime;
     // Is the player in the roamRange radius from the enemy
@@ -40,7 +40,6 @@ public class EnemyStateControl : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
 
         attackWaitTime = 1 / attackSpeed;
         runTimer = 0;

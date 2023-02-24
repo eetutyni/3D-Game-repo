@@ -20,16 +20,35 @@ public class ItemDisplayer : MonoBehaviour
         }
 
         //Instantiate new object in scene
-        InstantiateItem(invManagerScript.items[index]);
+        if (invManagerScript.items[index] != null) InstantiateItem(invManagerScript.items[index]);
     }
 
     public void InstantiateItem(InventoryItemData item)
     {
         Instantiate(item.prefab, holder.position + item.spawnPos, Quaternion.Euler(holder.eulerAngles), holder);
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Pickup"))
+        {
+            //Check if the object is the one the player is holding and destroy it if true
+            if (obj.transform.IsChildOf(holder))
+            {
+                obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            }
+        }
     }
 
-    public void DeleteItem(GameObject obj)
+    public void DropItem(InventoryItemData item)
     {
-        Destroy(obj);
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Pickup"))
+        {
+            if (obj.transform.IsChildOf(holder))
+            {
+                Destroy(obj);
+            }
+        }
+
+        Instantiate(item.prefab, holder.position + item.spawnPos, Quaternion.Euler(holder.eulerAngles));
+
+        invManagerScript.RemoveItem(item);
     }
 }
