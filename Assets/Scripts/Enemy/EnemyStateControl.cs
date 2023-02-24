@@ -1,82 +1,131 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-using UnityEngine.UIElements;
+using UnityEditor.Experimental.GraphView;
 
 public class EnemyStateControl : MonoBehaviour
 {
+    [Header("Reference scripts")]
+    [SerializeField] private PlayerHealth playerHealthScript;
+
     [Header("Enemy state activation ranges")]
-    [Range(15f, 20f)] public float sightRange = 10f;
-    [Range(5f, 12f)] public float runRange = 10f;
-    public float attackRange = 2f;
+    [Range(50f, 65f)] public float roamRange;
+    [Range(25f, 40f)] public float sightRange;
+    public float attackRange;
 
     [Header("Enemy attributes")]
-    [Range(1f, 10f)] private float attackSpeed;
+    [Range(1f, 10f)] public float attackSpeed;
 
-    //The player gameObject
+    // The player gameObject
     [SerializeField] private GameObject player;
-    //The NavMeshAgent component
+    // The NavMeshAgent component
     private NavMeshAgent agent;
-    //The animator component
+    // The animator component
     private Animator anim;
+    // The wait time between attacks - inverse of the attackSpeed
+    public float attackWaitTime;
+    // Is the player in the roamRange radius from the enemy
+    public bool playerInRoamRange;
 
     public Vector3 lastKnownPlayerPos;
+    public float distToPlayer;
+    public bool seesPlayer;
+    public Vector3 roamPos;
+
+    private bool runState;
+    private float runTimer;
+    private float speed;
+    [SerializeField] private float runMod;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        attackSpeed = 10 / attackSpeed;
+        attackWaitTime = 1 / attackSpeed;
+        runTimer = 0;
+        speed = agent.speed;
     }
 
     void OnDrawGizmosSelected()
     {
+        //Visualize state activation ranges in editor
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), sightRange);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), roamRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), runRange);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), sightRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1f, 0f), attackRange);
     }
 
-    private void FixedUpdate()
+    private void OnDrawGizmos()
     {
-        if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), attackRange)) AttackPlayer();
-        else if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), runRange)) PlayerInRunRange();
-        else if (Physics.CheckSphere(transform.position + new Vector3(0f, 1f, 0f), sightRange)) PlayerInSightRange();
+        // Editor visualization for the last known player position
+        Gizmos.color = Color.black;
+        Gizmos.DrawSphere(lastKnownPlayerPos, 2f);
     }
 
+    private void FixedUpdate()
+    {
+        if (lastKnownPlayerPos == null) lastKnownPlayerPos = player.transform.position;
+
+        // If the enemy sees the player the speed is set to the runmodifier and else it is normal speed
+        if (runTimer > 4f) runState = false;
+        if (runState) agent.speed = speed * runMod; else agent.speed = speed;
+
+        // Calculate the distance to the player
+        distToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        playerInRoamRange = distToPlayer < roamRange;
+
+        agent.isStopped = false;
+        // Check which state the enemy should be in based on the distance to the player
+        if (distToPlayer < attackRange) AttackPlayer();
+        else if (distToPlayer < sightRange) PlayerInSightRange();
+        else Roam();
+    }
+
+    // Called when the player is outside of the sight range
+    private void Roam()
+    {
+        if (playerInRoamRange && Vector3.Distance(transform.position, lastKnownPlayerPos) < 10f)
+        {
+            Debug.Log("lastposinrange");
+            lastKnownPlayerPos = new Vector3(player.transform.position.x + Random.Range(-40f, 40f), player.transform.position.y, player.transform.position.z + Random.Range(-40f, 40f));
+            agent.SetDestination(lastKnownPlayerPos);
+        }
+
+        runTimer += Time.deltaTime;
+    }
+
+    // Called when the player is in the sightRange
     private void PlayerInSightRange()
     {
+        // Set the destination of the NavMeshAgent to the player's current position
         agent.SetDestination(player.transform.position);
 
-        anim.SetBool("walking", true);
-        anim.SetBool("running", false);
+        runState = true;
+        runTimer = 0;
 
+        // Update the last known position of the player to the player's current position
         lastKnownPlayerPos = player.transform.position;
     }
 
-    private void PlayerInRunRange()
-    {
-        agent.SetDestination(player.transform.position);
-
-        anim.SetBool("running", true);
-        anim.SetBool("walking", false);
-    }
-
+    // Called when the player is in the attackRange
     private void AttackPlayer()
     {
+        // Stop enemy
         agent.ResetPath();
-        anim.SetTrigger("attack");
 
+        // Set attack animation trigger
+        anim.SetTrigger("attack");
+        anim.ResetTrigger("attack");
+
+        // Wait between attacks
         AttackWait();
     }
 
     private IEnumerator AttackWait()
     {
-        yield return new WaitForSeconds(attackSpeed);
-
-        anim.ResetTrigger("attack");
+        while (true) { playerHealthScript.TakeDamage(2); yield return new WaitForSeconds(attackWaitTime); }
     }
 }
