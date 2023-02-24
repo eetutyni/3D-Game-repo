@@ -10,8 +10,18 @@ public class ShowObjMenu : MonoBehaviour
     private bool tipsActive = true;
     private bool objactive = false;
 
+    private float timer = 0;
+
     private void Update()
     {
+        timer += Time.deltaTime;
+        
+        if(timer > 10)
+        {
+            tipsActive= false;
+            tipCanv.SetActive(false);
+        } 
+
         if (Input.GetKeyDown(KeyCode.N))
         {
             objCanvas.SetActive(!objactive);

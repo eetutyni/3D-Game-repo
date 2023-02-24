@@ -41,7 +41,7 @@ public class EnemyStateControl : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        attackWaitTime = 1 / attackSpeed;
+        attackWaitTime = 2;
         runTimer = 0;
         speed = agent.speed;
     }
@@ -119,12 +119,13 @@ public class EnemyStateControl : MonoBehaviour
         anim.SetTrigger("attack");
         anim.ResetTrigger("attack");
 
+        playerHealthScript.TakeDamage(2);
         // Wait between attacks
         AttackWait();
     }
 
     private IEnumerator AttackWait()
     {
-        while (true) { playerHealthScript.TakeDamage(2); yield return new WaitForSeconds(attackWaitTime); }
+        yield return new WaitForSeconds(attackWaitTime);
     }
 }
