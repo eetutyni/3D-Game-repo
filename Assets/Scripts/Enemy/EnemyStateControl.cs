@@ -5,13 +5,16 @@ using UnityEditor.Experimental.GraphView;
 
 public class EnemyStateControl : MonoBehaviour
 {
+    [Header("Reference scripts")]
+    [SerializeField] private PlayerHealth playerHealthScript;
+
     [Header("Enemy state activation ranges")]
-    [Range(35f, 50f)] public float roamRange;
-    [Range(20f, 30f)] public float sightRange;
-    public float attackRange = 2.5f;
+    [Range(50f, 65f)] public float roamRange;
+    [Range(25f, 40f)] public float sightRange;
+    public float attackRange;
 
     [Header("Enemy attributes")]
-    [Range(1f, 10f)] private float attackSpeed;
+    [Range(1f, 10f)] public float attackSpeed;
 
     // The player gameObject
     [SerializeField] private GameObject player;
@@ -20,7 +23,7 @@ public class EnemyStateControl : MonoBehaviour
     // The animator component
     private Animator anim;
     // The wait time between attacks - inverse of the attackSpeed
-    private float attackWaitTime;
+    public float attackWaitTime;
     // Is the player in the roamRange radius from the enemy
     public bool playerInRoamRange;
 
@@ -123,6 +126,6 @@ public class EnemyStateControl : MonoBehaviour
 
     private IEnumerator AttackWait()
     {
-        yield return new WaitForSeconds(attackWaitTime);
+        while (true) { playerHealthScript.TakeDamage(2); yield return new WaitForSeconds(attackWaitTime); }
     }
 }

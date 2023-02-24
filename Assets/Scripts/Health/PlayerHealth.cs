@@ -24,13 +24,13 @@ public class PlayerHealth : MonoBehaviour
         Alive = true;
     }
 
-    //damage
+    // Take given amount of damage
     public void TakeDamage(int amount)
     {
         curHealth -= amount;
         if (curHealth <= 0)
         {
-            Destroy(pausemenu);
+            pausemenu.SetActive(false);
             Alive = false;
             gameOverPanel.gameObject.SetActive(true);
             Time.timeScale= 0;
@@ -52,7 +52,5 @@ public class PlayerHealth : MonoBehaviour
 
         }
     }
-
-    
 
 }
