@@ -14,7 +14,13 @@ public class EnemyStateControl : MonoBehaviour
     public float attackRange;
 
     [Header("Enemy attributes")]
+    // Enemy attack rate
     [Range(1f, 10f)] public float attackSpeed;
+    // How much damage does one hit deal to the player
+    [SerializeField] public int enemyDamage;
+
+    // The wait time between attacks - attackSpeed multiplied by 10 inverse
+    public float attackWaitTime;
 
     // The player gameObject
     [SerializeField] private GameObject player;
@@ -22,8 +28,6 @@ public class EnemyStateControl : MonoBehaviour
     private NavMeshAgent agent;
     // The animator component
     [SerializeField] private Animator anim;
-    // The wait time between attacks - inverse of the attackSpeed
-    public float attackWaitTime;
     // Is the player in the roamRange radius from the enemy
     public bool playerInRoamRange;
 
@@ -41,7 +45,7 @@ public class EnemyStateControl : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        attackWaitTime = 2;
+        attackWaitTime = 1 / (attackSpeed / 10);
         runTimer = 0;
         speed = agent.speed;
     }
@@ -119,7 +123,7 @@ public class EnemyStateControl : MonoBehaviour
         anim.SetTrigger("attack");
         anim.ResetTrigger("attack");
 
-        playerHealthScript.TakeDamage(2);
+        playerHealthScript.TakeDamage(enemyDamage);
         // Wait between attacks
         AttackWait();
     }

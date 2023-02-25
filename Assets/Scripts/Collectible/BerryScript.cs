@@ -9,13 +9,14 @@ public class BerryScript : MonoBehaviour
     public PlayerHealth plHealth;
 
     [SerializeField] private SwapBush bushScript;
-    [SerializeField] TextMeshProUGUI collect;
+    [SerializeField] TextMeshProUGUI collectText;
 
     private bool collectActive;
 
     private void Start()
     {
         collectActive = false;
+        collectText.gameObject.SetActive(false);
     }
 
     public void FixedUpdate()
@@ -51,14 +52,14 @@ public class BerryScript : MonoBehaviour
     //Show collect text
     private void ActivateCollect()
     {
-        collect.gameObject.SetActive(true);
+        collectText.gameObject.SetActive(true);
         collectActive = true;
     }
 
     //Hide collect text
     private void DisableCollect()
     {
-        collect.gameObject.SetActive(false);
+        collectText.gameObject.SetActive(false);
         collectActive = false;
     }
 }
