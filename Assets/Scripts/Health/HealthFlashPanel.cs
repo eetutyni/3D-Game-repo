@@ -7,11 +7,6 @@ using UnityEngine.UIElements;
 
 public class HealthFlashPanel : MonoBehaviour
 {
-    public bool isFlashing;
-    public bool leaveFlash;
-
-    public int flashStrength;
-
     [SerializeField] private PlayerHealth healthScript;
 
     private Animator anim;
@@ -21,42 +16,22 @@ public class HealthFlashPanel : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        switch (healthScript.curHealth)
-        {
-            case <= 30:
-                flashStrength = 1;
-                break;
+        anim.SetFloat("playerHp", healthScript.curHealth);
 
-            case < 50:
-                flashStrength = 2;
-                break;
-
-            default:
-                flashStrength = 1;
-                break;
-        }
-
-        if (healthScript.curHealth < 50 && !isFlashing) StartFlash();
-        else EndFlash();
+        if (anim.GetBool("isFlashing") && healthScript.curHealth >= 25) SetFlashing(false);
+        if (!anim.GetBool("isFlashing") && healthScript.curHealth < 25) SetFlashing(true);
+        if (!anim.GetBool("isFlashing") && healthScript.curHealth >= 25) SetFlashing(false);
     }
 
-    public void FlashUpdate()
+    public void SetFlashing(bool value)
     {
-        if (leaveFlash) { anim.Play("FadeOut"); leaveFlash = false; return; }
-        
-        if (isFlashing) switch (flashStrength) { case 1: { anim.Play("Flash1"); break; } case 2: { anim.Play("Flash2"); break; } }
+        anim.SetBool("isFlashing", value);
     }
 
-    public void StartFlash()
+    public void HitFlash()
     {
-        isFlashing = true;
-        anim.Play("FadeIn");
-    }
-
-    public void EndFlash()
-    {
-        leaveFlash = true;
+        anim.Play("Flash1");
     }
 }

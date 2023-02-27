@@ -12,4 +12,3 @@ public class HealthBar : MonoBehaviour
         healthbar.value = fraction;
     }
 }
-

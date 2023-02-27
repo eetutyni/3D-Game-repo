@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] private HealthFlashPanel hpFlash;
+
     public HealthBar healthbar;
 
     [SerializeField] GameObject gameOverPanel;
@@ -32,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
         }
 
         healthbar.UpdateHealth((float)curHealth / (float)maxHealth);
+
+        hpFlash.HitFlash();
     }
 
     public void AddHealth(int amountt)

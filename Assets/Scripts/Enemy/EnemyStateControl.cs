@@ -2,28 +2,22 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 
 public class EnemyStateControl : MonoBehaviour
 {
     [Header("Reference scripts")]
     [SerializeField] private PlayerHealth playerHealthScript;
 
+    [Header("Reference objects")]
+    [SerializeField] private GameObject player;
+
     [Header("Enemy state activation ranges")]
     [Range(50f, 65f)] public float roamRange;
     [Range(25f, 40f)] public float sightRange;
     public float attackRange;
 
-    [Header("Enemy attributes")]
-    // Enemy attack rate
-    [Range(1f, 10f)] public float attackSpeed;
-    // How much damage does one hit deal to the player
-    [SerializeField] public int enemyDamage;
-
-    // The wait time between attacks - attackSpeed multiplied by 10 inverse
-    public float attackWaitTime;
-
-    // The player gameObject
-    [SerializeField] private GameObject player;
+    [Header("Reference components")]
     // The NavMeshAgent component
     private NavMeshAgent agent;
     // The animator component
@@ -31,23 +25,33 @@ public class EnemyStateControl : MonoBehaviour
     // Is the player in the roamRange radius from the enemy
     public bool playerInRoamRange;
 
+    [Header("Enemy attributes")]
+    // The run speed modifier
+    [SerializeField] private float runMod;
+    // Enemy attack rate
+    [SerializeField] private float attackWaitTime;
+    // How much damage does one hit deal to the player
+    [SerializeField] private int enemyDamage;
+
+    [Header("Public variables")]
     public Vector3 lastKnownPlayerPos;
+    public Vector3 roamPos;
     public float distToPlayer;
     public bool seesPlayer;
-    public Vector3 roamPos;
 
     private bool runState;
     private float runTimer;
     private float speed;
-    [SerializeField] private float runMod;
+    private float attackTimer;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        attackWaitTime = 1 / (attackSpeed / 10);
         runTimer = 0;
         speed = agent.speed;
+
+        attackTimer = 0;
     }
 
     void OnDrawGizmosSelected()
@@ -123,13 +127,7 @@ public class EnemyStateControl : MonoBehaviour
         anim.SetTrigger("attack");
         anim.ResetTrigger("attack");
 
-        playerHealthScript.TakeDamage(enemyDamage);
-        // Wait between attacks
-        AttackWait();
-    }
-
-    private IEnumerator AttackWait()
-    {
-        yield return new WaitForSeconds(attackWaitTime);
+        if (attackTimer <= 0) { playerHealthScript.TakeDamage(enemyDamage); attackTimer = attackWaitTime; }
+        else attackTimer -= Time.deltaTime;
     }
 }
