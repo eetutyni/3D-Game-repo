@@ -36,7 +36,6 @@ public class Movement : MonoBehaviour
 
         if (isGrounded && velocity.y < 0) velocity.y = -2f;
         
-
         //Update movement vars
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -52,7 +51,6 @@ public class Movement : MonoBehaviour
                 SprintStamina();
                 staminascript.ShowStamina();    
             }
-            
         }
 
         //Move player
@@ -87,9 +85,9 @@ public class Movement : MonoBehaviour
             Staminabar.instance.UseStamina(15);
         }
     }
+
     public void SprintStamina()
     {
         Staminabar.instance.UseStamina(0.2f);
     }
-
 }

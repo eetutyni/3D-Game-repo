@@ -30,6 +30,7 @@ public class HealthFlashPanel : MonoBehaviour
         anim.SetBool("isFlashing", value);
     }
 
+
     public void HitFlash()
     {
         anim.Play("Flash1");

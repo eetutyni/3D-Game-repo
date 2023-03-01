@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class Hint : MonoBehaviour
 {
+    public bool isActive;
+    public bool hasBeenShown;
     public float displayTime;
 }

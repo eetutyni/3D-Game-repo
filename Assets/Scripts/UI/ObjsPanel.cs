@@ -15,17 +15,11 @@ public class ObjsPanel : MonoBehaviour
         panelActive = false;
     }
 
-    void Update()
+    public void SetPanelActive(bool active)
     {
-        if (Input.GetKeyDown(KeyCode.N)) SetPanelActive(!panelActive);
-    }
+        if (active) anim.Play("MoveIn");
+        else anim.Play("MoveOut");
 
-    private void SetPanelActive(bool active)
-    {
-        if (active) { anim.Play("MoveIn"); return; }
-
-        anim.Play("MoveOut");
-
-        panelActive = !panelActive;
+        panelActive = active;
     }
 }

@@ -20,24 +20,28 @@ public class HintPanel : MonoBehaviour
     void Update()
     {
         if (hintTimer >= 0) hintTimer += Time.deltaTime;
-        else SetPanelActive(!panelActive);
+        else SetPanelActive(false);
     }
 
     public void InitializeHint(Hint hint)
     {
-        if (!gameObject.activeInHierarchy) gameObject.SetActive(!panelActive);
+        if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
         hint.gameObject.SetActive(true);
         SetPanelActive(true);
         hintTimer = hint.displayTime;
     }
 
-    private void SetPanelActive(bool active)
+    public void StopHint(Hint hint)
     {
-        if (active) { anim.Play("MoveIn"); return; }
+        hint.hasBeenShown = true;
+        SetPanelActive(false);
+    }
 
-        anim.Play("MoveOut");
+    public void SetPanelActive(bool active)
+    {
+        if (active) anim.Play("MoveIn");
+        else anim.Play("MoveOut");
 
-        panelActive = !panelActive;
+        panelActive = active;
     }
 }
-

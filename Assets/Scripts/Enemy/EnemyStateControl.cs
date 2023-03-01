@@ -84,6 +84,8 @@ public class EnemyStateControl : MonoBehaviour
         distToPlayer = Vector3.Distance(transform.position, player.transform.position);
         playerInRoamRange = distToPlayer < roamRange;
 
+        attackTimer -= Time.deltaTime;
+
         agent.isStopped = false;
         // Check which state the enemy should be in based on the distance to the player
         if (distToPlayer < attackRange) AttackPlayer();
@@ -128,6 +130,5 @@ public class EnemyStateControl : MonoBehaviour
         anim.ResetTrigger("attack");
 
         if (attackTimer <= 0) { playerHealthScript.TakeDamage(enemyDamage); attackTimer = attackWaitTime; }
-        else attackTimer -= Time.deltaTime;
     }
 }
