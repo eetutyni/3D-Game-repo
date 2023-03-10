@@ -73,12 +73,6 @@ public class Options : MonoBehaviour
         UpdateRes();
     }
 
-   
-    void Update()
-    {
-
-    }
-
     public void UpdateRes()
     {
         resolutionText.text = resolutions[selectedResolution].horizontal.ToString() + "x" + resolutions[selectedResolution].vertical.ToString();
@@ -86,8 +80,6 @@ public class Options : MonoBehaviour
 
     public void Applychanges()
     {
-
-
         if (VsyncTog.isOn)
         {
             QualitySettings.vSyncCount = 1;
@@ -99,11 +91,10 @@ public class Options : MonoBehaviour
 
         Screen.SetResolution(resolutions[selectedResolution].horizontal, resolutions[selectedResolution].vertical, FullScreenTog.isOn);
     }
-    [System.Serializable]
-    public class ResItem
-    {
-        public int horizontal, vertical;
-    }
+}
 
-
+[System.Serializable]
+public class ResItem
+{
+    public int horizontal, vertical;
 }

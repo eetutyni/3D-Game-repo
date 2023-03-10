@@ -47,10 +47,9 @@ public class LoadingManager : MonoBehaviour
 
         while(elapsedLoadTime < MinLoadTime)
         {
-            elapsedLoadTime += Time.deltaTime; 
-                yield return null;
+            elapsedLoadTime += Time.deltaTime;
+            yield return null;
         }
-
 
         LoadingPanel.SetActive(false);
         isLoading = false;

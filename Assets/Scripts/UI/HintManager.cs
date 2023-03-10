@@ -4,37 +4,56 @@ using UnityEngine;
 
 public class HintManager : MonoBehaviour
 {
+    [Header("Reference scripts")]
     [SerializeField] private HintPanel hintPanelScript;
     [SerializeField] private ObjsPanel objsPanelScript;
 
-    public List<Hint> hints;
+    [Header("List of the hint texts")]
+    public List<GameObject> hints = new List<GameObject>();
 
-    // Timer to stop spamming the objective panel from messing up the animation
-    [SerializeField] private float objPanelTimerMax;
-    private float objPanelTimer;
+    public bool hintActive;
+
+    [SerializeField] private float objActivateTimerMax;
+    private float objActivateTimer;
+
+    [SerializeField] private float hintTimerMax; 
+    private float hintTimer;
 
     private void Start()
     {
-        TriggerHint(0);
-
-        objPanelTimer = 0;
+        objActivateTimer = 0;
+        TriggerHint(hints[0]);
     }
 
     private void Update()
     {
         // Toggle objectives panel when N key is pressed and timer is done
-        if (Input.GetKeyDown(KeyCode.N) && objPanelTimer <= 0)
+        if (Input.GetKeyDown(InputManager.IM.interact) && objActivateTimer <= 0)
         {
             objsPanelScript.SetPanelActive(!objsPanelScript.panelActive);
-            objPanelTimer = objPanelTimerMax;
-
-            if (hints[0].isActive) hintPanelScript.StopHint(hints[0]);
+            objActivateTimer = objActivateTimerMax;
         }
-        else objPanelTimer -= Time.deltaTime;
+        else objActivateTimer -= Time.deltaTime;
+
+        if (hintActive)
+        {
+            if (hintTimer <= 0)
+            {
+                hintPanelScript.SetPanelActive(false);
+                hintActive = false;
+            }
+            else hintTimer -= Time.deltaTime;
+
+            if (Input.GetKeyDown(InputManager.IM.interact) && hintTimer > 1) hintTimer = 1;
+        }
     }
 
-    private void TriggerHint(int index)
+    private void TriggerHint(GameObject hint)
     {
-        hintPanelScript.InitializeHint(hints[index]);
+        hintPanelScript.InitializeHint(hint);
+        hintPanelScript.SetPanelActive(true);
+
+        hintTimer = hintTimerMax;
+        hintActive = true;
     }
 }

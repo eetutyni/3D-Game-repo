@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class HintPanel : MonoBehaviour
 {
-    private Animator anim;
+    [SerializeField] private HintManager hintManagerScript;
 
-    private float hintTimer;
-
+    public GameObject activeHint;
     public bool panelActive;
+
+    private Animator anim;
 
     void Start()
     {
@@ -17,31 +18,23 @@ public class HintPanel : MonoBehaviour
         panelActive = false;
     }
 
-    void Update()
+    public void InitializeHint(GameObject hint)
     {
-        if (hintTimer >= 0) hintTimer += Time.deltaTime;
-        else SetPanelActive(false);
-    }
-
-    public void InitializeHint(Hint hint)
-    {
-        if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
-        hint.gameObject.SetActive(true);
-        SetPanelActive(true);
-        hintTimer = hint.displayTime;
-    }
-
-    public void StopHint(Hint hint)
-    {
-        hint.hasBeenShown = true;
-        SetPanelActive(false);
+        hint.SetActive(true);
     }
 
     public void SetPanelActive(bool active)
     {
         if (active) anim.Play("MoveIn");
-        else anim.Play("MoveOut");
+        if (!active) anim.Play("MoveOut");
 
         panelActive = active;
+    }
+
+    public void DisableHintText()
+    {
+        activeHint.SetActive(false);
+
+        hintManagerScript.hintActive = false;
     }
 }

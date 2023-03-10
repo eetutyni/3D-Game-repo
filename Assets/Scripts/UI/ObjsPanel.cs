@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ObjsPanel : MonoBehaviour
 {
-    private Animator anim;
-
     public bool panelActive;
+
+    private Animator anim;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class ObjsPanel : MonoBehaviour
     public void SetPanelActive(bool active)
     {
         if (active) anim.Play("MoveIn");
-        else anim.Play("MoveOut");
+        if (!active) anim.Play("MoveOut");
 
         panelActive = active;
     }

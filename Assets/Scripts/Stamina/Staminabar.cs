@@ -35,25 +35,25 @@ public class Staminabar : MonoBehaviour
         if (currentStamina == maxStamina) HideStamina();
     }
 
-    //Show staminabar
+    // Show staminabar
     public void ShowStamina()
     {
         animator.Play("FadeIn");
     }
 
 
-    //Hide staminabar
+    // Hide staminabar
     public void HideStamina()
     {
         animator.Play("FadeOut");
     }
 
-    //Use stamina (called when moving or jumping for example)
+    // Use stamina (called when moving or jumping for example)
     public void UseStamina(float amount)
     {
         ShowStamina();
 
-        if(currentStamina - amount >= 0)
+        if (currentStamina - amount >= 0)
         {
             currentStamina -= amount;
             staminaBar.value = currentStamina;
@@ -71,12 +71,12 @@ public class Staminabar : MonoBehaviour
         }
     }
 
-    //Stamina regeneration
+    // Stamina regeneration
     private IEnumerator RegenStamina()
     {
         yield return new WaitForSeconds(1.2f);
 
-        //A 100th of the max stamina is added in between a wait time of the regenTick variable until stamina reaches max
+        // A 100th of the max stamina is added in between a wait time of the regenTick variable until stamina reaches max
         while(currentStamina < maxStamina)
         {
             currentStamina += maxStamina / 100;

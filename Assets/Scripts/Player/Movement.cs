@@ -48,8 +48,7 @@ public class Movement : MonoBehaviour
             move *= sprintModifier;
             if (isGrounded && Input.GetAxis("Horizontal") > 0.1)
             {
-                SprintStamina();
-                staminascript.ShowStamina();    
+                Staminabar.instance.UseStamina(0.2f); 
             }
         }
 
@@ -84,10 +83,5 @@ public class Movement : MonoBehaviour
         {
             Staminabar.instance.UseStamina(15);
         }
-    }
-
-    public void SprintStamina()
-    {
-        Staminabar.instance.UseStamina(0.2f);
     }
 }
