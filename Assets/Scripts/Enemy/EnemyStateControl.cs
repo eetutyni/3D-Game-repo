@@ -21,7 +21,7 @@ public class EnemyStateControl : MonoBehaviour
     // The NavMeshAgent component
     private NavMeshAgent agent;
     // The animator component
-    [SerializeField] private Animator anim;
+    [SerializeField] Animator anim;
     // The wait time between attacks - inverse of the attackSpeed
     public float attackWaitTime;
     // Is the player in the roamRange radius from the enemy
@@ -36,14 +36,15 @@ public class EnemyStateControl : MonoBehaviour
     private float runTimer;
     private float speed;
     [SerializeField] private float runMod;
+    
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
+        anim = gameObject.GetComponent<Animator>();
         attackWaitTime = 2;
         runTimer = 0;
-        speed = agent.speed;
+        speed = agent.speed;  
     }
 
     void OnDrawGizmosSelected()
@@ -84,8 +85,10 @@ public class EnemyStateControl : MonoBehaviour
     }
 
     // Called when the player is outside of the sight range
-    private void Roam()
+    void Roam()
     {
+        anim.ResetTrigger("run");
+        anim.SetTrigger("roam");
         if (playerInRoamRange && Vector3.Distance(transform.position, lastKnownPlayerPos) < 10f)
         {
             Debug.Log("lastposinrange");
@@ -97,8 +100,11 @@ public class EnemyStateControl : MonoBehaviour
     }
 
     // Called when the player is in the sightRange
-    private void PlayerInSightRange()
+    void PlayerInSightRange()
     {
+        anim.ResetTrigger("roam");
+        anim.SetTrigger("run");
+
         // Set the destination of the NavMeshAgent to the player's current position
         agent.SetDestination(player.transform.position);
 
