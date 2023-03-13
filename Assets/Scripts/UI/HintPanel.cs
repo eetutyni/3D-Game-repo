@@ -21,6 +21,7 @@ public class HintPanel : MonoBehaviour
     public void InitializeHint(GameObject hint)
     {
         hint.SetActive(true);
+        activeHint = hint;
     }
 
     public void SetPanelActive(bool active)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7689.6016, g: 9308.758, b: 11262.672, a: 1}
+  m_IndirectSpecularColor: {r: 7677.422, g: 9294.255, b: 11245.432, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16119,7 +16119,7 @@ MonoBehaviour:
   - {fileID: 2040485782}
   - {fileID: 619951675}
   hintActive: 0
-  objActivateTimerMax: 0.5
+  objActivateTimerMax: 0.2
   hintTimerMax: 10
 --- !u!4 &438322999
 Transform:
@@ -21373,9 +21373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4daf9ff6f8f9b4782740c107542bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  hasBeenShown: 0
-  displayTime: 0
 --- !u!1001 &620285931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39131,9 +39128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4daf9ff6f8f9b4782740c107542bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  hasBeenShown: 0
-  displayTime: 0
 --- !u!1001 &1122083112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72840,9 +72834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4daf9ff6f8f9b4782740c107542bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  hasBeenShown: 0
-  displayTime: 0
 --- !u!1001 &2041006430
 PrefabInstance:
   m_ObjectHideFlags: 0

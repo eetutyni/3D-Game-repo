@@ -32,4 +32,32 @@ public class InputManager : MonoBehaviour
         jump = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("jumpKey", "Space"));
         interact = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("interactKey", "N"));
     }
+
+    public static void SetKeyCode(string inputName, KeyCode newKeyCode)
+    {
+        switch (inputName)
+        {
+            case "forward":
+                IM.forward = newKeyCode;
+                break;
+            case "backward":
+                IM.backward = newKeyCode;
+                break;
+            case "right":
+                IM.right = newKeyCode;
+                break;
+            case "left":
+                IM.left = newKeyCode;
+                break;
+            case "jump":
+                IM.jump = newKeyCode;
+                break;
+            case "interact":
+                IM.interact = newKeyCode;
+                break;
+            default:
+                Debug.LogError("Invalid input name");
+                break;
+        }
+    }
 }
