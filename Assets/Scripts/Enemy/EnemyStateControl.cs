@@ -42,22 +42,13 @@ public class EnemyStateControl : MonoBehaviour
     private bool runState;
     private float runTimer;
     private float speed;
-    [SerializeField] private float runMod;
-    
-    private float attackTimer;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = gameObject.GetComponent<Animator>();
-        attackWaitTime = 2;
         runTimer = 0;
         speed = agent.speed;  
-
-        runTimer = 0;
-        speed = agent.speed;
-
-        attackTimer = 0;
     }
 
     void OnDrawGizmosSelected()
@@ -89,8 +80,6 @@ public class EnemyStateControl : MonoBehaviour
         // Calculate the distance to the player
         distToPlayer = Vector3.Distance(transform.position, player.transform.position);
         playerInRoamRange = distToPlayer < roamRange;
-
-        attackTimer -= Time.deltaTime;
 
         agent.isStopped = false;
         // Check which state the enemy should be in based on the distance to the player
@@ -141,16 +130,13 @@ public class EnemyStateControl : MonoBehaviour
         transform.LookAt(player.transform);
         anim.ResetTrigger("run"); 
         anim.ResetTrigger("roam");
-        anim.SetTrigger("attack");
-
-
-        playerHealthScript.TakeDamage(0);
-        // Wait between attacks
-        AttackWait();
+        anim.SetTrigger("attack");  
     }
-
-    private IEnumerator AttackWait()
+    public void HitPlayer()
     {
-        yield return new WaitForSeconds(attackWaitTime);
+        if(distToPlayer < attackRange)
+        {
+            playerHealthScript.TakeDamage(15);
+        }
     }
 }
