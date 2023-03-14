@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoadingPanel: {fileID: 523038915}
-  MinLoadTime: 5
+  MinLoadTime: 0
   LoadingWheel: {fileID: 163540186}
   WheelSpeed: 5
 --- !u!4 &36874012

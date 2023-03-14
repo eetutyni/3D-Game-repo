@@ -6,9 +6,6 @@ using UnityEngine.UIElements;
 
 public class InputSwitcher : MonoBehaviour
 {
-    KeyCode newKeyCode = KeyCode.None;
-    Event curEvent;
-
     TextMeshProUGUI btnText;
 
     [SerializeField] TextMeshProUGUI forwardText;
