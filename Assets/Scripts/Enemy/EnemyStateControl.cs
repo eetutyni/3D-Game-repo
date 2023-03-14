@@ -122,10 +122,14 @@ public class EnemyStateControl : MonoBehaviour
         agent.ResetPath();
 
         // Set attack animation trigger
-        anim.SetTrigger("attack");
-        anim.ResetTrigger("attack");
 
-        playerHealthScript.TakeDamage(2);
+        transform.LookAt(player.transform);
+        anim.ResetTrigger("run"); 
+        anim.ResetTrigger("roam");
+        anim.SetTrigger("attack");
+
+
+        playerHealthScript.TakeDamage(0);
         // Wait between attacks
         AttackWait();
     }
