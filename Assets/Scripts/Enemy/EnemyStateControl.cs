@@ -91,8 +91,9 @@ public class EnemyStateControl : MonoBehaviour
     // Called when the player is outside of the sight range
     void Roam()
     {
-        anim.ResetTrigger("run");
-        anim.SetTrigger("roam");
+        anim.ResetTrigger("attack");
+        anim.SetBool("run", false);
+        anim.SetBool("roam", true);
         if (playerInRoamRange && Vector3.Distance(transform.position, lastKnownPlayerPos) < 10f)
         {
             Debug.Log("lastposinrange");
@@ -106,8 +107,9 @@ public class EnemyStateControl : MonoBehaviour
     // Called when the player is in the sightRange
     void PlayerInSightRange()
     {
-        anim.ResetTrigger("roam");
-        anim.SetTrigger("run");
+        anim.ResetTrigger("attack");
+        anim.SetBool("run", true);
+        anim.SetBool("roam", false);
 
         // Set the destination of the NavMeshAgent to the player's current position
         agent.SetDestination(player.transform.position);
@@ -122,19 +124,19 @@ public class EnemyStateControl : MonoBehaviour
     // Called when the player is in the attackRange
     private void AttackPlayer()
     {
-        // Stop enemy
+        // Stop enemy and head it towards player
         agent.ResetPath();
-
-        // Set attack animation trigger
-
+        agent.isStopped = true;
         transform.LookAt(player.transform);
-        anim.ResetTrigger("run"); 
-        anim.ResetTrigger("roam");
-        anim.SetTrigger("attack");  
+
+        // Set animation bools
+        anim.SetTrigger("attack");
+        anim.SetBool("run", false);
+        anim.SetBool("roam", false);
     }
     public void HitPlayer()
     {
-        if(distToPlayer < attackRange)
+        if(distToPlayer < attackRange + 1f)
         {
             playerHealthScript.TakeDamage(15);
         }
