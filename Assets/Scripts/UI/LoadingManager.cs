@@ -15,12 +15,15 @@ public class LoadingManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);    
         }
+    }
 
+    private void Start()
+    {
         LoadingPanel.SetActive(false);
     }
 
@@ -47,10 +50,9 @@ public class LoadingManager : MonoBehaviour
 
         while(elapsedLoadTime < MinLoadTime)
         {
-            elapsedLoadTime += Time.deltaTime; 
-                yield return null;
+            elapsedLoadTime += Time.deltaTime;
+            yield return null;
         }
-
 
         LoadingPanel.SetActive(false);
         isLoading = false;

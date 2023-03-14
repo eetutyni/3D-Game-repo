@@ -15,7 +15,6 @@ public class Movement : MonoBehaviour
 
     public Vector3 velocity;
 
-
     public bool hasJumped = false;
     public bool isGrounded;
     public float jumpForce = 2.4f;
@@ -28,6 +27,9 @@ public class Movement : MonoBehaviour
 
     public float sprintModifier = 1.8f;
 
+    private float x;
+    private float z;
+
     public void FixedUpdate()
     {
         //Update vars for animation
@@ -35,11 +37,10 @@ public class Movement : MonoBehaviour
         if (isGrounded) hasJumped = false;
 
         if (isGrounded && velocity.y < 0) velocity.y = -2f;
-        
 
         //Update movement vars
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        if (Input.GetKey(InputManager.IM.left)) x = 1; else if (Input.GetKey(InputManager.IM.right)) x = -1; else x = 0;
+        if (Input.GetKey(InputManager.IM.forward)) z = 1; else if (Input.GetKey(InputManager.IM.backward)) z = -1; else z = 0;
 
         move = transform.right * x + transform.forward * z;
 
@@ -49,10 +50,8 @@ public class Movement : MonoBehaviour
             move *= sprintModifier;
             if (isGrounded && Input.GetAxis("Horizontal") > 0.1)
             {
-                SprintStamina();
-                staminascript.ShowStamina();    
+                Staminabar.instance.UseStamina(0.2f); 
             }
-            
         }
 
         //Move player
@@ -87,9 +86,4 @@ public class Movement : MonoBehaviour
             Staminabar.instance.UseStamina(15);
         }
     }
-    public void SprintStamina()
-    {
-        Staminabar.instance.UseStamina(0.2f);
-    }
-
 }

@@ -27,6 +27,4 @@ public class CameraRotation : MonoBehaviour
 
         playerBody.Rotate(Vector3.up * mouseX);
     }
-
-    
 }
