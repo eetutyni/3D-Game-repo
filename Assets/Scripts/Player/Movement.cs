@@ -39,8 +39,8 @@ public class Movement : MonoBehaviour
         if (isGrounded && velocity.y < 0) velocity.y = -2f;
 
         //Update movement vars
-        if (Input.GetKey(InputManager.IM.left)) x = 1; else if (Input.GetKey(InputManager.IM.right)) x = -1; else x = 0;
-        if (Input.GetKey(InputManager.IM.forward)) z = 1; else if (Input.GetKey(InputManager.IM.backward)) z = -1; else z = 0;
+        x = Input.GetAxisRaw("Horizontal");
+        z = Input.GetAxisRaw("Vertical");
 
         move = transform.right * x + transform.forward * z;
 

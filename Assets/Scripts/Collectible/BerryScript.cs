@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,21 +7,33 @@ using UnityEngine;
 
 public class BerryScript : MonoBehaviour
 {
-    public PlayerHealth plHealth;
-
     [SerializeField] private SwapBush bushScript;
-    [SerializeField] TextMeshProUGUI collectText;
+
+    private GameObject player;
+    private PlayerHealth plHealth;
+    private TextMeshProUGUI collectText;
 
     private bool collectActive;
 
     private void Start()
     {
+        player = GameObject.Find("Player");
+        plHealth = player.GetComponent<PlayerHealth>();
+        collectText = GameObject.Find("CollectText").GetComponent<TextMeshProUGUI>();
+
         collectActive = false;
         collectText.gameObject.SetActive(false);
     }
 
     public void FixedUpdate()
     {
+        // Check if player is in range of bush
+        if (Vector3.Distance(transform.position, player.transform.position) < 1f && collectText.gameObject.activeInHierarchy)
+        {
+            collectText.gameObject.SetActive(true);
+        }
+        else 
+
         /* If collectactive is true and E is pressed
         add health to the player and swap bush to one with no berries */
         if (collectActive && Input.GetKeyDown(KeyCode.E))
@@ -31,28 +44,10 @@ public class BerryScript : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider col)
-    {
-        //If player enters bush trigger ActivateCollect is called
-        if (col.CompareTag("Player"))
-        {
-            ActivateCollect();
-        }
-    }
-
-    public void OnTriggerExit(Collider col)
-    {
-        //If player exits bush trigger DisableCollect is called
-        if (col.CompareTag("Player"))
-        {
-            DisableCollect();
-        }
-    }
-
     //Show collect text
     private void ActivateCollect()
     {
-        collectText.gameObject.SetActive(true);
+        
         collectActive = true;
     }
 

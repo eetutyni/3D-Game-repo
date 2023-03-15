@@ -19,13 +19,14 @@ public class CheckForItem : MonoBehaviour
         {
             hitobj = hit.collider.gameObject;
         }
-            
-        else hitobj = null;
 
-        if (hitobj.tag == "paper") storyPanel.SetActive(true);
-        else storyPanel.SetActive(false);
+        if (hitobj != null)
+        {
+            if (hitobj.tag == "paper" && !storyPanel.activeInHierarchy) storyPanel.SetActive(true);
+            else if (storyPanel.activeInHierarchy) storyPanel.SetActive(false);
 
-        if (hitobj != null && hitobj.layer == 8) canCollect = true;
-        else canCollect = false;
+            if (hitobj.layer == 8) canCollect = true;
+            else canCollect = false;
+        }
     }
 }

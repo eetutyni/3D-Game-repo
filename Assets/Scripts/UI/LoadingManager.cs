@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadingManager : MonoBehaviour
 {
     public static LoadingManager Instance;
-    public GameObject LoadingPanel;
-    private string targetScene;
-    public float MinLoadTime;
-    public GameObject LoadingWheel;
-    public float WheelSpeed;
+
+    [SerializeField] private float MinLoadTime;
+    [SerializeField] private float WheelSpeed;
+    
+    private GameObject LoadingPanel;
+    private GameObject LoadingWheel;
+    
     private bool isLoading;
+    private string targetScene;
 
     private void Awake()
     {
@@ -24,6 +29,9 @@ public class LoadingManager : MonoBehaviour
 
     private void Start()
     {
+        LoadingPanel = GameObject.Find("LoadingPanel");
+        LoadingWheel = GameObject.Find("LoadImage");
+
         LoadingPanel.SetActive(false);
     }
 

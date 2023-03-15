@@ -11,6 +11,7 @@ public class HintManager : MonoBehaviour
     [Header("List of the hint texts")]
     public List<GameObject> hints = new List<GameObject>();
 
+    public GameObject activeHint;
     public bool hintActive;
 
     [SerializeField] private float objActivateTimerMax;
@@ -22,30 +23,33 @@ public class HintManager : MonoBehaviour
     private void Start()
     {
         objActivateTimer = 0;
-        TriggerHint(hints[0]);
+        if (hints[0] != null) TriggerHint(hints[0]);
     }
 
     private void Update()
     {
-        // Toggle objectives panel when N key is pressed and timer is done
-        if (Input.GetKeyDown(InputManager.IM.interact) && objActivateTimer <= 0)
+        // Toggle objectives panel when objectives key is pressed and timer is done
+        if (Input.GetKeyDown(KeyCode.N) && objActivateTimer <= 0)
         {
             objsPanelScript.SetPanelActive(!objsPanelScript.panelActive);
             objActivateTimer = objActivateTimerMax;
+
+            if (activeHint = hints[0]) SkipHint();
         }
         else objActivateTimer -= Time.deltaTime;
 
-        if (hintActive)
+        // Hint show timer logic
+        if (hintActive && hintTimer <= 0)
         {
-            if (hintTimer <= 0)
-            {
-                hintPanelScript.SetPanelActive(false);
-                hintActive = false;
-            }
-            else hintTimer -= Time.deltaTime;
-
-            if (Input.GetKeyDown(InputManager.IM.interact) && hintTimer > 1) hintTimer = 1;
+            hintPanelScript.SetPanelActive(false);
+            hintActive = false;
         }
+        else hintTimer -= Time.deltaTime;
+    }
+
+    public void SkipHint()
+    {
+        if (hintTimer > 1) hintTimer = 1;
     }
 
     private void TriggerHint(GameObject hint)
@@ -54,6 +58,7 @@ public class HintManager : MonoBehaviour
         hintPanelScript.SetPanelActive(true);
 
         hintTimer = hintTimerMax;
+        activeHint = hint;
         hintActive = true;
     }
 }
