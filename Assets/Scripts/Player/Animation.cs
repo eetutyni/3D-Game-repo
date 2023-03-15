@@ -20,7 +20,7 @@ public class Animation : MonoBehaviour
         else if (movementScript.move.magnitude < 0.1f && movementScript.isGrounded) animator.Play("Idle");
         if (Input.GetButtonDown("Fire1"))
         {
-            animator.Play("MeleeAttack_OneHanded");
+            //animator.SetTrigger("attack");
         }
     }
 }
