@@ -48,7 +48,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             move *= sprintModifier;
-            if (isGrounded && Input.GetAxis("Horizontal") > 0.1)
+            if (isGrounded && move.magnitude > 0.1)
             {
                 Staminabar.instance.UseStamina(0.2f); 
             }
