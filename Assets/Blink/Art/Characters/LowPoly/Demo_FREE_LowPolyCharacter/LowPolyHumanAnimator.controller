@@ -113,7 +113,7 @@ AnimatorStateMachine:
     m_Position: {x: 595, y: 575, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3819364258151568078}
-    m_Position: {x: 670, y: 700, z: 0}
+    m_Position: {x: 630, y: 640, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2144719246560961910}
     m_Position: {x: 430, y: 40, z: 0}
@@ -167,7 +167,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -188,7 +188,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: attack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2144719246560961910}
   m_Solo: 0
