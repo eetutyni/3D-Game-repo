@@ -8,8 +8,6 @@ public class Parts : MonoBehaviour
 {
     int parts = 0;
 
-    int timer = 0;
-
     [SerializeField] TextMeshProUGUI partsText;
 
     private void OnTriggerEnter(Collider other)

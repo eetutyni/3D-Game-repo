@@ -12,15 +12,30 @@ public class Animation : MonoBehaviour
 
     void Update()
     {
-        if (movementScript.hasJumped) animator.Play("Jump");
-        else if (movementScript.move.x > 0.1 && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("RunBackward");
-        else if (movementScript.move.x < 0.1 && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("RunForward");
-        else if (movementScript.move.y < 0.1 && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("StrafeLeft");
-        else if (movementScript.move.y > 0.1 && movementScript.move.magnitude > 0.1f && movementScript.isGrounded) animator.Play("StrafeRight");
-        else if (movementScript.move.magnitude < 0.1f && movementScript.isGrounded) animator.Play("Idle");
+        if (movementScript.hasJumped) animator.SetTrigger("Jump");
+        if (movementScript.move.x > 0.1 && movementScript.move.magnitude > 0.1f && movementScript.isGrounded)
+        {
+            
+        }
+        if (movementScript.move.x < 0.1 && movementScript.move.magnitude > 0.1f && movementScript.isGrounded)
+        {
+           
+        }
+        if (movementScript.move.y < 0.1 && movementScript.move.magnitude > 0.1f && movementScript.isGrounded)
+        {
+            
+        }
+        if (movementScript.move.y > 0.1 && movementScript.move.magnitude > 0.1f && movementScript.isGrounded)
+        {
+            
+        }
+        if (movementScript.move.magnitude < 0.1f && movementScript.isGrounded)
+        {
+   
+        }
         if (Input.GetButtonDown("Fire1"))
         {
-            //animator.SetTrigger("attack");
+            animator.SetTrigger("attack");
         }
     }
 }
