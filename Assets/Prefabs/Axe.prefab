@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 3984443681867798028}
   - component: {fileID: 3984443681867798031}
   - component: {fileID: 3984443681867798030}
-  - component: {fileID: 3984443681867798065}
   - component: {fileID: 3984443681867798071}
-  - component: {fileID: 3984443681867798077}
+  - component: {fileID: 6144284156053982321}
   m_Layer: 8
   m_Name: Axe
   m_TagString: Pickup
@@ -30,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3984443681867798051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.65, y: -1.81, z: -647.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107,19 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &3984443681867798065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3984443681867798051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158494d3edcbb4f4597c47c3452e6b61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 4978faea9e94c9a4fbc67b376210b2f0, type: 2}
 --- !u!65 &3984443681867798071
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -133,7 +119,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6909953, y: 0.03389747, z: 0.19130227}
   m_Center: {x: 0.012534558, y: -0.0000000048408166, z: -0.000015258415}
---- !u!114 &3984443681867798077
+--- !u!114 &6144284156053982321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,7 +128,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3984443681867798051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b81095a2e7dc2e849852642b02168035, type: 3}
+  m_Script: {fileID: 11500000, guid: 158494d3edcbb4f4597c47c3452e6b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 4978faea9e94c9a4fbc67b376210b2f0, type: 2}
+  itemData: {fileID: 11400000, guid: 4978faea9e94c9a4fbc67b376210b2f0, type: 2}
+  objectInSight: 0

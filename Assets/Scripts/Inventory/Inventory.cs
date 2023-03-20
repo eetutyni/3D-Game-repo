@@ -1,0 +1,122 @@
+using UnityEngine;
+using System.Collections.Generic;
+
+public class Inventory : MonoBehaviour
+{
+    public List<InventoryItemData> items;
+    public float pickupDistance = 2f;
+
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private ItemDisplayer itemDisplayer;
+    [SerializeField] private Transform itemHolder;
+
+    private ItemController objectInSight;
+    private GameObject currentlyHeldItem;
+
+    public int activeSlotIndex = 0;
+    private int maxItems = 3;
+
+    private void Start()
+    {
+        items = new List<InventoryItemData>();
+    }
+
+    private void FixedUpdate()
+    {
+        CheckForObjectInSight();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PickupObjectInSight();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            DropItem();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetActiveSlot(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetActiveSlot(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetActiveSlot(2);
+        }
+    }
+
+    private void CheckForObjectInSight()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, pickupDistance))
+        {
+            ItemController itemController = hit.collider.gameObject.GetComponent<ItemController>();
+            if (itemController != null && itemController.itemData != null)
+            {
+                itemController.SetObjectInSight(true);
+                objectInSight = itemController;
+            }
+        }
+        else
+        {
+            if (objectInSight != null)
+            {
+                objectInSight.SetObjectInSight(false);
+                objectInSight = null;
+            }
+        }
+    }
+
+    private void PickupObjectInSight()
+    {
+        if (items.Count >= maxItems) return;
+
+        if (objectInSight != null && objectInSight.objectInSight)
+        {
+            InventoryItemData itemData = objectInSight.GetItemData();
+            if (itemData != null && itemData.prefab != null)
+            {
+                itemDisplayer.SpawnItemUnderParent(itemData.prefab, itemData.rotation, itemHolder.transform);
+                items.Add(itemData);
+                for (int i = 0; i < items.Count; i++) if (items[i] == itemData) SetActiveSlot(i);
+                Destroy(objectInSight.gameObject);
+            }
+        }
+    }
+
+    private void DropItem()
+    {
+        if (items.Count > 0)
+        {
+            InventoryItemData itemData = items[items.Count - 1];
+            itemDisplayer.SpawnItem(itemData.prefab, transform.position + transform.forward * 2f);
+            items.Remove(itemData);
+            if (items.Count == 0)
+            {
+                currentlyHeldItem = null;
+            }
+            else
+            {
+                currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[0].prefab, itemHolder.rotation, itemHolder.transform);
+            }
+        }
+    }
+
+    private void SetActiveSlot(int index)
+    {
+        if (index >= 0 && index + 1 < items.Count && index != activeSlotIndex)
+        {
+            activeSlotIndex = index;
+            currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[activeSlotIndex].prefab, items[activeSlotIndex].rotation, itemHolder.transform);
+        }
+    }
+}
