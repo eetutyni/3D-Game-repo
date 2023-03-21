@@ -7,8 +7,8 @@ using UnityEngine.Animations;
 
 public class Movement : MonoBehaviour
 {
-    public float speed = 1.5f;
-    public float gravity = -10.4f;
+    public float speed = 1f;
+    public float gravity = -15.5f;
 
     [SerializeField] private Staminabar staminascript;
     [SerializeField] private CharacterController controller;
@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
 
     public bool hasJumped = false;
     public bool isGrounded;
-    public float jumpForce = 2.4f;
+    public float jumpForce = 2f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
