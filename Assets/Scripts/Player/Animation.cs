@@ -17,6 +17,4 @@ public class Animation : MonoBehaviour
             animator.SetTrigger("attack");
         }
     }
-        
-
-
+}
