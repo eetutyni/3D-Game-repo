@@ -38,11 +38,12 @@ public class EnemyStateControl : MonoBehaviour
     public Vector3 roamPos;
     public float distToPlayer;
     public bool seesPlayer;
-    public int enemyHealth = 100;
 
     private bool runState;
     private float runTimer;
     private float speed;
+
+    private float roamDistance = 20;
 
     private void Start()
     {
@@ -87,12 +88,6 @@ public class EnemyStateControl : MonoBehaviour
         if (distToPlayer < attackRange) AttackPlayer();
         else if (distToPlayer < sightRange) PlayerInSightRange();
         else Roam();
-
-        if(enemyHealth <= 0)
-        {
-            anim.SetTrigger("death");
-            //Destroy gameobj
-        }
     }
 
     // Called when the player is outside of the sight range
@@ -151,5 +146,10 @@ public class EnemyStateControl : MonoBehaviour
         {
             playerHealthScript.TakeDamage(15);
         }
+    }
+
+    public void RoamToPos(Vector3 position)
+    {
+        agent.SetDestination(position);
     }
 }

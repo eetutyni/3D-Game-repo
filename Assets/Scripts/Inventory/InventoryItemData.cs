@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "InventoryItem", menuName = "Item/Create InventoryItem")]
+[CreateAssetMenu(fileName = "InventoryItem", menuName = "ScriptableObject/Create InventoryItem")]
 public class InventoryItemData : ScriptableObject
 {
     public GameObject prefab;
