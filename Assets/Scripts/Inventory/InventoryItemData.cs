@@ -7,5 +7,6 @@ using UnityEngine;
 public class InventoryItemData : ScriptableObject
 {
     public GameObject prefab;
+    public Vector3 spawnPos;
     public Quaternion rotation;
 }

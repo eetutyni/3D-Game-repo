@@ -85,7 +85,7 @@ public class Inventory : MonoBehaviour
             InventoryItemData itemData = objectInSight.GetItemData();
             if (itemData != null && itemData.prefab != null)
             {
-                itemDisplayer.SpawnItemUnderParent(itemData.prefab, itemData.rotation, itemHolder.transform);
+                itemDisplayer.SpawnItemUnderParent(itemData, itemHolder.transform);
                 items.Add(itemData);
                 for (int i = 0; i < items.Count; i++) if (items[i] == itemData) SetActiveSlot(i);
                 Destroy(objectInSight.gameObject);
@@ -98,7 +98,7 @@ public class Inventory : MonoBehaviour
         if (items.Count > 0)
         {
             InventoryItemData itemData = items[items.Count - 1];
-            itemDisplayer.SpawnItem(itemData.prefab, transform.position + transform.forward * 2f);
+            itemDisplayer.SpawnItem(itemData, transform.position + transform.forward * 2f);
             items.Remove(itemData);
             if (items.Count == 0)
             {
@@ -106,7 +106,7 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[0].prefab, itemHolder.rotation, itemHolder.transform);
+                currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[0], itemHolder.transform);
             }
         }
     }
@@ -116,7 +116,7 @@ public class Inventory : MonoBehaviour
         if (index >= 0 && index + 1 < items.Count && index != activeSlotIndex)
         {
             activeSlotIndex = index;
-            currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[activeSlotIndex].prefab, items[activeSlotIndex].rotation, itemHolder.transform);
+            currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[activeSlotIndex], itemHolder.transform);
         }
     }
 }
