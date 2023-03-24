@@ -47,7 +47,7 @@ public class Movement : MonoBehaviour
             moveDirection *= sprintModifier;
             if (isGrounded && finalVelocity.magnitude > 0.1)
             {
-                Staminabar.instance.UseStamina(0.2f);
+                Staminabar.instance.UseStamina(0.6f);
             }
         }
 
