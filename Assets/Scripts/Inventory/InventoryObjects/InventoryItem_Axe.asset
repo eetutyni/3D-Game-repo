@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: InventoryItem_Axe
   m_EditorClassIdentifier: 
   prefab: {fileID: 3984443681867798051, guid: 1eea45b31ea896f44aab2d89f76988fe, type: 3}
-  spawnPos: {x: 0, y: 0, z: -0.05}
-  rotation: {x: -1.8189898e-12, y: 0, z: 0, w: 1}
+  spawnPos: {x: 1, y: 0, z: -0.3}
+  rotation: {x: -0.7057879, y: -0.7057879, z: -0.043167837, w: 0.043167897}

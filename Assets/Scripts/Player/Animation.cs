@@ -20,13 +20,10 @@ public class Animation : MonoBehaviour
     {
        
         if(Input.GetKeyDown(KeyCode.Mouse0)) 
-        { 
-            animator.SetBool("attack", true);
-        }
-        else
         {
-            animator.SetBool("attack", false) ;
+            animator.Play("attack");
         }
+        
     }
 }
 
