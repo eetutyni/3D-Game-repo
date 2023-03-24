@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
         curHealth = maxHealth;
         Alive = true;
 
-        healthbar.value = maxHealth;
+        UpdateHealth(1);
     }
 
     public void TakeDamage(int amount)

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] private HintManager hintManager;
+
     public List<InventoryItemData> items;
     public float pickupDistance = 2f;
 
@@ -90,6 +92,8 @@ public class Inventory : MonoBehaviour
                 for (int i = 0; i < items.Count; i++) if (items[i] == itemData) SetActiveSlot(i);
                 Destroy(objectInSight.gameObject);
             }
+
+            if (itemData.itemId == 0 && itemData.hintShown == false) hintManager.TriggerHint(hintManager.hints[1]);
         }
     }
 

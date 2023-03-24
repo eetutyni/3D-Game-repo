@@ -7,35 +7,28 @@ public class HintPanel : MonoBehaviour
     [SerializeField] private HintManager hintManagerScript;
 
     public GameObject activeHint;
-    public bool panelActive;
 
     private Animator anim;
 
     void Start()
     {
         anim = GetComponent<Animator>();
-
-        panelActive = false;
     }
 
-    public void InitializeHint(GameObject hint)
+    public void ActivateHint(GameObject hint)
     {
         hint.SetActive(true);
         activeHint = hint;
+        anim.Play("MoveIn");
     }
 
-    public void SetPanelActive(bool active)
+    public void DeactivateHint()
     {
-        if (active) anim.Play("MoveIn");
-        if (!active) anim.Play("MoveOut");
-
-        panelActive = active;
+        anim.Play("MoveOut");
     }
 
     public void DisableHintText()
     {
         activeHint.SetActive(false);
-
-        hintManagerScript.hintActive = false;
     }
 }
