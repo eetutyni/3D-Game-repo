@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckSize = 0.3f;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private EnemyStateControl enem;
 
     [Header("Player movement attributes")]
     [SerializeField] private float maxSpeed = 4f;
@@ -73,6 +74,15 @@ public class Movement : MonoBehaviour
 
         // Apply the calculated velocity to the controller
         controller.Move(finalVelocity * Time.fixedDeltaTime);
+
+    }
+
+    public void DoDamage()
+    {
+        if (Vector3.Distance(enem.gameObject.transform.position, transform.position)< 2)
+        {
+            enem.Takedmg(5);
+        }
     }
 
     bool GroundCheck()

@@ -715,6 +715,7 @@ GameObject:
   - component: {fileID: 330179281}
   - component: {fileID: 330179280}
   - component: {fileID: 330179284}
+  - component: {fileID: 330179285}
   m_Layer: 5
   m_Name: MainCanvas
   m_TagString: Untagged
@@ -820,6 +821,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df72b3be40b52f446adb3b84bcac30ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &330179285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330179279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e701064a6f017f3419783fae4ff0919d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualSettingsPanel: {fileID: 0}
+  audioSettingsPanel: {fileID: 0}
+  inputSettingsPanel: {fileID: 0}
 --- !u!1 &401636257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,12 +1187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbad3872f07796c4291896c3d416d343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardText: {fileID: 480697599}
-  backwardText: {fileID: 2010474329}
-  rightText: {fileID: 1348049330}
-  leftText: {fileID: 1010540493}
-  jumpText: {fileID: 2052626670}
-  interactText: {fileID: 1647088783}
 --- !u!114 &476004035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5097,10 +5107,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoadingManager, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 330179284}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: SettingsBackButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

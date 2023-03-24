@@ -8,12 +8,10 @@ public class Animation : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Movement mov;
-    private CharacterController characterController;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        characterController= GetComponent<CharacterController>();
     }
 
     void Update()

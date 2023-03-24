@@ -70,6 +70,15 @@ public class EnemyStateControl : MonoBehaviour
         Gizmos.DrawSphere(lastKnownPlayerPos, 2f);
     }
 
+    public void Takedmg(int damage)
+    {
+        enemyHealth -= damage;
+        if (enemyHealth <= 0) 
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void FixedUpdate()
     {
         if (lastKnownPlayerPos == null) lastKnownPlayerPos = player.transform.position;
