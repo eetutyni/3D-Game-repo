@@ -38,11 +38,11 @@ public class EnemyStateControl : MonoBehaviour
     public Vector3 roamPos;
     public float distToPlayer;
     public bool seesPlayer;
+    public int enemyHealth = 100;
 
     private bool runState;
     private float runTimer;
     private float speed;
-    public int enemyHealth = 100;
 
     private void Start()
     {
@@ -144,6 +144,7 @@ public class EnemyStateControl : MonoBehaviour
         anim.SetBool("inRunRange", false);
         anim.SetBool("inRoamRange", false);
     }
+
     public void HitPlayer()
     {
         if(distToPlayer < attackRange + 1f)

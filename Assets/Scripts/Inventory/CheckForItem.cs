@@ -15,18 +15,10 @@ public class CheckForItem : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
-        {
-            hitobj = hit.collider.gameObject;
-        }
+        if (Physics.Raycast(ray, out RaycastHit hit, 3f)) hitobj = hit.collider.gameObject;
+        else hitobj = null;
 
-        if (hitobj != null)
-        {
-            if (hitobj.tag == "paper" && !storyPanel.activeInHierarchy) storyPanel.SetActive(true);
-            else if (storyPanel.activeInHierarchy) storyPanel.SetActive(false);
-
-            if (hitobj.layer == 8) canCollect = true;
-            else canCollect = false;
-        }
+        if (hitobj != null && hitobj.tag == "paper") storyPanel.SetActive(true);
+        else if (storyPanel.activeInHierarchy) storyPanel.SetActive(false);
     }
 }

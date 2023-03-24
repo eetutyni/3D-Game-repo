@@ -41,7 +41,6 @@ public class Staminabar : MonoBehaviour
         animator.Play("FadeIn");
     }
 
-
     // Hide staminabar
     public void HideStamina()
     {
@@ -58,16 +57,9 @@ public class Staminabar : MonoBehaviour
             currentStamina -= amount;
             staminaBar.value = currentStamina;
 
-            if(regen != null)
-                StopCoroutine(regen);
+            if(regen != null) StopCoroutine(regen);
 
             regen =  StartCoroutine(RegenStamina());
-            movementscript.sprintModifier = 1.8f;
-            movementscript.jumpForce = 2.4f;
-        }
-        else
-        {
-            movementscript.sprintModifier = 1;
         }
     }
 
