@@ -20,9 +20,9 @@ public class HealthFlashPanel : MonoBehaviour
     {
         anim.SetFloat("playerHp", healthScript.curHealth);
 
-        if (anim.GetBool("isFlashing") && healthScript.curHealth >= 25) SetFlashing(false);
-        if (!anim.GetBool("isFlashing") && healthScript.curHealth < 25) SetFlashing(true);
-        if (!anim.GetBool("isFlashing") && healthScript.curHealth >= 25) SetFlashing(false);
+        if (anim.GetBool("isFlashing") && healthScript.curHealth >= 20) SetFlashing(false);
+        if (!anim.GetBool("isFlashing") && healthScript.curHealth < 20) SetFlashing(true);
+        if (!anim.GetBool("isFlashing") && healthScript.curHealth >= 20) SetFlashing(false);
     }
 
     public void SetFlashing(bool value)

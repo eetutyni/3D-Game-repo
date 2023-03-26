@@ -46,6 +46,8 @@ public class PlayerHealth : MonoBehaviour
             curHealth = maxHealth;
             HideHp();
         }
+
+        
     }
 
     public void Die()
@@ -61,6 +63,9 @@ public class PlayerHealth : MonoBehaviour
     public void UpdateHealth(float fraction)
     {
         healthbar.value = fraction;
+
+        if (curHealth < 20) Staminabar.instance.SetRegenTickSlow();
+        if (curHealth < 20) Staminabar.instance.SetRegenTickFast();
     }
 
     // Show HP bar

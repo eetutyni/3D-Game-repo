@@ -12,7 +12,7 @@ public class Staminabar : MonoBehaviour
     public float maxStamina = 100;
     public float currentStamina;
 
-    private WaitForSeconds regenTick = new WaitForSeconds(0.08f);
+    private WaitForSeconds regenTick = new WaitForSeconds(0.01f);
     private Coroutine regen;
 
     [SerializeField] private Movement movementscript;
@@ -66,17 +66,27 @@ public class Staminabar : MonoBehaviour
     // Stamina regeneration
     private IEnumerator RegenStamina()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1f);
 
-        // A 100th of the max stamina is added in between a wait time of the regenTick variable until stamina reaches max
+        // Stamina is added until it reaches 100
         while(currentStamina < maxStamina)
         {
-            currentStamina += maxStamina / 100;
+            currentStamina += 0.5f;
             staminaBar.value = currentStamina;
             yield return regenTick; 
         }
 
         regen = null;
         HideStamina();
+    }
+
+    public void SetRegenTickSlow()
+    {
+        regenTick = new WaitForSeconds(0.015f);
+    }
+
+    public void SetRegenTickFast()
+    {
+        regenTick = new WaitForSeconds(0.01f);
     }
 }

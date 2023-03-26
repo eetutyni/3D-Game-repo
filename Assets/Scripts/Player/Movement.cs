@@ -58,6 +58,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && Staminabar.instance.currentStamina > 0)
         {
             moveDirection *= sprintModifier;
+            Staminabar.instance.UseStamina(0.1f);
         }
         else playerCam.fieldOfView = defaultFov;
 
@@ -84,7 +85,6 @@ public class Movement : MonoBehaviour
 
         // Apply the calculated velocity to the controller
         controller.Move(finalVelocity * Time.fixedDeltaTime);
-
     }
 
     public void DoDamage()

@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Value: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.3876368, g: 0.39387894, b: 0.397, a: 1}
   tint:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -54,10 +54,10 @@ MonoBehaviour:
     m_Value: 1
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+    m_Value: {r: 0.851, g: 0.851, b: 0.851, a: 1}
   globalLightProbeDimmer:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 0
   depthExtent:
     m_OverrideState: 1
     m_Value: 10
@@ -137,7 +137,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.48900515, z: 0.47265336}
   desiredLuxValue:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.175
   updateMode:
     m_OverrideState: 0
     m_Value: 0
