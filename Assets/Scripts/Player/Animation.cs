@@ -13,6 +13,8 @@ public class Animation : MonoBehaviour
 
     private bool running;
 
+    private float afkTimer;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -41,6 +43,8 @@ public class Animation : MonoBehaviour
                     hitDamage = baseHitDamage + Convert.ToInt32(hitTimer);
                 }
             }
+            else if (afkTimer > 0) afkTimer += Time.deltaTime;
+            else { animator.SetTrigger("afkInspect"); afkTimer = 0; }
 
             if (isClicked) hitTimer += Time.deltaTime;
         }
@@ -75,11 +79,16 @@ public class Animation : MonoBehaviour
     public void SetRunning(bool isTrue)
     {
         running = isTrue;
-        animator.SetBool("running", true);
+        animator.SetBool("running", isTrue);
     }
 
     public void OnJump()
     {
         animator.SetTrigger("jump");
+    }
+
+    public void ResetInspectTrigger()
+    {
+        animator.ResetTrigger("afkInspect");
     }
 }

@@ -8,7 +8,7 @@ public class FogStrength : MonoBehaviour
 {
     [SerializeField] private Transform player;
     private float distance;
-    private float calculatedStrength;
+    private float calculatedStrengthMultiplier;
 
     private void FixedUpdate()
     {
@@ -16,8 +16,8 @@ public class FogStrength : MonoBehaviour
 
         if (distance > 350)
         {
-            calculatedStrength = (distance - 350) / 350;
-            RenderSettings.fogDensity = calculatedStrength;
+            calculatedStrengthMultiplier = 1 - ((distance - 350) / 350);
+            RenderSettings.fogDensity = calculatedStrengthMultiplier;
         }
     }
 }
