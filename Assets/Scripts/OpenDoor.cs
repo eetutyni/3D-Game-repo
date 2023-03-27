@@ -9,7 +9,7 @@ public class OpenDoor : MonoBehaviour
     [SerializeField] private Animator anim;
 
     public bool canOpen = false;
-    private bool doorOpen = false;
+    public bool doorOpen = false;
 
     private GameObject camera;
 

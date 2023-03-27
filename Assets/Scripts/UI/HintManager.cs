@@ -17,11 +17,6 @@ public class HintManager : MonoBehaviour
     [SerializeField] private float hintTimerMax; 
     private float hintTimer;
 
-    private void Start()
-    {
-        TriggerHint(hints[0]);
-    }
-
     private void Update()
     {
         // Hint show timer logic

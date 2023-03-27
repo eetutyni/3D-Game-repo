@@ -8,6 +8,9 @@ TagManager:
   - Pickup
   - paper
   - part
+  - Fire
+  - Terrain
+  - enemy
   layers:
   - Default
   - TransparentFX

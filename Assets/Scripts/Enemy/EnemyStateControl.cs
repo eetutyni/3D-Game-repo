@@ -111,6 +111,7 @@ public class EnemyStateControl : MonoBehaviour
         anim.SetBool("inAttackRange", false);
         anim.SetBool("inRunRange", false);
         anim.SetBool("inRoamRange", true);
+       
 
         if (playerInRoamRange && Vector3.Distance(transform.position, lastKnownPlayerPos) < 10f)
         {
@@ -132,6 +133,7 @@ public class EnemyStateControl : MonoBehaviour
 
         // Set the destination of the NavMeshAgent to the player's current position
         agent.SetDestination(player.transform.position);
+        transform.LookAt(player.transform);
 
         runState = true;
         runTimer = 0;
