@@ -5,12 +5,12 @@ public class Movement : MonoBehaviour
     [Header("Reference scripts")]
     [SerializeField] private Staminabar staminascript;
     [SerializeField] private CharacterController controller;
+    [SerializeField] private Animation animationScript;
 
     [Header("Reference objects")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckSize = 0.3f;
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private EnemyStateControl enem;
 
     [Header("Camera stuff")]
     [SerializeField] private Camera playerCam;
@@ -36,6 +36,8 @@ public class Movement : MonoBehaviour
     // Velocity with gravity applied
     private Vector3 finalVelocity;
 
+    private bool canJump;
+
     // Input variables
     private float inputX;
     private float inputZ;
@@ -55,22 +57,26 @@ public class Movement : MonoBehaviour
         moveDirection = (transform.right * inputX + transform.forward * inputZ).normalized;
 
         //Modify movementspeed and use stamina if pressing LShift and moving
-        if (Input.GetKey(KeyCode.LeftShift) && Staminabar.instance.currentStamina > 0)
+        if (Input.GetKey(KeyCode.LeftShift) && Staminabar.instance.currentStamina > 0 && moveDirection.magnitude > 0.1)
         {
+            playerCam.fieldOfView = sprintFov;
             moveDirection *= sprintModifier;
             Staminabar.instance.UseStamina(0.1f);
         }
-        else playerCam.fieldOfView = defaultFov;
+        else { playerCam.fieldOfView = defaultFov; }
 
         //Check for jump
-        if (Input.GetButtonDown("Jump") && isGrounded) Jump();
+        if (Input.GetButtonDown("Jump") && isGrounded && canJump) Jump();
     }
 
     private void FixedUpdate()
     {
         isGrounded = GroundCheck();
-        // Vars for animator
+
+        // Vars for animation
         if (isGrounded) hasJumped = false;
+        if (moveDirection.magnitude < 0.1) animationScript.SetRunning(true);
+        else animationScript.SetRunning(false);
 
         if (!isGrounded) acceleration = jumpAcceleration;
         else acceleration = defaultAcceleration;
@@ -124,5 +130,10 @@ public class Movement : MonoBehaviour
         //Calculate initial jump velocity using (v_f^2 = v_i^2 + 2gh)
         finalVelocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;
+    }
+
+    public void SetCanJump(bool isTrue)
+    {
+        canJump = isTrue;
     }
 }
