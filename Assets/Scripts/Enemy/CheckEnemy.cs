@@ -16,12 +16,10 @@ public class CheckEnemy : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, radius, enemyLayerMask);
 
         // If no enemy objects are detected and the door isn't already open
-        if (hits.Length == 0 && !isDoorOpen)
+        if (hits.Length == 0 && !doorscript.doorOpen)
         {
-            isDoorOpen = true;
-
             // Open the door
-            doorscript.canOpen = true;
+            doorscript.UnlockDoor();
         }
     }
 

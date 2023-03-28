@@ -10,6 +10,7 @@ public class OpenDoor : MonoBehaviour
 
     public bool canOpen = false;
     public bool doorOpen = false;
+    private bool doorUnlocked = false;
 
     private GameObject camera;
 
@@ -28,10 +29,20 @@ public class OpenDoor : MonoBehaviour
         }
         else canOpen = false;
 
-        if (Input.GetKeyDown(KeyCode.E) && canOpen)
+        if (Input.GetKeyDown(KeyCode.E) && canOpen && doorUnlocked)
         {
             if (doorOpen) { anim.Play("CloseDoors"); doorOpen = false; }
             else { anim.Play("OpenDoors"); doorOpen = true; }
         }
+    }
+
+    public void UnlockDoor()
+    {
+        doorUnlocked = true;
+    }
+
+    public bool GetDoorUnlocked()
+    {
+        return doorUnlocked;
     }
 }
