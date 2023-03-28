@@ -44,6 +44,7 @@ public class ObjectHolderAnimation : MonoBehaviour
 
                     hitDamage = baseHitDamage + Convert.ToInt32(Mathf.Clamp(hitTimer * 3, 0, 8f));
                 }
+                mov.SetCanJump(true);
             }
 
             if (isClicked && hitTimer < 4) hitTimer += Time.deltaTime;
@@ -59,7 +60,19 @@ public class ObjectHolderAnimation : MonoBehaviour
             }
             else { animator.SetBool("walking", false); animator.SetBool("afk", false); }
         }
-        else { animator.SetBool("running", true); animator.SetBool("afk", false); }
+        else
+        {
+            animator.SetBool("running", true); animator.SetBool("afk", false);
+            mov.SetCanJump(true);
+
+            if (isClicked)
+            {
+                isClicked = false;
+                animator.SetBool("hitClick", false);
+
+                hitDamage = baseHitDamage + Convert.ToInt32(Mathf.Clamp(hitTimer * 3, 0, 8f));
+            }
+        }
     }
 
     public void ForceSwing()

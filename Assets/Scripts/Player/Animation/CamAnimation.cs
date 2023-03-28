@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class CamAnimation : MonoBehaviour
 {
-    private Animator camAnimator;
+    private Animator animator;
 
     private void Start()
     {
-        camAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 }
