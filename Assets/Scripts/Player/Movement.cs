@@ -5,7 +5,7 @@ public class Movement : MonoBehaviour
     [Header("Reference scripts")]
     [SerializeField] private Staminabar staminascript;
     [SerializeField] private CharacterController controller;
-    [SerializeField] private Animation animationScript;
+    [SerializeField] private ObjectHolderAnimation objAnimationScript;
 
     [Header("Reference objects")]
     [SerializeField] private Transform groundCheck;
@@ -57,13 +57,26 @@ public class Movement : MonoBehaviour
         moveDirection = (transform.right * inputX + transform.forward * inputZ).normalized;
 
         //Modify movementspeed and use stamina if pressing LShift and moving
-        if (Input.GetKey(KeyCode.LeftShift) && Staminabar.instance.currentStamina > 0 && moveDirection.magnitude > 0.1)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            playerCam.fieldOfView = sprintFov;
-            moveDirection *= sprintModifier;
-            Staminabar.instance.UseStamina(0.1f);
+            if (moveDirection.magnitude > 0.1 && Staminabar.instance.currentStamina > 0)
+            {
+                playerCam.fieldOfView = sprintFov;
+                moveDirection *= sprintModifier;
+                Staminabar.instance.UseStamina(0.1f);
+                objAnimationScript.SetRunning(true);
+            }
+            else objAnimationScript.SetRunning(false);
         }
-        else { playerCam.fieldOfView = defaultFov; }
+        else
+        {
+            playerCam.fieldOfView = defaultFov;
+
+            objAnimationScript.SetRunning(false);
+
+            if (moveDirection.magnitude > 0.1) objAnimationScript.SetWalking(true);
+            else objAnimationScript.SetWalking(false);
+        }
 
         //Check for jump
         if (Input.GetButtonDown("Jump") && isGrounded && canJump) Jump();
@@ -75,8 +88,6 @@ public class Movement : MonoBehaviour
 
         // Vars for animation
         if (isGrounded) hasJumped = false;
-        if (moveDirection.magnitude < 0.1) animationScript.SetRunning(true);
-        else animationScript.SetRunning(false);
 
         if (!isGrounded) acceleration = jumpAcceleration;
         else acceleration = defaultAcceleration;
