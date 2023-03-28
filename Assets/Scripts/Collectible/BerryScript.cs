@@ -28,9 +28,10 @@ public class BerryScript : MonoBehaviour
     public void FixedUpdate()
     {
         // Check if player is in range of bush
-        if (Vector3.Distance(transform.position, player.transform.position) < 1f && collectText.gameObject.activeInHierarchy)
+        if (Vector3.Distance(transform.position, player.transform.position) < 1f)
         {
             collectText.gameObject.SetActive(true);
+            ActivateCollect();
         }
         else 
 
