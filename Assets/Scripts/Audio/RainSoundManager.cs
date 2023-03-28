@@ -1,27 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class RainSoundManager : MonoBehaviour
 {
+    [Header("Shelter check references")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private LayerMask shelterLayer;
 
-    [SerializeField] private AudioMixerGroup mainGroup;
-    [SerializeField] private AudioMixerGroup shelterGroup;
-
-    private AudioSource audioSource;
-
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+    [SerializeField] private AudioLowPassFilter lowPassFilter;
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(playerTransform.position, playerTransform.up, 3f, shelterLayer)) audioSource.outputAudioMixerGroup = shelterGroup;
-        else audioSource.outputAudioMixerGroup = mainGroup;
+        if (ShelterCheck()) lowPassFilter.cutoffFrequency = 8000;
+        else lowPassFilter.cutoffFrequency = 22000;
+    }
+
+    private bool ShelterCheck()
+    {
+        return Physics.Raycast(playerTransform.position, playerTransform.up, 4f, shelterLayer);
     }
 }

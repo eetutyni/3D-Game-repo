@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
 
     [Header("Camera stuff")]
     [SerializeField] private Camera playerCam;
+    [SerializeField] private CamAnimation camAnimScript;
     [SerializeField] private float defaultFov;
     [SerializeField] private float sprintFov;
 
@@ -22,7 +23,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float defaultAcceleration = 3f;
     [SerializeField] private float jumpAcceleration = 1.2f;
     [SerializeField] private float sprintModifier = 1.8f;
-    [SerializeField] private float jumpForce = 2f;
+    [SerializeField] private float defaultJumpForce = 2f;
     [SerializeField] private float gravity = -12f;
 
     [Header("Public variables")]
@@ -43,13 +44,15 @@ public class Movement : MonoBehaviour
     private float inputZ;
 
     private float acceleration;
+    private float jumpForce;
 
     private void Start()
     {
         acceleration = defaultAcceleration;
+        jumpForce = defaultJumpForce;
     }
 
-    public void Update()
+    private void Update()
     {
         //Update input vars and calculate direction vector
         inputX = Input.GetAxisRaw("Horizontal");
@@ -87,10 +90,16 @@ public class Movement : MonoBehaviour
         isGrounded = GroundCheck();
 
         // Vars for animation
-        if (isGrounded) hasJumped = false;
-
-        if (!isGrounded) acceleration = jumpAcceleration;
-        else acceleration = defaultAcceleration;
+        if (isGrounded)
+        {
+            hasJumped = false;
+            acceleration = defaultAcceleration;
+            camAnimScript.ResetJump();
+        }
+        else
+        {
+            acceleration = jumpAcceleration;
+        }
 
         // Move the current velocity towards the intended velocity in the speed of the accelerationSpeed
         velocity = Vector3.MoveTowards(velocity, moveDirection * maxSpeed, acceleration);
@@ -131,11 +140,13 @@ public class Movement : MonoBehaviour
         if (Staminabar.instance.currentStamina < 15)
         {
             Staminabar.instance.UseStamina(Staminabar.instance.currentStamina);
-            jumpForce = Staminabar.instance.currentStamina / 30;
+            jumpForce *= 0.2f;
         }
         else
         {
             Staminabar.instance.UseStamina(15);
+            jumpForce = defaultJumpForce;
+            camAnimScript.Jump();
         }
 
         //Calculate initial jump velocity using (v_f^2 = v_i^2 + 2gh)

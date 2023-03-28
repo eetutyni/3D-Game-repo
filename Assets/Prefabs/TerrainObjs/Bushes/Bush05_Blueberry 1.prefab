@@ -184,9 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04cdeff9fa6d864bb76cab133b6be4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plHealth: {fileID: 0}
   bushScript: {fileID: 4592204546275884955}
-  collectText: {fileID: 0}
 --- !u!23 &4592204545356743793 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2300004, guid: fe3ef29f6dae00344b41413c90b4cc57, type: 3}

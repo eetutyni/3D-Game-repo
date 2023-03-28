@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CamAnimation : MonoBehaviour
 {
+    [SerializeField] Animator holderAnim;
+
     private Animator animator;
 
     private void Start()
@@ -13,6 +15,41 @@ public class CamAnimation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (holderAnim.GetBool("afk"))
+        {
+            animator.SetBool("afk", true);
+
+            animator.SetBool("running", false);
+            animator.SetBool("walking", false);
+        }
+        if (holderAnim.GetBool("running"))
+        {
+            animator.SetBool("running", true);
+
+            animator.SetBool("afk", false);
+            animator.SetBool("walking", false);
+        }
+        if (holderAnim.GetBool("walking"))
+        {
+            animator.SetBool("walking", true);
+
+            animator.SetBool("afk", false);
+            animator.SetBool("running", false);
+        }
+    }
+
+    public void Jump()
+    {
+        animator.SetBool("jumping", true);
+
+        animator.SetBool("afk", false);
+        animator.SetBool("running", false);
+        animator.SetBool("walking", false);
+    }
+
+    public void ResetJump()
+    {
+        Debug.Log("jumpreset");
+        animator.SetBool("jumping", false);
     }
 }

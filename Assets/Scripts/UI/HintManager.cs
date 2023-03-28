@@ -4,40 +4,31 @@ using UnityEngine;
 
 public class HintManager : MonoBehaviour
 {
-    [Header("Reference scripts")]
-    [SerializeField] private HintPanel hintPanelScript;
-    [SerializeField] private ObjsPanel objsPanelScript;
+    public List<GameObject> hints;
+    private int activeHintIndex = -1;
 
-    [Header("List of the hint texts")]
-    public List<GameObject> hints = new List<GameObject>();
-
-    public bool hintActive;
-    public GameObject activeHint;
-
-    [SerializeField] private float hintTimerMax; 
+    [SerializeField] private Animator anim;
+    [SerializeField] private float hintTimerMax;
     private float hintTimer;
 
-    private void Update()
+    private void FixedUpdate()
     {
-        // Hint show timer logic
-        if (hintActive && hintTimer <= 0)
+        if (activeHintIndex != -1 && hintTimer <= 0)
         {
-            hintPanelScript.DeactivateHint();
-            hintActive = false;
-            activeHint = null;
+            DisableHint();
         }
-        else hintTimer -= Time.deltaTime;
+        else hintTimer += Time.fixedDeltaTime;
     }
 
-    public void SkipHint()
+    public void TriggerHint(int index)
     {
-        if (hintTimer > 1) hintTimer = 1;
+        if (hints[index] == null) return;
+        if (activeHintIndex == -1) hints[index].SetActive(true);
+        anim.Play("");
     }
 
-    public void TriggerHint(GameObject hint)
+    public void DisableHint()
     {
-        hintPanelScript.ActivateHint(hint);
-        hintActive = true;
-        activeHint = hint;
+        if (hints[activeHintIndex] != null) hints[activeHintIndex].SetActive(false);
     }
 }

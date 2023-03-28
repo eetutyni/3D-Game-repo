@@ -1,12 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using TMPro;
 using UnityEngine;
 
 public class Parts : MonoBehaviour
 {
-    int parts = 0;
+    private int parts = 0;
 
     [SerializeField] TextMeshProUGUI partsText;
 
@@ -21,7 +19,7 @@ public class Parts : MonoBehaviour
             StartCoroutine(Waiter());
         }
     }
-    
+
     private IEnumerator Waiter()
     {
         yield return new WaitForSeconds(4);

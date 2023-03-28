@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class ObjectHolderAnimation : MonoBehaviour
@@ -8,6 +9,7 @@ public class ObjectHolderAnimation : MonoBehaviour
 
     private Animator animator;
     private bool isClicked = false;
+
     private float hitTimer;
     private int hitDamage;
 
@@ -35,7 +37,12 @@ public class ObjectHolderAnimation : MonoBehaviour
                 hitTimer = 0;
                 mov.SetCanJump(false);
             }
-            else if (Input.GetMouseButtonUp(0))
+            else if (Input.GetMouseButton(0))
+            {
+                isClicked = true;
+                animator.SetBool("hitClick", true);
+            }
+            else
             {
                 if (isClicked)
                 {
@@ -43,11 +50,12 @@ public class ObjectHolderAnimation : MonoBehaviour
                     animator.SetBool("hitClick", false);
 
                     hitDamage = baseHitDamage + Convert.ToInt32(Mathf.Clamp(hitTimer * 3, 0, 8f));
+                    Staminabar.instance.UseStamina(20);
                 }
                 mov.SetCanJump(true);
             }
 
-            if (isClicked && hitTimer < 4) hitTimer += Time.deltaTime;
+            if (isClicked && hitTimer < 3.2f) hitTimer += Time.deltaTime;
             else ForceSwing();
 
             if (!walking)
@@ -58,10 +66,16 @@ public class ObjectHolderAnimation : MonoBehaviour
                 if (afkTimer > 0) afkTimer += Time.deltaTime;
                 else { animator.SetTrigger("afkInspect"); afkTimer = 7.5f; }
             }
-            else { animator.SetBool("walking", false); animator.SetBool("afk", false); }
+            else
+            {
+                animator.SetBool("walking", false);
+                animator.SetBool("afk", false);
+                animator.ResetTrigger("afkInspect");
+            }
         }
         else
         {
+            animator.ResetTrigger("afkInspect");
             animator.SetBool("running", true); animator.SetBool("afk", false);
             mov.SetCanJump(true);
 
@@ -113,10 +127,5 @@ public class ObjectHolderAnimation : MonoBehaviour
     public void OnJump()
     {
         animator.SetTrigger("jump");
-    }
-
-    public void ResetInspectTrigger()
-    {
-        animator.ResetTrigger("afkInspect");
     }
 }
