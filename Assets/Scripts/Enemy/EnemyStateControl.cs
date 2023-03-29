@@ -98,7 +98,7 @@ public class EnemyStateControl : MonoBehaviour
         if(enemyHealth <= 0)
         {
             anim.SetTrigger("death");
-            //Destroy gameobj
+            Destroy(gameObject);
         }
     }
 
@@ -132,7 +132,7 @@ public class EnemyStateControl : MonoBehaviour
         lastKnownPlayerPos = player.transform.position;
 
         // Set the destination of the NavMeshAgent to the player's current position
-        agent.SetDestination(player.transform.position);
+        agent.SetDestination(lastKnownPlayerPos);
 
         runState = true;
         runTimer = 0;
