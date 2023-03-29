@@ -68,17 +68,27 @@ public class Movement : MonoBehaviour
                 moveDirection *= sprintModifier;
                 Staminabar.instance.UseStamina(0.1f);
                 objAnimationScript.SetRunning(true);
+                camAnimScript.SetRunning(true);
             }
-            else objAnimationScript.SetRunning(false);
+            else { objAnimationScript.SetRunning(false); camAnimScript.SetRunning(false); }
         }
         else
         {
             playerCam.fieldOfView = defaultFov;
 
             objAnimationScript.SetRunning(false);
+            camAnimScript.SetRunning(false);
 
-            if (moveDirection.magnitude > 0.1) objAnimationScript.SetWalking(true);
-            else objAnimationScript.SetWalking(false);
+            if (moveDirection.magnitude > 0.1)
+            {
+                objAnimationScript.SetWalking(true);
+                camAnimScript.SetWalking(true);
+            }
+            else
+            {
+                objAnimationScript.SetWalking(false);
+                camAnimScript.SetWalking(false);
+            }
         }
 
         //Check for jump
@@ -94,7 +104,6 @@ public class Movement : MonoBehaviour
         {
             hasJumped = false;
             acceleration = defaultAcceleration;
-            camAnimScript.ResetJump();
         }
         else
         {
@@ -146,7 +155,7 @@ public class Movement : MonoBehaviour
         {
             Staminabar.instance.UseStamina(15);
             jumpForce = defaultJumpForce;
-            camAnimScript.Jump();
+            camAnimScript.OnJump();
         }
 
         //Calculate initial jump velocity using (v_f^2 = v_i^2 + 2gh)

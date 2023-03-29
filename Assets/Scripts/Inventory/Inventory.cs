@@ -98,6 +98,7 @@ public class Inventory : MonoBehaviour
                 if (itemData.itemId == 0 && !itemData.hintShown)
                 {
                     hintManager.TriggerHint(1);
+                    itemData.hintShown = true;
                 }
             }
         }
@@ -128,5 +129,18 @@ public class Inventory : MonoBehaviour
             activeSlotIndex = index;
             currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[activeSlotIndex], itemHolder.transform);
         }
+    }
+
+    public int GetPartsInInventory()
+    {
+        int parts = 0;
+        foreach (InventoryItemData item in items)
+        {
+            if (item.itemId == 1)
+            {
+                parts++;
+            }
+        }
+        return parts;
     }
 }

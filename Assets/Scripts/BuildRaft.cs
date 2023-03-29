@@ -6,37 +6,57 @@ using UnityEngine.UI;
 
 public class BuildRaft : MonoBehaviour
 {
-    public bool canBuild = false;
+    [SerializeField] private Inventory inventoryScript;
+
     [SerializeField] private GameObject hitobj;
-    public GameObject raft;
-
-
+    [SerializeField] private GameObject raft;
     [SerializeField] private GameObject buildText;
+
+    private bool canBuild = false;
+    private int partsSet = 0;
+
+    private bool done;
 
     private void Start()
     {
         buildText.SetActive(false);
     }
+
     private void FixedUpdate()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
+        if (done) return;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+        GameObject obj = CamItemChecker.instance.GetItemInView();
+        if (obj != null && obj.tag == "workbench" && inventoryScript.GetPartsInInventory() > 0)
         {
-            hitobj = hit.collider.gameObject;
-        }
-
-
-        if (hitobj.tag == "workbench")
-        {
-            buildText.SetActive(true);
             canBuild = true;
+            buildText.SetActive(true);
         }
-        else canBuild = false;
+        else
+        {
+            canBuild = false;
+            buildText.SetActive(false);
+        }
 
         if (Input.GetKeyDown(KeyCode.E) && canBuild)
-        { 
-            raft.SetActive(true);
+        {
+            AddParts(inventoryScript.GetPartsInInventory());
         }
+
+        if (partsSet >= 5)
+        {
+            SpawnRaft();
+            done = true;
+        }
+    }
+
+    public void AddParts(int partCount)
+    {
+        partsSet += partCount;
+    }
+
+    private void SpawnRaft()
+    {
+        raft.SetActive(true);
     }
 }
