@@ -26,37 +26,44 @@ public class ObjectHolderAnimation : MonoBehaviour
     private void FixedUpdate()
     {
         // Object holder animator logic
-        if (!running)
+        if (Input.GetMouseButtonDown(0))
+        {
+            isClicked = true;
+            animator.SetBool("hitClick", true);
+            hitTimer = 0;
+            mov.SetCanJump(false);
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            isClicked = true;
+            animator.SetBool("hitClick", true);
+        }
+        else
+        {
+            if (isClicked)
+            {
+                isClicked = false;
+                animator.SetBool("hitClick", false);
+
+                hitDamage = baseHitDamage + Convert.ToInt32(Mathf.Clamp(hitTimer * 3, 0, 8f));
+                Staminabar.instance.UseStamina(20);
+            }
+            mov.SetCanJump(true);
+        }
+
+        if (isClicked && hitTimer < 3.2f) hitTimer += Time.deltaTime;
+        else ForceSwing();
+
+        if (running)
+        {
+            animator.ResetTrigger("afkInspect");
+            animator.SetBool("running", true);
+            animator.SetBool("afk", false);
+            mov.SetCanJump(true);
+        }
+        else
         {
             animator.SetBool("running", false);
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                isClicked = true;
-                animator.SetBool("hitClick", true);
-                hitTimer = 0;
-                mov.SetCanJump(false);
-            }
-            else if (Input.GetMouseButton(0))
-            {
-                isClicked = true;
-                animator.SetBool("hitClick", true);
-            }
-            else
-            {
-                if (isClicked)
-                {
-                    isClicked = false;
-                    animator.SetBool("hitClick", false);
-
-                    hitDamage = baseHitDamage + Convert.ToInt32(Mathf.Clamp(hitTimer * 3, 0, 8f));
-                    Staminabar.instance.UseStamina(20);
-                }
-                mov.SetCanJump(true);
-            }
-
-            if (isClicked && hitTimer < 3.2f) hitTimer += Time.deltaTime;
-            else ForceSwing();
 
             if (!walking)
             {
@@ -71,20 +78,6 @@ public class ObjectHolderAnimation : MonoBehaviour
                 animator.SetBool("walking", false);
                 animator.SetBool("afk", false);
                 animator.ResetTrigger("afkInspect");
-            }
-        }
-        else
-        {
-            animator.ResetTrigger("afkInspect");
-            animator.SetBool("running", true); animator.SetBool("afk", false);
-            mov.SetCanJump(true);
-
-            if (isClicked)
-            {
-                isClicked = false;
-                animator.SetBool("hitClick", false);
-
-                hitDamage = baseHitDamage + Convert.ToInt32(Mathf.Clamp(hitTimer * 3, 0, 8f));
             }
         }
     }
@@ -122,10 +115,5 @@ public class ObjectHolderAnimation : MonoBehaviour
     {
         walking = isTrue;
         animator.SetBool("walking", isTrue);
-    }
-
-    public void OnJump()
-    {
-        animator.SetTrigger("jump");
     }
 }

@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CamAnimation : MonoBehaviour
 {
     [SerializeField] Animator holderAnim;
+    [SerializeField] private Movement mov;
 
     private Animator animator;
+
+    private bool running;
+    private bool walking;
 
     private void Start()
     {
@@ -15,41 +20,45 @@ public class CamAnimation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (holderAnim.GetBool("afk"))
-        {
-            animator.SetBool("afk", true);
-
-            animator.SetBool("running", false);
-            animator.SetBool("walking", false);
-        }
-        if (holderAnim.GetBool("running"))
+        if (running)
         {
             animator.SetBool("running", true);
-
             animator.SetBool("afk", false);
-            animator.SetBool("walking", false);
+            animator.ResetTrigger("jump");
+            mov.SetCanJump(true);
         }
-        if (holderAnim.GetBool("walking"))
+        else
         {
-            animator.SetBool("walking", true);
-
-            animator.SetBool("afk", false);
             animator.SetBool("running", false);
+            animator.ResetTrigger("jump");
+
+            if (!walking)
+            {
+                animator.SetBool("walking", false);
+                animator.SetBool("afk", true);
+            }
+            else
+            {
+                animator.SetBool("walking", false);
+                animator.SetBool("afk", false);
+            }
         }
     }
 
-    public void Jump()
+    public void SetRunning(bool isTrue)
     {
-        animator.SetBool("jumping", true);
-
-        animator.SetBool("afk", false);
-        animator.SetBool("running", false);
-        animator.SetBool("walking", false);
+        running = isTrue;
+        animator.SetBool("running", isTrue);
     }
 
-    public void ResetJump()
+    public void SetWalking(bool isTrue)
     {
-        Debug.Log("jumpreset");
-        animator.SetBool("jumping", false);
+        walking = isTrue;
+        animator.SetBool("walking", isTrue);
+    }
+
+    public void OnJump()
+    {
+        animator.SetTrigger("jump");
     }
 }

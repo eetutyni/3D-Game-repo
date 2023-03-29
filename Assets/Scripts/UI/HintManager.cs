@@ -8,8 +8,13 @@ public class HintManager : MonoBehaviour
     private int activeHintIndex = -1;
 
     [SerializeField] private Animator anim;
-    [SerializeField] private float hintTimerMax;
+    [SerializeField] private float hintTimerMax = 5f;
     private float hintTimer;
+
+    private void Start()
+    {
+        TriggerHint(0);
+    }
 
     private void FixedUpdate()
     {
@@ -23,8 +28,9 @@ public class HintManager : MonoBehaviour
     public void TriggerHint(int index)
     {
         if (hints[index] == null) return;
-        if (activeHintIndex == -1) hints[index].SetActive(true);
-        anim.Play("");
+        if (activeHintIndex != -1) hints[index].SetActive(true);
+        anim.Play("MoveIn");
+        hintTimer = hintTimerMax;
     }
 
     public void DisableHint()
