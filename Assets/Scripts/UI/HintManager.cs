@@ -23,8 +23,8 @@ public class HintManager : MonoBehaviour
     public void TriggerHint(int index)
     {
         if (hints[index] == null) return;
-        if (activeHintIndex == -1) hints[index].SetActive(true);
-        anim.Play("");
+        if (activeHintIndex != -1) hints[index].SetActive(true);
+        anim.Play("MoveIn");
     }
 
     public void DisableHint()

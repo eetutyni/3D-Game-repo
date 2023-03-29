@@ -32,7 +32,7 @@ public class CamAnimation : MonoBehaviour
         if (holderAnim.GetBool("walking"))
         {
             animator.SetBool("walking", true);
-
+            Debug.Log("walkin");
             animator.SetBool("afk", false);
             animator.SetBool("running", false);
         }
@@ -49,7 +49,6 @@ public class CamAnimation : MonoBehaviour
 
     public void ResetJump()
     {
-        Debug.Log("jumpreset");
-        animator.SetBool("jumping", false);
+        if (!animator.GetBool("jumping")) animator.SetBool("jumping", false);
     }
 }
