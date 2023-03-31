@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Staminabar staminascript;
     [SerializeField] private CharacterController controller;
     [SerializeField] private ObjectHolderAnimation objAnimationScript;
+    [SerializeField] private FootstepsAudioScript footstepAudioScript;
 
     [Header("Reference objects")]
     [SerializeField] private Transform groundCheck;

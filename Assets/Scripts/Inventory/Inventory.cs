@@ -69,6 +69,7 @@ public class Inventory : MonoBehaviour
                 objectInSight = itemController;
                 labelScript.ShowLabel();
             }
+            else labelScript.HideLabel();
         }
         else
         {

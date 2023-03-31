@@ -13,7 +13,8 @@ public class ItemDisplayer : MonoBehaviour
 
     public GameObject SpawnItemUnderParent(InventoryItemData itemData, Transform parent)
     {
-        GameObject item = Instantiate(itemData.prefab, parent.position + itemData.spawnPos, parent.rotation * itemData.rotation, parent);
+        GameObject item = Instantiate(itemData.prefab, parent.position, parent.rotation * itemData.rotation, parent);
+        item.transform.localPosition = itemData.spawnPos;
         Rigidbody rb;
         item.TryGetComponent(out rb);
         rb.constraints = RigidbodyConstraints.FreezeAll;

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c7bc06fee96c34795b50f79351f4c4, type: 3}
   m_Name: InventoryItem_Axe
   m_EditorClassIdentifier: 
+  itemId: 0
+  hintShown: 1
   prefab: {fileID: 3984443681867798051, guid: 1eea45b31ea896f44aab2d89f76988fe, type: 3}
-  spawnPos: {x: 1, y: 0, z: -0.3}
-  rotation: {x: -0.7057879, y: -0.7057879, z: -0.043167837, w: 0.043167897}
+  spawnPos: {x: 0, y: 0, z: -0.1}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
