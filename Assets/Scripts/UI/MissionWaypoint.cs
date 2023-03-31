@@ -5,12 +5,21 @@ using UnityEngine.UI;
 
 public class MissionWaypoint : MonoBehaviour
 {
-    [SerializeField] private Image img;
+    [SerializeField] private GameObject img;
     [SerializeField] private Transform target;
+    [SerializeField] private GameObject player;
+    [SerializeField] private Camera mainCam;
+
+    private float playerDistance;
 
     void Update()
     {
-        if (img.gameObject.activeInHierarchy) img.transform.position = Camera.main.WorldToScreenPoint(target.position);
+        if (gameObject.activeInHierarchy) img.transform.position = mainCam.WorldToScreenPoint(target.position);
+    }
+
+    public void SetMarker(Transform markerTarget)
+    {
+        target = markerTarget;
     }
 
     public void ShowMarker()

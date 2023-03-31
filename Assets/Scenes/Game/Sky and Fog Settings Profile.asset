@@ -48,7 +48,7 @@ MonoBehaviour:
     m_Value: 590
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 125
+    m_Value: 100
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
@@ -137,7 +137,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.48900515, z: 0.47265336}
   desiredLuxValue:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.35
   updateMode:
     m_OverrideState: 0
     m_Value: 0

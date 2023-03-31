@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class PickupLabel : MonoBehaviour
 {
-    [SerializeField] private GameObject label;
-
     public void ShowLabel()
     {
-        label.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void HideLabel()
     {
-        label.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
