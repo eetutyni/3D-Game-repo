@@ -6,8 +6,11 @@ using Unity.VisualScripting;
 
 public class EnemyStateControl : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    [Header("Reference scripts")]
     [SerializeField] private PlayerHealth playerHealthScript;
+
+    [Header("Reference objects")]
+    [SerializeField] private GameObject player;
 
     [Header("Enemy state activation ranges")]
     [Range(50f, 65f)] public float roamRange;
@@ -25,8 +28,6 @@ public class EnemyStateControl : MonoBehaviour
     [Header("Enemy attributes")]
     // The run speed modifier
     [SerializeField] private float runMod;
-    // THe attack speed modifier
-    [SerializeField] private float attackSpeedMod;
     // Enemy attack rate
     [SerializeField] private float attackWaitTime;
     // How much damage does one hit deal to the player
@@ -72,7 +73,7 @@ public class EnemyStateControl : MonoBehaviour
     public void Takedmg(int damage)
     {
         enemyHealth -= damage;
-        if (enemyHealth <= 0) 
+        if (enemyHealth <= 0)
         {
             Destroy(gameObject);
         }
@@ -90,15 +91,16 @@ public class EnemyStateControl : MonoBehaviour
         distToPlayer = Vector3.Distance(transform.position, player.transform.position);
         playerInRoamRange = distToPlayer < roamRange;
 
+        agent.isStopped = false;
         // Check which state the enemy should be in based on the distance to the player
         if (distToPlayer < attackRange) AttackPlayer();
         else if (distToPlayer < sightRange) PlayerInSightRange();
         else Roam();
 
-        if(enemyHealth <= 0)
+        if (enemyHealth <= 0)
         {
             anim.SetTrigger("death");
-            Destroy(gameObject);
+            //Destroy gameobj
         }
     }
 
@@ -110,10 +112,26 @@ public class EnemyStateControl : MonoBehaviour
         anim.SetBool("inRunRange", false);
         anim.SetBool("inRoamRange", true);
 
+        float distanceFromStartingPoint = Vector3.Distance(transform.position, roamPos);
+
+        // If the enemy is too far away from its starting point or about to cross a boundary, set a new destination within the maximum run range
+        if (distanceFromStartingPoint > roamRange || Vector3.Distance(transform.position, lastKnownPlayerPos) < 10f)
+        {
+            Vector3 randomDirection = Random.insideUnitSphere * roamRange;
+            randomDirection += transform.position;
+            NavMeshHit hit;
+            NavMesh.SamplePosition(randomDirection, out hit, roamRange, 1);
+            lastKnownPlayerPos = hit.position;
+            agent.SetDestination(lastKnownPlayerPos);
+        }
+
+        runTimer += Time.deltaTime;
+    
+
         if (playerInRoamRange && Vector3.Distance(transform.position, lastKnownPlayerPos) < 10f)
         {
             Debug.Log("lastposinrange");
-            lastKnownPlayerPos = new Vector3(player.transform.position.x + Random.Range(-15f, 15f), player.transform.position.y, player.transform.position.z + Random.Range(-40f, 40f));
+            lastKnownPlayerPos = new Vector3(player.transform.position.x + Random.Range(-40f, 40f), player.transform.position.y, player.transform.position.z + Random.Range(-40f, 40f));
             agent.SetDestination(lastKnownPlayerPos);
         }
 
@@ -128,35 +146,34 @@ public class EnemyStateControl : MonoBehaviour
         anim.SetBool("inRunRange", true);
         anim.SetBool("inRoamRange", false);
 
-        // Update the last known position of the player to the player's current position
-        lastKnownPlayerPos = player.transform.position;
-
         // Set the destination of the NavMeshAgent to the player's current position
-        agent.SetDestination(lastKnownPlayerPos);
+        agent.SetDestination(player.transform.position);
+        transform.LookAt(player.transform);
 
         runState = true;
         runTimer = 0;
+
+        // Update the last known position of the player to the player's current position
+        lastKnownPlayerPos = player.transform.position;
     }
 
     // Called when the player is in the attackRange
     private void AttackPlayer()
     {
-        // Slow enemy down while attacking
-        agent.speed = speed * attackSpeedMod;
-        agent.SetDestination(player.transform.position);
-        
+        // Stop enemy and head it towards player
+        agent.ResetPath();
+        agent.isStopped = true;
+        transform.LookAt(player.transform.position);
+
         // Set animation vars
         anim.SetBool("inAttackRange", true);
         anim.SetBool("inRunRange", false);
         anim.SetBool("inRoamRange", false);
-
-        // Update the last known position of the player to the player's current position
-        lastKnownPlayerPos = player.transform.position;
     }
 
     public void HitPlayer()
     {
-        if(distToPlayer < attackRange + 1f)
+        if (distToPlayer < attackRange + 1f)
         {
             playerHealthScript.TakeDamage(15);
         }
