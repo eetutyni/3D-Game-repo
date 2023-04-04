@@ -8,7 +8,6 @@ public class BuildRaft : MonoBehaviour
 {
     [SerializeField] private Inventory inventoryScript;
 
-    [SerializeField] private GameObject hitobj;
     [SerializeField] private GameObject raft;
     [SerializeField] private GameObject buildText;
 
@@ -26,11 +25,18 @@ public class BuildRaft : MonoBehaviour
     {
         if (done) return;
 
-        GameObject obj = CamItemChecker.instance.GetItemInView();
-        if (obj != null && obj.tag == "workbench" && inventoryScript.GetPartsInInventory() > 0)
+        if (CamItemChecker.instance.GetItemInView() != null)
         {
-            canBuild = true;
-            buildText.SetActive(true);
+            if (CamItemChecker.instance.GetItemInView() == gameObject && inventoryScript.GetPartsInInventory() > 0)
+            {
+                canBuild = true;
+                buildText.SetActive(true);
+            }
+            else
+            {
+                canBuild = false;
+                buildText.SetActive(false);
+            }
         }
         else
         {

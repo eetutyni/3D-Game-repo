@@ -19,8 +19,8 @@ public class FootstepsAudioScript : MonoBehaviour
         if (audioSource.clip != walkAudio)
         {
             audioSource.clip = walkAudio;
-            audioSource.Play();
         }
+        audioSource.Play();
     }
 
     public void PlayRunAudio()
@@ -28,7 +28,7 @@ public class FootstepsAudioScript : MonoBehaviour
         if (audioSource.clip != runAudio)
         {
             audioSource.clip = runAudio;
-            audioSource.Play();
         }
+        audioSource.Play();
     }
 }

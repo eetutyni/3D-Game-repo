@@ -28,6 +28,8 @@ public class EnemyStateControl : MonoBehaviour
     [Header("Enemy attributes")]
     // The run speed modifier
     [SerializeField] private float runMod;
+    // Speed modifier during attack
+    [SerializeField] private float attackMod;
     // Enemy attack rate
     [SerializeField] private float attackWaitTime;
     // How much damage does one hit deal to the player
@@ -41,6 +43,7 @@ public class EnemyStateControl : MonoBehaviour
     public int enemyHealth = 100;
 
     private bool runState;
+    private bool hitState;
     private float runTimer;
     private float speed;
 
@@ -85,13 +88,14 @@ public class EnemyStateControl : MonoBehaviour
 
         // If the enemy sees the player the speed is set to the runmodifier and else it is normal speed
         if (runTimer > 4f) runState = false;
-        if (runState) agent.speed = speed * runMod; else agent.speed = speed;
+        if (hitState) agent.speed = speed * attackMod;
+        else if (runState) agent.speed = speed * runMod;
+        else agent.speed = speed;
 
         // Calculate the distance to the player
         distToPlayer = Vector3.Distance(transform.position, player.transform.position);
         playerInRoamRange = distToPlayer < roamRange;
 
-        agent.isStopped = false;
         // Check which state the enemy should be in based on the distance to the player
         if (distToPlayer < attackRange) AttackPlayer();
         else if (distToPlayer < sightRange) PlayerInSightRange();
@@ -122,7 +126,6 @@ public class EnemyStateControl : MonoBehaviour
             NavMeshHit hit;
             NavMesh.SamplePosition(randomDirection, out hit, roamRange, 1);
             lastKnownPlayerPos = hit.position;
-            agent.SetDestination(lastKnownPlayerPos);
         }
 
         runTimer += Time.deltaTime;
@@ -150,6 +153,7 @@ public class EnemyStateControl : MonoBehaviour
         agent.SetDestination(player.transform.position);
         transform.LookAt(player.transform);
 
+        hitState = false;
         runState = true;
         runTimer = 0;
 
@@ -160,10 +164,11 @@ public class EnemyStateControl : MonoBehaviour
     // Called when the player is in the attackRange
     private void AttackPlayer()
     {
-        // Stop enemy and head it towards player
-        agent.ResetPath();
-        agent.isStopped = true;
+        // Head enemy towards player
         transform.LookAt(player.transform.position);
+
+        runState = false;
+        hitState = true;
 
         // Set animation vars
         anim.SetBool("inAttackRange", true);

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObjectHolderAnimation : MonoBehaviour
 {
+    [SerializeField] private Inventory inventoryScript;
+
     [SerializeField] private Movement mov;
     [SerializeField] private int baseHitDamage = 15;
 
@@ -26,30 +28,33 @@ public class ObjectHolderAnimation : MonoBehaviour
     private void FixedUpdate()
     {
         // Object holder animator logic
-        if (Input.GetMouseButtonDown(0))
-        {
-            isClicked = true;
-            animator.SetBool("hitClick", true);
-            hitTimer = 0;
-            mov.SetCanJump(false);
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            isClicked = true;
-            animator.SetBool("hitClick", true);
-        }
-        else
-        {
-            if (isClicked)
+        foreach (InventoryItemData item in inventoryScript.items) if (item.itemId == 0)
             {
-                isClicked = false;
-                animator.SetBool("hitClick", false);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    isClicked = true;
+                    animator.SetBool("hitClick", true);
+                    hitTimer = 0;
+                    mov.SetCanJump(false);
+                }
+                else if (Input.GetMouseButton(0))
+                {
+                    isClicked = true;
+                    animator.SetBool("hitClick", true);
+                }
+                else
+                {
+                    if (isClicked)
+                    {
+                        isClicked = false;
+                        animator.SetBool("hitClick", false);
 
-                hitDamage = baseHitDamage + Convert.ToInt32(Mathf.Clamp(hitTimer * 3, 0, 8f));
-                Staminabar.instance.UseStamina(20);
+                        hitDamage = baseHitDamage + Convert.ToInt32(Mathf.Clamp(hitTimer * 3, 0, 8f));
+                        Staminabar.instance.UseStamina(20);
+                    }
+                    mov.SetCanJump(true);
+                }
             }
-            mov.SetCanJump(true);
-        }
 
         if (isClicked && hitTimer < 3.2f) hitTimer += Time.deltaTime;
         else ForceSwing();
