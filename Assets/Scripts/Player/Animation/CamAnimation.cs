@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CamAnimation : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CamAnimation : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        animator.Play("Wakeup");
     }
 
     private void FixedUpdate()
@@ -43,6 +45,8 @@ public class CamAnimation : MonoBehaviour
                 animator.SetBool("afk", false);
             }
         }
+       
+
     }
 
     public void SetRunning(bool isTrue)
