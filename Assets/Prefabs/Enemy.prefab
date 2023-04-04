@@ -1644,15 +1644,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbfa73876cc32743b558edc91d1934d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   playerHealthScript: {fileID: 0}
+  player: {fileID: 0}
   roamRange: 50
   sightRange: 25
   attackRange: 2.2
   anim: {fileID: 2268755734676862895}
   playerInRoamRange: 0
   runMod: 1.4
-  attackSpeedMod: 0
+  attackMod: 0.35
   attackWaitTime: 1.5
   enemyDamage: 0
   lastKnownPlayerPos: {x: 0, y: 0, z: 0}

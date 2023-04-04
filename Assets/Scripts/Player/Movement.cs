@@ -24,7 +24,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float defaultAcceleration = 3f;
     [SerializeField] private float jumpAcceleration = 1.2f;
     [SerializeField] private float sprintModifier = 1.8f;
-    [SerializeField] private float defaultJumpForce = 2f;
+    [SerializeField] private float defaultJumpForce = 1.8f;
     [SerializeField] private float gravity = -12f;
 
     [Header("Public variables")]
@@ -67,9 +67,11 @@ public class Movement : MonoBehaviour
             {
                 playerCam.fieldOfView = sprintFov;
                 moveDirection *= sprintModifier;
-                Staminabar.instance.UseStamina(0.1f);
+                Staminabar.instance.UseStamina(0.25f);
                 objAnimationScript.SetRunning(true);
                 camAnimScript.SetRunning(true);
+
+                footstepAudioScript.PlayRunAudio();
             }
             else { objAnimationScript.SetRunning(false); camAnimScript.SetRunning(false); }
         }
@@ -84,6 +86,8 @@ public class Movement : MonoBehaviour
             {
                 objAnimationScript.SetWalking(true);
                 camAnimScript.SetWalking(true);
+
+                footstepAudioScript.PlayWalkAudio();
             }
             else
             {

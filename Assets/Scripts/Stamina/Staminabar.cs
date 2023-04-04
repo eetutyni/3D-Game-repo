@@ -23,6 +23,7 @@ public class Staminabar : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null) return;
         instance = this;
     }
     
@@ -82,11 +83,11 @@ public class Staminabar : MonoBehaviour
 
     public void SetRegenTickSlow()
     {
-        regenTick = new WaitForSeconds(0.015f);
+        regenTick = new WaitForSeconds(0.01f);
     }
 
     public void SetRegenTickFast()
     {
-        regenTick = new WaitForSeconds(0.01f);
+        regenTick = new WaitForSeconds(0.005f);
     }
 }

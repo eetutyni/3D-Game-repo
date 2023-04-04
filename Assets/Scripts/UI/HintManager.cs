@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class HintManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class HintManager : MonoBehaviour
 
     public void TriggerHint(int index)
     {
-        if (hints[index] == null) return;
+        if (index > hints.Count - 1) return;
         if (activeHintIndex != -1) hints[index].SetActive(true);
         anim.Play("MoveIn");
         hintTimer = hintTimerMax;
