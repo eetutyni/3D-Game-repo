@@ -8,7 +8,6 @@ public class Inventory : MonoBehaviour
     public List<InventoryItemData> items;
     public float pickupDistance = 2f;
 
-    [SerializeField] private PickupLabel labelScript;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private ItemDisplayer itemDisplayer;
     [SerializeField] private Transform itemHolder;
@@ -67,9 +66,9 @@ public class Inventory : MonoBehaviour
             {
                 itemController.SetObjectInSight(true);
                 objectInSight = itemController;
-                labelScript.ShowLabel();
+                InteractLabel.instance.SetLabel("pickup");
             }
-            else labelScript.HideLabel();
+            else InteractLabel.instance.HideLabel();
         }
         else
         {
@@ -77,7 +76,7 @@ public class Inventory : MonoBehaviour
             {
                 objectInSight.SetObjectInSight(false);
                 objectInSight = null;
-                labelScript.HideLabel();
+                InteractLabel.instance.HideLabel();
             }
         }
     }

@@ -5,10 +5,8 @@ using UnityEngine;
 public class PaperDisplayScript : MonoBehaviour
 {
     [SerializeField] private GameObject paper;
-    [SerializeField] private GameObject showText;
 
     private bool isPanelActive;
-    private bool paperInView;
 
     private void FixedUpdate()
     {
@@ -17,13 +15,12 @@ public class PaperDisplayScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E)) SetPaperActive(isPanelActive);
 
-            if (!isPanelActive) showText.SetActive(true);
-            else showText.SetActive(false);
+            InteractLabel.instance.SetLabel("show");
         }
         else
         {
             if (isPanelActive) SetPaperActive(false);
-            showText.SetActive(false);
+            InteractLabel.instance.HideLabel();
         }
     }
 
