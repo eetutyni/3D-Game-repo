@@ -7,19 +7,13 @@ using UnityEngine.UI;
 public class BuildRaft : MonoBehaviour
 {
     [SerializeField] private Inventory inventoryScript;
-
+    [SerializeField] private InteractLabel labelScript;
     [SerializeField] private GameObject raft;
-    [SerializeField] private GameObject buildText;
 
     private bool canBuild = false;
     private int partsSet = 0;
 
-    private bool done;
-
-    private void Start()
-    {
-        buildText.SetActive(false);
-    }
+    private bool done = false;
 
     private void FixedUpdate()
     {
@@ -27,26 +21,23 @@ public class BuildRaft : MonoBehaviour
 
         if (CamItemChecker.instance.GetItemInView() != null)
         {
-            if (CamItemChecker.instance.GetItemInView() == gameObject && inventoryScript.GetPartsInInventory() > 0)
+            if (CamItemChecker.instance.GetItemInView() == gameObject && inventoryScript.GetPartsInInventory().Count > 0)
             {
                 canBuild = true;
-                buildText.SetActive(true);
             }
             else
             {
                 canBuild = false;
-                buildText.SetActive(false);
             }
         }
         else
         {
             canBuild = false;
-            buildText.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.E) && canBuild)
         {
-            AddParts(inventoryScript.GetPartsInInventory());
+            AddParts(inventoryScript.GetPartsInInventory().Count);
         }
 
         if (partsSet >= 5)

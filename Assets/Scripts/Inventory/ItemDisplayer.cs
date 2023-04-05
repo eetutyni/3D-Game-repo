@@ -20,4 +20,9 @@ public class ItemDisplayer : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeAll;
         return item;
     }
+
+    public void DeleteItem()
+    {
+
+    }
 }
