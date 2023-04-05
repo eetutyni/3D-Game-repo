@@ -15,5 +15,5 @@ MonoBehaviour:
   itemId: 0
   hintShown: 1
   prefab: {fileID: 3984443681867798051, guid: 1eea45b31ea896f44aab2d89f76988fe, type: 3}
-  spawnPos: {x: 0, y: 0, z: -0.1}
+  spawnPos: {x: 0.5, y: 0.3, z: 0.1}
   rotation: {x: 0, y: 0, z: 0, w: 1}
