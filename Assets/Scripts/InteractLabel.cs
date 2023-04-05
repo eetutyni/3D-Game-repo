@@ -1,28 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class InteractLabel : MonoBehaviour
 {
-    public static InteractLabel instance;
+    public bool seesInteractible;
+    public bool seesShowable;
+    public bool seesPickupable;
+    public bool seesBuildable;
 
     private TextMeshProUGUI label;
-
-    private void Awake()
-    {
-        if (instance != null) return;
-        instance = this;
-    }
 
     private void Start()
     {
         label = GetComponent<TextMeshProUGUI>();
     }
 
+    private void Update()
+    {
+        if (seesPickupable)
+        {
+            SetLabel("pickup");
+        }
+        else if (seesBuildable)
+        {
+            SetLabel("build");
+        }
+        else if (seesShowable)
+        {
+            SetLabel("show");
+        }
+        else if (seesInteractible)
+        {
+            SetLabel("interact");
+        }
+        else
+        {
+            HideLabel();
+        }
+    }
+
     private void ShowLabel()
     {
         gameObject.SetActive(true);
+    }
+
+    public void HideLabel()
+    {
+        gameObject.SetActive(false);
     }
 
     public void SetLabel(string mode)
@@ -43,11 +67,11 @@ public class InteractLabel : MonoBehaviour
                 label.text = "[E] Pick up";
                 ShowLabel();
                 break;
-        }
-    }
 
-    public void HideLabel()
-    {
-        gameObject.SetActive(false);
+            case "build":
+                label.text = "[E] Build";
+                ShowLabel();
+                break;
+        }
     }
 }

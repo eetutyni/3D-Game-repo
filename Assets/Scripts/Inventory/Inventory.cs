@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private HintManager hintManager;
+    [SerializeField] private InteractLabel labelScript;
 
     public List<InventoryItemData> items;
     public float pickupDistance = 2f;
@@ -66,9 +67,9 @@ public class Inventory : MonoBehaviour
             {
                 itemController.SetObjectInSight(true);
                 objectInSight = itemController;
-                InteractLabel.instance.SetLabel("pickup");
+                labelScript.seesPickupable = true;
             }
-            else InteractLabel.instance.HideLabel();
+            else labelScript.seesPickupable = false;
         }
         else
         {
@@ -76,7 +77,7 @@ public class Inventory : MonoBehaviour
             {
                 objectInSight.SetObjectInSight(false);
                 objectInSight = null;
-                InteractLabel.instance.HideLabel();
+                labelScript.seesPickupable = false;
             }
         }
     }

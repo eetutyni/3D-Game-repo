@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PaperDisplayScript : MonoBehaviour
 {
+    [SerializeField] private InteractLabel labelScript;
     [SerializeField] private GameObject paper;
 
     private bool isPanelActive;
@@ -14,13 +15,12 @@ public class PaperDisplayScript : MonoBehaviour
         if (hitObj != null && hitObj.tag == "paper")
         {
             if (Input.GetKeyDown(KeyCode.E)) SetPaperActive(isPanelActive);
-
-            InteractLabel.instance.SetLabel("show");
+            labelScript.seesShowable = true;
         }
         else
         {
             if (isPanelActive) SetPaperActive(false);
-            InteractLabel.instance.HideLabel();
+            labelScript.seesShowable = false;
         }
     }
 
