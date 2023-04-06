@@ -24,15 +24,21 @@ public class BuildRaft : MonoBehaviour
             if (CamItemChecker.instance.GetItemInView() == gameObject && inventoryScript.GetPartsInInventory().Count > 0)
             {
                 canBuild = true;
+
+                InteractLabelManager.buildLabel.SetActive(true);
             }
             else
             {
                 canBuild = false;
+
+                InteractLabelManager.buildLabel.SetActive(false);
             }
         }
         else
         {
             canBuild = false;
+
+            InteractLabelManager.buildLabel.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.E) && canBuild)

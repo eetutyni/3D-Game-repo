@@ -67,6 +67,14 @@ public class Inventory : MonoBehaviour
             {
                 itemController.SetObjectInSight(true);
                 objectInSight = itemController;
+
+                InteractLabelManager.pickupLabel.SetActive(true);
+            }
+            else
+            {
+                if (objectInSight != null) objectInSight.SetObjectInSight(false);
+
+                InteractLabelManager.pickupLabel.SetActive(false);
             }
         }
         else
@@ -76,6 +84,8 @@ public class Inventory : MonoBehaviour
                 objectInSight.SetObjectInSight(false);
                 objectInSight = null;
             }
+
+            InteractLabelManager.pickupLabel.SetActive(false);
         }
     }
 
