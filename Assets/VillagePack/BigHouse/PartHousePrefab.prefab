@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 7718380069501490019}
   m_Layer: 0
   m_Name: Cylinder.009
-  m_TagString: Untagged
+  m_TagString: doors
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 7718380071011353166}
   m_Layer: 0
   m_Name: Cylinder.010
-  m_TagString: Untagged
+  m_TagString: doors
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 7718380071169055087}
   m_Layer: 0
   m_Name: Cylinder.008
-  m_TagString: Untagged
+  m_TagString: doors
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -894,9 +894,9 @@ GameObject:
   - component: {fileID: 7718380070285231409}
   - component: {fileID: 7718380070286329841}
   - component: {fileID: 7718380069640417456}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube.002
-  m_TagString: Untagged
+  m_TagString: doors
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1386,9 +1386,9 @@ GameObject:
   - component: {fileID: 7718380070285231421}
   - component: {fileID: 7718380070286329853}
   - component: {fileID: 7718380070955721905}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube.023
-  m_TagString: Untagged
+  m_TagString: doors
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1674,7 +1674,7 @@ GameObject:
   - component: {fileID: 7718380071311933451}
   m_Layer: 0
   m_Name: Cylinder.011
-  m_TagString: Untagged
+  m_TagString: doors
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

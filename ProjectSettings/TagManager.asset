@@ -12,6 +12,7 @@ TagManager:
   - Terrain
   - enemy
   - workbench
+  - doors
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Volumes
   - PlayerBody
   - PickupItem
-  - Doors
+  - 
   - Enemy
   - Shelter
   - House
