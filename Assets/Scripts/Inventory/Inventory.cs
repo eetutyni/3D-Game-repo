@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private HintManager hintManager;
-    [SerializeField] private InteractLabel labelScript;
 
     public List<InventoryItemData> items;
     public float pickupDistance = 2f;
@@ -116,9 +115,10 @@ public class Inventory : MonoBehaviour
     {
         if (items.Count > 0)
         {
-            InventoryItemData itemData = items[items.Count - 1];
+            InventoryItemData itemData = items[activeSlotIndex];
             itemDisplayer.SpawnItem(itemData, transform.position + transform.forward * 2f);
             items.Remove(itemData);
+            itemDisplayer.DeleteItem(currentlyHeldItem);
             if (items.Count == 0)
             {
                 currentlyHeldItem = null;
@@ -132,7 +132,7 @@ public class Inventory : MonoBehaviour
 
     private void SetActiveSlot(int index)
     {
-        if (index >= 0 && index + 1 < items.Count && index != activeSlotIndex)
+        if (index + 1 < items.Count && index != activeSlotIndex)
         {
             activeSlotIndex = index;
             currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[activeSlotIndex], itemHolder.transform);

@@ -21,8 +21,8 @@ public class ItemDisplayer : MonoBehaviour
         return item;
     }
 
-    public void DeleteItem()
+    public void DeleteItem(GameObject item)
     {
-
+        Destroy(item);
     }
 }

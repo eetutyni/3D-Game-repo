@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -20,7 +21,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float sprintFov;
 
     [Header("Player movement attributes")]
-    [SerializeField] private float maxSpeed = 4f;
+    [SerializeField] private float defaultMaxSpeed = 4f;
     [SerializeField] private float defaultAcceleration = 3f;
     [SerializeField] private float jumpAcceleration = 1.2f;
     [SerializeField] private float sprintModifier = 1.8f;
@@ -44,6 +45,9 @@ public class Movement : MonoBehaviour
     private float inputX;
     private float inputZ;
 
+    private bool sprintKeyPressed;
+    private float maxSpeed;
+
     private float acceleration;
     private float jumpForce;
 
@@ -51,19 +55,43 @@ public class Movement : MonoBehaviour
     {
         acceleration = defaultAcceleration;
         jumpForce = defaultJumpForce;
+        maxSpeed = defaultMaxSpeed;
     }
 
     private void Update()
     {
-        //Update input vars and calculate direction vector
+        // Update input vars and calculate direction vector
         inputX = Input.GetAxisRaw("Horizontal");
         inputZ = Input.GetAxisRaw("Vertical");
         moveDirection = (transform.right * inputX + transform.forward * inputZ).normalized;
 
-        //Modify movementspeed and use stamina if pressing LShift and moving
-        if (Input.GetKey(KeyCode.LeftShift))
+        // Sprint input check
+        if (Input.GetKey(KeyCode.LeftShift)) sprintKeyPressed = true;
+        else sprintKeyPressed = false;
+
+        // Check for jump
+        if (Input.GetButtonDown("Jump") && isGrounded && canJump) Jump();
+    }
+
+    private void FixedUpdate()
+    {
+        isGrounded = GroundCheck();
+
+        // Vars for animation
+        if (isGrounded)
         {
-            if (moveDirection.magnitude > 0.1 && Staminabar.instance.currentStamina > 0)
+            hasJumped = false;
+            acceleration = defaultAcceleration;
+        }
+        else
+        {
+            acceleration = jumpAcceleration;
+        }
+
+        // Modify movementspeed and use stamina if pressing the sprint key and moving
+        if (sprintKeyPressed)
+        {
+            if (moveDirection.magnitude > 0.1 && Staminabar.instance.currentStamina > 3)
             {
                 playerCam.fieldOfView = sprintFov;
                 moveDirection *= sprintModifier;
@@ -73,7 +101,10 @@ public class Movement : MonoBehaviour
 
                 footstepAudioScript.PlayRunAudio();
             }
-            else { objAnimationScript.SetRunning(false); camAnimScript.SetRunning(false); }
+            else
+            {
+                objAnimationScript.SetRunning(false); camAnimScript.SetRunning(false);
+            }
         }
         else
         {
@@ -92,27 +123,9 @@ public class Movement : MonoBehaviour
             else
             {
                 objAnimationScript.SetWalking(false);
+                objAnimationScript.SetWalking(false);
                 camAnimScript.SetWalking(false);
             }
-        }
-
-        //Check for jump
-        if (Input.GetButtonDown("Jump") && isGrounded && canJump) Jump();
-    }
-
-    private void FixedUpdate()
-    {
-        isGrounded = GroundCheck();
-
-        // Vars for animation
-        if (isGrounded)
-        {
-            hasJumped = false;
-            acceleration = defaultAcceleration;
-        }
-        else
-        {
-            acceleration = jumpAcceleration;
         }
 
         // Move the current velocity towards the intended velocity in the speed of the accelerationSpeed
