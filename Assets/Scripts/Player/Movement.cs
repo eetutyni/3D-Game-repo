@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -22,15 +23,17 @@ public class Movement : MonoBehaviour
 
     [Header("Player movement attributes")]
     [SerializeField] private float defaultMaxSpeed = 4f;
+    [SerializeField] private float sprintMaxSpeedModifier = 1.4f;
+    [Space(5)]
     [SerializeField] private float defaultAcceleration = 3f;
-    [SerializeField] private float jumpAcceleration = 1.2f;
-    [SerializeField] private float sprintModifier = 1.8f;
+    [SerializeField] private float sprintAccelerationModifier = 1.25f;
+    [SerializeField] private float jumpAccelerationModifier = 0.3f;
+    [Space(5)]
     [SerializeField] private float defaultJumpForce = 1.8f;
     [SerializeField] private float gravity = -12f;
 
-    [Header("Public variables")]
-    public bool hasJumped;
-    public bool isGrounded;
+    [HideInInspector] public bool hasJumped;
+    [HideInInspector] public bool isGrounded;
 
     // Normalized vector input direction
     private Vector3 moveDirection;
@@ -51,11 +54,17 @@ public class Movement : MonoBehaviour
     private float acceleration;
     private float jumpForce;
 
+    private float sprintMaxSpeed;
+    private float sprintAcceleration;
+
     private void Start()
     {
         acceleration = defaultAcceleration;
         jumpForce = defaultJumpForce;
         maxSpeed = defaultMaxSpeed;
+
+        sprintMaxSpeed = defaultMaxSpeed * sprintMaxSpeedModifier;
+        sprintAcceleration = defaultAcceleration * sprintAccelerationModifier;
     }
 
     private void Update()
@@ -83,10 +92,6 @@ public class Movement : MonoBehaviour
             hasJumped = false;
             acceleration = defaultAcceleration;
         }
-        else
-        {
-            acceleration = jumpAcceleration;
-        }
 
         // Modify movementspeed and use stamina if pressing the sprint key and moving
         if (sprintKeyPressed)
@@ -94,7 +99,8 @@ public class Movement : MonoBehaviour
             if (moveDirection.magnitude > 0.1 && Staminabar.instance.currentStamina > 3)
             {
                 playerCam.fieldOfView = sprintFov;
-                moveDirection *= sprintModifier;
+                maxSpeed = sprintMaxSpeed;
+                acceleration *= sprintAcceleration;
                 Staminabar.instance.UseStamina(0.25f);
                 objAnimationScript.SetRunning(true);
                 camAnimScript.SetRunning(true);
@@ -103,12 +109,17 @@ public class Movement : MonoBehaviour
             }
             else
             {
+                maxSpeed = defaultMaxSpeed;
+                acceleration = defaultAcceleration;
+
                 objAnimationScript.SetRunning(false); camAnimScript.SetRunning(false);
             }
         }
         else
         {
             playerCam.fieldOfView = defaultFov;
+            acceleration = defaultAcceleration;
+            maxSpeed = defaultMaxSpeed;
 
             objAnimationScript.SetRunning(false);
             camAnimScript.SetRunning(false);
@@ -176,7 +187,10 @@ public class Movement : MonoBehaviour
             camAnimScript.OnJump();
         }
 
-        //Calculate initial jump velocity using (v_f^2 = v_i^2 + 2gh)
+        // Lower acceleration
+        acceleration *= jumpAccelerationModifier;
+
+        // Calculate initial jump velocity using (v_f^2 = v_i^2 + 2gh)
         finalVelocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;
     }
