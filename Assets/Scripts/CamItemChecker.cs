@@ -16,7 +16,7 @@ public class CamItemChecker : MonoBehaviour
     public GameObject GetItemInView()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 3f))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 5f))
             return hit.collider.gameObject;
         return null;
     }

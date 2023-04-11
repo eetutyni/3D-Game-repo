@@ -41,6 +41,7 @@ public class EnemyStateControl : MonoBehaviour
     public float distToPlayer;
     public bool seesPlayer;
     public int enemyHealth = 100;
+    public Rigidbody rb;
 
     private bool runState;
     private bool hitState;
@@ -53,6 +54,7 @@ public class EnemyStateControl : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         runTimer = 0;
         speed = agent.speed;
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     void OnDrawGizmosSelected()
@@ -169,6 +171,9 @@ public class EnemyStateControl : MonoBehaviour
 
         runState = false;
         hitState = true;
+
+
+        Vector3 newRotation = new Vector3(0, transform.rotation.eulerAngles.x);
 
         // Set animation vars
         anim.SetBool("inAttackRange", true);
