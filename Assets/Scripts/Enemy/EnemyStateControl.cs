@@ -172,7 +172,6 @@ public class EnemyStateControl : MonoBehaviour
         runState = false;
         hitState = true;
 
-
         Vector3 newRotation = new Vector3(0, transform.rotation.eulerAngles.x);
 
         // Set animation vars

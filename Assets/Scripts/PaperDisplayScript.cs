@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class PaperDisplayScript : MonoBehaviour
 {
-    [SerializeField] private GameObject paper;
+    [SerializeField] private GameObject textPanel;
 
     private bool isPanelActive;
 
     private void FixedUpdate()
     {
         GameObject hitObj = CamItemChecker.instance.GetItemInView();
-        if (hitObj != null && hitObj == paper)
+        if (hitObj != null && hitObj == gameObject)
         {
-            if (Input.GetKeyDown(KeyCode.E)) SetPaperActive(isPanelActive);
-
             InteractLabelManager.showLabel.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.E)) SetPaperActive(!isPanelActive);
         }
         else
         {
-            if (isPanelActive) SetPaperActive(false);
-
             InteractLabelManager.showLabel.SetActive(false);
+
+            if (isPanelActive) SetPaperActive(false);
         }
     }
 
     private void SetPaperActive(bool active)
     {
-        paper.SetActive(active);
+        textPanel.SetActive(active);
         isPanelActive = active;
     }
 }

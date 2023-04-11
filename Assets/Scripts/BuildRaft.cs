@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class BuildRaft : MonoBehaviour
 {
     [SerializeField] private Inventory inventoryScript;
-    [SerializeField] private InteractLabel labelScript;
     [SerializeField] private GameObject raft;
 
     private bool canBuild = false;

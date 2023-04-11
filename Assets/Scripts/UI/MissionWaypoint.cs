@@ -13,6 +13,14 @@ public class MissionWaypoint : MonoBehaviour
     private Color color;
     private float playerDistance;
 
+    private Vector2 targetPos;
+
+    private float minX;
+    private float maxX;
+
+    private float minY;
+    private float maxY;
+
     private void Start()
     {
         color = img.color;
@@ -22,9 +30,9 @@ public class MissionWaypoint : MonoBehaviour
     {
         playerDistance = Vector3.Distance(target.position, player.transform.position);
 
-        if (playerDistance < 10)
+        if (playerDistance < 25)
         {
-            color.a = playerDistance / 10;
+            color.a = playerDistance / 25;
             img.color = color;
         }
         else
@@ -33,7 +41,18 @@ public class MissionWaypoint : MonoBehaviour
             img.color = color;
         }
 
-        if (gameObject.activeInHierarchy) img.transform.position = mainCam.WorldToScreenPoint(target.position);
+        minX = img.GetPixelAdjustedRect().width / 2;
+        maxX = Screen.width - minX;
+
+        minY = img.GetPixelAdjustedRect().height / 2;
+        maxY = Screen.height - minY;
+
+        targetPos = mainCam.WorldToScreenPoint(target.position);
+        
+        targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
+        targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
+
+        img.transform.position = targetPos;
     }
 
     public void SetMarker(Transform markerTarget)
