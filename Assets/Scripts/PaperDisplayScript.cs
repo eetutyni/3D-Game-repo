@@ -11,16 +11,17 @@ public class PaperDisplayScript : MonoBehaviour
     private void FixedUpdate()
     {
         GameObject hitObj = CamItemChecker.instance.GetItemInView();
-        if (hitObj != null && hitObj.tag == "paper")
+        if (hitObj != null && hitObj == paper)
         {
             if (Input.GetKeyDown(KeyCode.E)) SetPaperActive(isPanelActive);
 
-            InteractLabel.instance.SetLabel("show");
+            InteractLabelManager.showLabel.SetActive(true);
         }
         else
         {
             if (isPanelActive) SetPaperActive(false);
-            InteractLabel.instance.HideLabel();
+
+            InteractLabelManager.showLabel.SetActive(false);
         }
     }
 

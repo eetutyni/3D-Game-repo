@@ -21,6 +21,10 @@ public class OpenDoor : MonoBehaviour
 
     private void FixedUpdate()
     {
+        GameObject viewItem = CamItemChecker.instance.GetItemInView();
+        if ( viewItem != null && viewItem.tag == "door") canOpen = true;
+        else canOpen = false;
+
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 3f))
         {

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity;
 using UnityEngine;
 
 public class CamItemChecker : MonoBehaviour
 {
     public static CamItemChecker instance;
+
+    private GameObject sigtObj;
 
     private void Awake()
     {

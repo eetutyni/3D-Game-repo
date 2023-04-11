@@ -66,9 +66,15 @@ public class Inventory : MonoBehaviour
             {
                 itemController.SetObjectInSight(true);
                 objectInSight = itemController;
-                InteractLabel.instance.SetLabel("pickup");
+
+                InteractLabelManager.pickupLabel.SetActive(true);
             }
-            else InteractLabel.instance.HideLabel();
+            else
+            {
+                if (objectInSight != null) objectInSight.SetObjectInSight(false);
+
+                InteractLabelManager.pickupLabel.SetActive(false);
+            }
         }
         else
         {
@@ -76,8 +82,9 @@ public class Inventory : MonoBehaviour
             {
                 objectInSight.SetObjectInSight(false);
                 objectInSight = null;
-                InteractLabel.instance.HideLabel();
             }
+
+            InteractLabelManager.pickupLabel.SetActive(false);
         }
     }
 
@@ -108,9 +115,10 @@ public class Inventory : MonoBehaviour
     {
         if (items.Count > 0)
         {
-            InventoryItemData itemData = items[items.Count - 1];
+            InventoryItemData itemData = items[activeSlotIndex];
             itemDisplayer.SpawnItem(itemData, transform.position + transform.forward * 2f);
             items.Remove(itemData);
+            itemDisplayer.DeleteItem(currentlyHeldItem);
             if (items.Count == 0)
             {
                 currentlyHeldItem = null;
@@ -124,23 +132,27 @@ public class Inventory : MonoBehaviour
 
     private void SetActiveSlot(int index)
     {
-        if (index >= 0 && index + 1 < items.Count && index != activeSlotIndex)
+        if (index + 1 < items.Count && index != activeSlotIndex)
         {
             activeSlotIndex = index;
             currentlyHeldItem = itemDisplayer.SpawnItemUnderParent(items[activeSlotIndex], itemHolder.transform);
         }
     }
 
-    public int GetPartsInInventory()
+    public List<InventoryItemData> GetPartsInInventory()
     {
-        int parts = 0;
+        List<InventoryItemData> partsList = new List<InventoryItemData>();
         foreach (InventoryItemData item in items)
         {
             if (item.itemId == 1)
             {
-                parts++;
+                partsList.Add(item);
             }
         }
-        return parts;
+        foreach (InventoryItemData item in items)
+        {
+            items.Remove(item);
+        }
+        return partsList;
     }
 }

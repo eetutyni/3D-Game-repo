@@ -67,7 +67,7 @@ public class Staminabar : MonoBehaviour
     // Stamina regeneration
     private IEnumerator RegenStamina()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
 
         // Stamina is added until it reaches 100
         while(currentStamina < maxStamina)
@@ -83,11 +83,11 @@ public class Staminabar : MonoBehaviour
 
     public void SetRegenTickSlow()
     {
-        regenTick = new WaitForSeconds(0.01f);
+        regenTick = new WaitForSeconds(0.006f);
     }
 
     public void SetRegenTickFast()
     {
-        regenTick = new WaitForSeconds(0.005f);
+        regenTick = new WaitForSeconds(0.002f);
     }
 }

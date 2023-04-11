@@ -1,3 +1,5 @@
+using System;
+using System.ComponentModel;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -20,16 +22,18 @@ public class Movement : MonoBehaviour
     [SerializeField] private float sprintFov;
 
     [Header("Player movement attributes")]
-    [SerializeField] private float maxSpeed = 4f;
+    [SerializeField] private float defaultMaxSpeed = 4f;
+    [SerializeField] private float sprintMaxSpeedModifier = 1.4f;
+    [Space(5)]
     [SerializeField] private float defaultAcceleration = 3f;
-    [SerializeField] private float jumpAcceleration = 1.2f;
-    [SerializeField] private float sprintModifier = 1.8f;
+    [SerializeField] private float sprintAccelerationModifier = 1.25f;
+    [SerializeField] private float jumpAccelerationModifier = 0.3f;
+    [Space(5)]
     [SerializeField] private float defaultJumpForce = 1.8f;
     [SerializeField] private float gravity = -12f;
 
-    [Header("Public variables")]
-    public bool hasJumped;
-    public bool isGrounded;
+    [HideInInspector] public bool hasJumped;
+    [HideInInspector] public bool isGrounded;
 
     // Normalized vector input direction
     private Vector3 moveDirection;
@@ -44,40 +48,78 @@ public class Movement : MonoBehaviour
     private float inputX;
     private float inputZ;
 
+    private bool sprintKeyPressed;
+    private float maxSpeed;
+
     private float acceleration;
     private float jumpForce;
+
+    private float sprintMaxSpeed;
+    private float sprintAcceleration;
 
     private void Start()
     {
         acceleration = defaultAcceleration;
         jumpForce = defaultJumpForce;
+        maxSpeed = defaultMaxSpeed;
+
+        sprintMaxSpeed = defaultMaxSpeed * sprintMaxSpeedModifier;
+        sprintAcceleration = defaultAcceleration * sprintAccelerationModifier;
     }
 
     private void Update()
     {
-        //Update input vars and calculate direction vector
+        // Update input vars and calculate direction vector
         inputX = Input.GetAxisRaw("Horizontal");
         inputZ = Input.GetAxisRaw("Vertical");
         moveDirection = (transform.right * inputX + transform.forward * inputZ).normalized;
 
-        //Modify movementspeed and use stamina if pressing LShift and moving
-        if (Input.GetKey(KeyCode.LeftShift))
+        // Sprint input check
+        if (Input.GetKey(KeyCode.LeftShift)) sprintKeyPressed = true;
+        else sprintKeyPressed = false;
+
+        // Check for jump
+        if (Input.GetButtonDown("Jump") && isGrounded && canJump) Jump();
+    }
+
+    private void FixedUpdate()
+    {
+        isGrounded = GroundCheck();
+
+        // Vars for animation
+        if (isGrounded)
         {
-            if (moveDirection.magnitude > 0.1 && Staminabar.instance.currentStamina > 0)
+            hasJumped = false;
+            acceleration = defaultAcceleration;
+        }
+
+        // Modify movementspeed and use stamina if pressing the sprint key and moving
+        if (sprintKeyPressed)
+        {
+            if (moveDirection.magnitude > 0.1 && Staminabar.instance.currentStamina > 3)
             {
                 playerCam.fieldOfView = sprintFov;
-                moveDirection *= sprintModifier;
+                maxSpeed = sprintMaxSpeed;
+                acceleration *= sprintAcceleration;
                 Staminabar.instance.UseStamina(0.25f);
                 objAnimationScript.SetRunning(true);
                 camAnimScript.SetRunning(true);
 
                 footstepAudioScript.PlayRunAudio();
             }
-            else { objAnimationScript.SetRunning(false); camAnimScript.SetRunning(false); }
+            else
+            {
+                maxSpeed = defaultMaxSpeed;
+                acceleration = defaultAcceleration;
+
+                objAnimationScript.SetRunning(false); camAnimScript.SetRunning(false);
+            }
         }
         else
         {
             playerCam.fieldOfView = defaultFov;
+            acceleration = defaultAcceleration;
+            maxSpeed = defaultMaxSpeed;
 
             objAnimationScript.SetRunning(false);
             camAnimScript.SetRunning(false);
@@ -92,27 +134,9 @@ public class Movement : MonoBehaviour
             else
             {
                 objAnimationScript.SetWalking(false);
+                objAnimationScript.SetWalking(false);
                 camAnimScript.SetWalking(false);
             }
-        }
-
-        //Check for jump
-        if (Input.GetButtonDown("Jump") && isGrounded && canJump) Jump();
-    }
-
-    private void FixedUpdate()
-    {
-        isGrounded = GroundCheck();
-
-        // Vars for animation
-        if (isGrounded)
-        {
-            hasJumped = false;
-            acceleration = defaultAcceleration;
-        }
-        else
-        {
-            acceleration = jumpAcceleration;
         }
 
         // Move the current velocity towards the intended velocity in the speed of the accelerationSpeed
@@ -163,7 +187,10 @@ public class Movement : MonoBehaviour
             camAnimScript.OnJump();
         }
 
-        //Calculate initial jump velocity using (v_f^2 = v_i^2 + 2gh)
+        // Lower acceleration
+        acceleration *= jumpAccelerationModifier;
+
+        // Calculate initial jump velocity using (v_f^2 = v_i^2 + 2gh)
         finalVelocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         hasJumped = true;
     }

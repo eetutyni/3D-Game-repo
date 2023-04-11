@@ -8,8 +8,6 @@ public class CheckEnemy : MonoBehaviour
     public LayerMask enemyLayerMask; // Layer mask to identify enemy objects // time it takes for the door to open
     [SerializeField] private OpenDoor doorscript;
 
-    private bool isDoorOpen = false; // Flag to prevent multiple door openings
-
     void Update()
     {
         // Check for enemy objects within the sphere

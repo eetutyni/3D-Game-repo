@@ -31,4 +31,9 @@ public class FootstepsAudioScript : MonoBehaviour
         }
         audioSource.Play();
     }
+
+    public void StopAudio()
+    {
+        audioSource.Stop();
+    }
 }
